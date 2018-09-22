@@ -17,11 +17,7 @@ android {
         }
     }
 }
-// Firebase
-ext {
-    //Add the playServices version
-    playServices = "15.0.0"
-}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -33,9 +29,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:$playServices"
-    implementation "com.google.firebase:firebase-auth:$playServices"
-    implementation "com.google.firebase:firebase-database:$playServices"
+    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
 
 //Add to the bottom of the file
