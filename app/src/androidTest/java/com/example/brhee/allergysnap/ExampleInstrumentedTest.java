@@ -1,4 +1,4 @@
-package com.example.hanwang.allergysnap;
+package com.example.brhee.allergysnap;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
+    public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.hanwang.allergysnap", appContext.getPackageName());
+        assertEquals("com.example.brhee.allergysnap", appContext.getPackageName());
     }
 }
