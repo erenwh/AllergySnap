@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.brhee.allergysnap"
+        applicationId "purdue.cs.allergysnap"
         minSdkVersion 25
         targetSdkVersion 26
         versionCode 1
@@ -17,7 +17,11 @@ android {
         }
     }
 }
-
+// Firebase
+ext {
+    //Add the playServices version
+    playServices = "15.0.0"
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -27,4 +31,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$playServices"
+    implementation "com.google.firebase:firebase-auth:$playServices"
+    implementation "com.google.firebase:firebase-database:$playServices"
 }
+
+//Add to the bottom of the file
+apply plugin: 'com.google.gms.google-services'
