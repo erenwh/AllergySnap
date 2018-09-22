@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorProfile"
+    tools:context=".ProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/my_profile_picture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/profile_default"/>
+
+        <TextView
+            android:id="@+id/my_profile_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Name"
+            android:layout_below="@+id/my_profile_picture"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"/>
+
+        <TextView
+            android:id="@+id/my_profile_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:layout_below="@+id/my_profile_full_name"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textColor="@android:color/background_light"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
