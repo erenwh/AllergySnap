@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mFirebaseAuth.getCurrentUser();
                             updateUI(user);
+                            System.out.println("LOGIN SUCCESS!");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -94,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
-                            System.out.println("Success!");
+                            System.out.println("LOGIN FAILED!");
                         }
                         //hideProgressDialog();
                         // [END_EXCLUDE]
@@ -134,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void updateUI(FirebaseUser user) {
-        System.out.println("logged in");
+        System.out.println("TODO UI UPDATE");
     }
 /*
     private void GooglesignIn() {
