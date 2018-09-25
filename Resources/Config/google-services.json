@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "685757815116",
+    "firebase_url": "https://allergysnap.firebaseio.com",
+    "project_id": "allergysnap",
+    "storage_bucket": "allergysnap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685757815116:android:b8f90371e9a34f1b",
+        "android_client_info": {
+          "package_name": "purdue.cs.allergysnap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685757815116-t224e659fctfu3lonsruuc8is0jd27ht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBznC5dqG3HAqawK03DQajvXZpW-GRN3VA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
