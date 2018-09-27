@@ -35,8 +35,12 @@
         android:id="@+id/SighOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="128dp"
         android:text="SIGNOUT"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="380dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
