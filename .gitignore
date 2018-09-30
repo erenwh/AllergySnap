@@ -1,4 +1,7 @@
-#Built application files
+# Mac junk fils
+.DS_Store
+
+# Built application files
 *.apk
 *.ap_
 
