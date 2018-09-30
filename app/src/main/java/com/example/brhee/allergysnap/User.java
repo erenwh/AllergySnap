@@ -1,7 +1,7 @@
 package com.example.brhee.allergysnap;
 
 public class User {
-    String username, email;
+    protected String username, email, DOB, fName, lName;
 
     public User() {
     }
