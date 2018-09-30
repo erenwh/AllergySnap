@@ -22,6 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".ProfileDetailActivity"></activity>
         <activity android:name=".CreateUser"></activity>
         <activity android:name=".LoginActivity"></activity>
     </application>
