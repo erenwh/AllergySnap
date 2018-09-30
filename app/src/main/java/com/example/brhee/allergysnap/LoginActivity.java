@@ -75,6 +75,8 @@ public class LoginActivity extends AppCompatActivity implements
 
         // showProgressDialog();
 
+
+
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -85,6 +87,8 @@ public class LoginActivity extends AppCompatActivity implements
                             FirebaseUser user = mFirebaseAuth.getCurrentUser();
                             updateUI(user);
                             System.out.println("LOGIN SUCCESS!");
+                            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(myIntent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
