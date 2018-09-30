@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_gradient"
     tools:context=".CreateUser">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,21 +15,34 @@
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
+        <ImageView
+            android:id="@+id/create_user_allergy_snap_logo"
+            android:layout_width="220dp"
+            android:layout_height="155dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/logo_trans" />
+
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:layout_marginBottom="15dp"
+            android:text="Signup with AllergySnap below!"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorText"
             android:textAlignment="center"
-            android:textSize="@dimen/app_name_size" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/drawable_padding"
+            android:layout_marginBottom="10dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            android:textColorHint="@color/colorText"
+            android:backgroundTint="@color/colorText"
             android:nextFocusDown="@id/edit_username" />
 
 
@@ -36,6 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/drawable_padding"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/colorText"
+            android:backgroundTint="@color/colorText"
             android:hint="Username"
             android:nextFocusDown="@id/edit_password" />
 
@@ -45,6 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/drawable_padding"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/colorText"
+            android:backgroundTint="@color/colorText"
             android:hint="Password"
             android:inputType="textPassword"
             android:nextFocusDown="@id/edit_password_confirm" />
@@ -53,7 +74,10 @@
             android:id="@+id/edit_password_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/colorText"
+            android:backgroundTint="@color/colorText"
             android:drawablePadding="@dimen/drawable_padding"
+            android:layout_marginBottom="10dp"
             android:inputType="textPassword"
             android:hint="Confirm Password"
             android:nextFocusDown="@id/register_button"
@@ -63,6 +87,14 @@
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorProfile"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
             android:text="Create User"
             android:textAllCaps="false" />
 
