@@ -79,7 +79,7 @@
             android:fontFamily="sans-serif-light"
             android:backgroundTint="@color/colorText"
             android:textColorHint="@color/colorText"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
