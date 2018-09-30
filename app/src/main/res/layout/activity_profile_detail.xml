@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_picture"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
         android:text="Change Photo" />
 
     <LinearLayout
@@ -44,6 +45,7 @@
         <EditText
             android:id="@+id/profile_detail_name_text"
             android:hint="Name"
+            android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -71,6 +73,7 @@
         <EditText
             android:id="@+id/profile_detail_email_text"
             android:hint="Email"
+            android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
