@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///u/data/u94/brhee/cs407/AllergySnap/AllergySnap.iml" filepath="/u/data/u94/brhee/cs407/AllergySnap/AllergySnap.iml" />
-      <module fileurl="file:///u/data/u94/brhee/cs407/AllergySnap/app/app.iml" filepath="/u/data/u94/brhee/cs407/AllergySnap/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AllergySnap.iml" filepath="$PROJECT_DIR$/AllergySnap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
