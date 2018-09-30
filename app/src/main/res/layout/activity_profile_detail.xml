@@ -50,6 +50,7 @@
             android:textColorHint="@color/colorText"
             android:inputType="textPersonName"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/colorText"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -76,6 +77,7 @@
             android:id="@+id/profile_detail_email_text"
             android:hint="Email"
             android:fontFamily="sans-serif-light"
+            android:backgroundTint="@color/colorText"
             android:textColorHint="@color/colorText"
             android:inputType="textPersonName"
             android:layout_marginLeft="10dp"
