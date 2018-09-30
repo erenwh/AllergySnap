@@ -19,4 +19,15 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="input_error_name">name required</string>
+    <string name="input_error_email">email required</string>
+    <string name="input_error_password">password required</string>
+    <string name="input_error_phone">phone required</string>
+    <string name="input_error_password_length">password should be at least 6 characters long</string>
+    <string name="input_error_confirm_password">confirm your password</string>
+    <string name="input_error_match_password">passwords do not match</string>
+    <string name="registration_success">Registered Successfully</string>
+    <string name="registration_failure">Failed to register</string>
+    <string name="input_error_email_invalid">enter a valid email</string>
+
 </resources>
