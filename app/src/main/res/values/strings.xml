@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">AllergySnap</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="promp_logo">Logo</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in with AllergySnap</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_sign_in_google">Sign in with Google</string>
+    <string name="action_sign_in_facebook">Sign in with Facebook</string>
+    <string name="action_sign_in_Twitter">Sign in with Twitter</string>
+    <string name="action_forgot_password">Forgot Password?</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="input_error_name">name required</string>
+    <string name="input_error_email">email required</string>
+    <string name="input_error_password">password required</string>
+    <string name="input_error_phone">phone required</string>
+    <string name="input_error_password_length">password should be at least 6 characters long</string>
+    <string name="input_error_confirm_password">confirm your password</string>
+    <string name="input_error_match_password">passwords do not match</string>
+    <string name="registration_success">Registered Successfully</string>
+    <string name="registration_failure">Failed to register</string>
+    <string name="input_error_email_invalid">enter a valid email</string>
+
 </resources>
