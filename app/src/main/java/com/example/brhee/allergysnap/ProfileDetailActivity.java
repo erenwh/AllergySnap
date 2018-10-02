@@ -25,11 +25,22 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         editPassword = findViewById(R.id.password_text);
         editPasswordConfirm = findViewById(R.id.password_conf_text);
         editDOB = findViewById(R.id.dob_text);
+        //username
 
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
+    }
 
+    private void updateUser() {
+        String firstName = editFirstName.getText().toString().trim();
+        String lastName = editLastName.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        String passwordConfirm = editPasswordConfirm.getText().toString().trim();
+        String DOB = editDOB.getText().toString().trim();
+
+        //String username
     }
 
     @Override
@@ -39,6 +50,9 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
                 break;
             case R.id.deactivate_button:
+                //TODO: Implement deleting account
+                //NOTE: may want to make button red to indicate deleting
+                //ALSO: Add another dialog box when it is clicked so it isn't directly deleted
                 break;
         }
     }
