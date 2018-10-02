@@ -1,16 +1,22 @@
 package com.example.brhee.allergysnap;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText editFirstName, editLastName, editEmail, editPassword, editPasswordConfirm, editDOB;
+    private EditText editFirstName, editLastName, editEmail, editPassword, editPasswordConfirm, editDOB, editUsername;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
@@ -25,7 +31,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         editPassword = findViewById(R.id.password_text);
         editPasswordConfirm = findViewById(R.id.password_conf_text);
         editDOB = findViewById(R.id.dob_text);
-        //username
+        editUsername = findViewById(R.id.username_text);
 
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -39,8 +45,29 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         String password = editPassword.getText().toString().trim();
         String passwordConfirm = editPasswordConfirm.getText().toString().trim();
         String DOB = editDOB.getText().toString().trim();
+        String username = editUsername.getText().toString().trim();
 
-        //String username
+    }
+
+    private void deactivate() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Account Deactivated", Toast.LENGTH_LONG).show();
+                        finish();
+                        startActivity(new Intent(ProfileDetailActivity.this, LoginActivity.class));
+
+                    }
+                    else {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(getApplicationContext(), "Error Occurred: " + message, Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -53,6 +80,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                 //TODO: Implement deleting account
                 //NOTE: may want to make button red to indicate deleting
                 //ALSO: Add another dialog box when it is clicked so it isn't directly deleted
+                deactivate();
                 break;
         }
     }

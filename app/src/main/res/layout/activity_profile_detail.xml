@@ -57,7 +57,6 @@
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/colorText"
             android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"
             android:backgroundTint="@color/colorText"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -67,7 +66,6 @@
             android:id="@+id/last_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
@@ -90,12 +88,21 @@
             android:id="@+id/email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            android:textColorHint="@color/colorText" />
+
+        <EditText
+            android:id="@+id/username_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorText"
+            android:fontFamily="sans-serif-light"
+            android:hint="Username"
             android:textColorHint="@color/colorText" />
 
         <!--<ImageView-->
@@ -105,6 +112,7 @@
             <!--android:layout_height="50dp" />-->
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_below="@id/email_layout"
@@ -120,7 +128,6 @@
             android:id="@+id/password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
@@ -150,7 +157,6 @@
             android:id="@+id/password_conf_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
@@ -181,7 +187,6 @@
             android:id="@+id/dob_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
@@ -198,10 +203,8 @@
         android:layout_height="40dp"
         android:layout_marginRight="45dp"
         android:layout_marginLeft="45dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="86dp"
+        android:layout_above="@+id/deactivate_button"
         android:background="@color/colorProfile"
         android:fontFamily="sans-serif-light"
         android:text="Submit"
@@ -215,15 +218,14 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorProfile"
         android:fontFamily="sans-serif-light"
         android:text="Deactivate"
         android:textColor="@android:color/background_light"
         android:layout_marginRight="45dp"
         android:layout_marginLeft="45dp"
-        android:layout_marginTop="30dp"
-
+        android:layout_marginTop="10dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 </RelativeLayout>

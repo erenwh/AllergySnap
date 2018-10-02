@@ -33,11 +33,19 @@ public class MainActivity extends AppCompatActivity {
 
         //InitFirebaseAuth();
         Button btn = findViewById(R.id.RedirectToSignInBtn);
+        Button editbtn = findViewById(R.id.TempRedirctToEdit);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
+
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
 
