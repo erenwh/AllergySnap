@@ -28,9 +28,11 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_below="@+id/profile_picture"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="35sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/background_light" />
 
             <TextView
@@ -38,6 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Username"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:fontFamily="sans-serif-light"
                 android:layout_below="@+id/profile_full_name"
                 android:textAlignment="center"
@@ -45,22 +49,22 @@
                 android:textSize="25sp"
                 android:textColor="@android:color/background_light" />
 
-        <Button
-            android:id="@+id/profile_signout_button"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorProfile"
-            android:fontFamily="sans-serif-light"
-            android:text="Logout"
-            android:textColor="@android:color/background_light"
-            android:layout_marginRight="45dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="30dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/profile_signout_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorProfile"
+                android:fontFamily="sans-serif-light"
+                android:text="Logout"
+                android:textColor="@android:color/background_light"
+                android:layout_marginRight="45dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="30dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
     </RelativeLayout>
 
