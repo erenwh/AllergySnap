@@ -29,5 +29,12 @@
     <string name="registration_success">Registered Successfully</string>
     <string name="registration_failure">Failed to register</string>
     <string name="input_error_email_invalid">enter a valid email</string>
+    <string name="button_camera">Camera</string>
+
+    <string name="title_activity_camera">camera</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_medications">Medications</string>
+    <string name="title_allergies">Allergies</string>
+    <string name="title_conflicts">Conflicts</string>
 
 </resources>

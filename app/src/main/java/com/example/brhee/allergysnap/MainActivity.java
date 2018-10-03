@@ -11,8 +11,9 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Static vars
     public static final String ANONYMOUS = "anonymous";
@@ -33,23 +34,40 @@ public class MainActivity extends AppCompatActivity {
 
         //InitFirebaseAuth();
         Button btn = findViewById(R.id.RedirectToSignInBtn);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
-
+        btn.setOnClickListener(this);
 
         // TODO: DELETE
         Button tempBtn = findViewById(R.id.TempRedirctToPDA);
-        tempBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tempBtn.setOnClickListener(this);
+
+        ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
+        cameraBtn.setOnClickListener(this);
+    }
+
+    public void openCameraActivity(View view){
+        Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
+        startActivity(startCameraActivity);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            //openCameraActivity
+            case R.id.cameraBtn:
+                System.out.println("cameraBtn works");
+                openCameraActivity(v);
+                break;
+            //login btn
+            case R.id.btn:
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                break;
+            // profile detail btn
+            case R.id.tempBtn:
                 startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
-            }
-        });
+                break;
+
+        }
     }
 
     /*
