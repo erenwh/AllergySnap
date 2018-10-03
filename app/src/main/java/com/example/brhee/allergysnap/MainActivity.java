@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openCameraActivity(v);
                 break;
             //login btn
-            case R.id.btn:
+            case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
             // profile detail btn
-            case R.id.tempBtn:
+            case R.id.TempRedirctToPDA:
                 startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
                 break;
 
