@@ -3,6 +3,7 @@ package com.example.brhee.allergysnap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +14,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class CreateUser extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +29,8 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     private EditText editEmail, editUsername, editPassword, editPasswordConfirm;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    boolean emailInUse = false;;
+    boolean usernameInUse = false;
 
 
     @Override
@@ -52,7 +61,40 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    //Set UserDisplay Name
+    private void updateUsername()
+    {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!= null)
+        {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(editUsername.getText().toString().trim())
+                    //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))  // here you can set image link also.
+                    .build();
+
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("TESTING", "User profile updated.");
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void setEmailValidity(boolean email) {
+        emailInUse = email;
+    }
+
+    private void setUsernameValidity(boolean username) {
+        usernameInUse = username;
+    }
+
     private void registerUser() {
+        emailInUse = false;
+        usernameInUse = false;
         final String username = editUsername.getText().toString().trim();
         final String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
@@ -100,6 +142,48 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
+        Query emailCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("email").equalTo(email);
+        emailCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    setEmailValidity(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        if (emailInUse) {
+            editEmail.setError("Email already in use");
+            editEmail.requestFocus();
+            return;
+        }
+
+        Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
+        usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    setUsernameValidity(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        if (usernameInUse) {
+            editUsername.setError("Username already in use");
+            editUsername.requestFocus();
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -107,6 +191,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
+                            updateUsername();
                             User user = new User(username, email);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
