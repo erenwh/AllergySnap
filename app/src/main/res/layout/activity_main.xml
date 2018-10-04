@@ -7,27 +7,32 @@
         android:layout_height="match_parent"
         tools:context="com.example.brhee.allergysnap.MainActivity">
 
+
+    <!--bottom navigation bar-->
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--bottom navigation bar-->
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:foreground="?android:attr/selectableItemBackground"
         app:itemBackground="@color/colorProfile"
         app:itemIconTint="@color/colorPrimary"
         app:itemTextColor="@color/colorText"
-        app:menu="@menu/navigation" />
+        app:layout_constraintBottom_toBottomOf="@+id/frame_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.896"
+        app:menu="@menu/navigation"
+        tools:ignore="MissingConstraints" />
 
     <!--text-->
     <TextView
@@ -40,12 +45,12 @@
         android:textAlignment="center"
         android:textColor="@android:color/primary_text_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/navigationView"
+        app:layout_constraintBottom_toBottomOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/container"
-        app:layout_constraintVertical_bias="0.147" />
+        app:layout_constraintTop_toTopOf="@+id/frame_container"
+        app:layout_constraintVertical_bias="0.195" />
 
     <!--camera btn -->
     <ImageView
@@ -56,25 +61,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/container"
-        app:layout_constraintVertical_bias="0.552"
+        app:layout_constraintTop_toTopOf="@+id/frame_container"
+        app:layout_constraintVertical_bias="0.714"
         app:srcCompat="@drawable/ic_cam_color" />
-
-    <!--<Button-->
-        <!--android:id="@+id/button"-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="openCamera"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.497" />-->
 
 
     <Button
@@ -92,35 +84,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.015" />
 
-    <Button
-        android:id="@+id/SighOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="500dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="SIGNOUT"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.921"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/SignOutBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="SIGNOUT"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.932"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.015" />-->
 
-    <Button
-        android:id="@+id/TempRedirctToPDA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+    <!--<Button-->
+        <!--android:id="@+id/TempRedirctToPDA"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Button"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.103"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.015" />-->
 
 </android.support.constraint.ConstraintLayout>
