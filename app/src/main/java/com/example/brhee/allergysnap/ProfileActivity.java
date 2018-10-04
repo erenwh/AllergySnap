@@ -45,6 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         fullname = (TextView) findViewById(R.id.profile_full_name);
         username = (TextView) findViewById(R.id.profile_username);
+
+        // This will cause the program to crash if a user is not found in the database.
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         profileUser.addValueEventListener(new ValueEventListener() {

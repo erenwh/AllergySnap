@@ -92,9 +92,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
                 break;
             case R.id.deactivate_button:
-                //TODO: Implement deleting account
-                //NOTE: may want to make button red to indicate deleting
-                //ALSO: Add another dialog box when it is clicked so it isn't directly deleted
                 deactivate();
                 break;
         }
