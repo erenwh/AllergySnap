@@ -38,6 +38,11 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
+        progressBar.setVisibility(View.GONE);
+
+        findViewById(R.id.deactivate_button).setOnClickListener(this);
+        findViewById(R.id.submit_button).setOnClickListener(this);
+
     }
 
     private void updateUser() {
