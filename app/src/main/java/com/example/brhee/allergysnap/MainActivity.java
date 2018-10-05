@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button tempBtn = findViewById(R.id.TempRedirctToPDA);
         tempBtn.setOnClickListener(this);
 
+        Button cam2btn = findViewById(R.id.cam2);
+        cam2btn.setOnClickListener(this);
+
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
     }
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.TempRedirctToPDA:
                 startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
                 break;
+
+            case R.id.cam2:
+                startActivity(new Intent(MainActivity.this,  Camera2.class));
 
         }
     }
