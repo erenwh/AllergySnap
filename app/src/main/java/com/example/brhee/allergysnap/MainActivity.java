@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleApiClient mGoogleApiClient;
 
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +49,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signinNavBtn
         //InitFirebaseAuth();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
         // cameraNavBtn
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
+
+        //Check if user is logged in; display sign in button based off that
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                ViewGroup btnView = (ViewGroup) btn.getParent();
+                if(user!=null){
+                    btnView.removeView(btn);
+                } else {
+                    btnView.addView(btn);
+                }
+            }
+
+
+        };
     }
 
     public void openCameraActivity(View view){

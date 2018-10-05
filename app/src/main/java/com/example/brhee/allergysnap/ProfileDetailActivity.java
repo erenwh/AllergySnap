@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -174,6 +175,30 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             return;
         }
 
+        if (username.isEmpty()) {
+            editUsername.setError(getString(R.string.input_error_name));
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (username.length() < 3) {
+            editUsername.setError("Username must be at least 3 characters");
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (username.length() > 15) {
+            editUsername.setError("Username cannot be more than 15 characters");
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (!username.matches("[A-Za-z0-9_]+")) {
+            editUsername.setError("Username may only contain letters, numbers and underscore");
+            editUsername.requestFocus();
+            return;
+        }
+
         if (!DOB.isEmpty()) {
             if (!DOB.matches("\\d{2}-\\d{2}-\\d{4}")) {
                 editDOB.setError("Date should be in format dd-mm-yyyy");
@@ -185,8 +210,14 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         if (!userObj.username.equalsIgnoreCase(username))
             usernameChanged = true;
 
-        if(!userObj.email.equals(email))
+        if(!userObj.email.equals(email)) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                editEmail.setError(getString(R.string.input_error_email_invalid));
+                editEmail.requestFocus();
+                return;
+            }
             emailChanged = true;
+        }
 
 
         if (!password.isEmpty() && password.length() < 6) {
