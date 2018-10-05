@@ -8,14 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685757815116:android:b8f90371e9a34f1b",
+        "mobilesdk_app_id": "1:685757815116:android:618b2c5c5272b41d",
         "android_client_info": {
-          "package_name": "purdue.cs.allergysnap"
+          "package_name": "com.example.brhee.allergysnap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "685757815116-t224e659fctfu3lonsruuc8is0jd27ht.apps.googleusercontent.com",
+          "client_id": "685757815116-3nu3uf74rehkbh0ntoakkr1hev0p932v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brhee.allergysnap",
+            "certificate_hash": "40451adf562dfdebc62aabeeeae722e1d5b729e2"
+          }
+        },
+        {
+          "client_id": "685757815116-7tpr4tsqvvb94hq1tdj2m6j8ive7aedp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,8 +37,65 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685757815116-7tpr4tsqvvb94hq1tdj2m6j8ive7aedp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685757815116:android:b8f90371e9a34f1b",
+        "android_client_info": {
+          "package_name": "purdue.cs.allergysnap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685757815116-h46s6qneii5dn7vm7st7s6gbm6p5p4fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "purdue.cs.allergysnap",
+            "certificate_hash": "40451adf562dfdebc62aabeeeae722e1d5b729e2"
+          }
+        },
+        {
+          "client_id": "685757815116-bojb9o7bruevvdrl264mu88n5qjtdkh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "purdue.cs.allergysnap",
+            "certificate_hash": "bf78873277977bff678f3a3774b41c664071e01a"
+          }
+        },
+        {
+          "client_id": "685757815116-7tpr4tsqvvb94hq1tdj2m6j8ive7aedp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBznC5dqG3HAqawK03DQajvXZpW-GRN3VA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685757815116-7tpr4tsqvvb94hq1tdj2m6j8ive7aedp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
