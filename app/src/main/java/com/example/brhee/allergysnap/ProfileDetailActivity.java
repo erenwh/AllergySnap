@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +14,14 @@ import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,11 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static java.security.AccessController.getContext;
 
 public class ProfileDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -64,11 +57,32 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
     boolean emailInUse = false;;
     boolean usernameInUse = false;
 
+    FirebaseAuth mFirebaseAuth;
+//    FirebaseAuth.AuthStateListener mAuthListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_detail);
+
+        // // signoutBtn navigate to signin page
+        // Button signOutBtn = findViewById(R.id.profile_detail_logout_button);
+        // signOutBtn.setOnClickListener(this);
+        // mFirebaseAuth = FirebaseAuth.getInstance();
+        // mAuthListener = new FirebaseAuth.AuthStateListener() {
+        //     @Override
+        //     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        //         if (firebaseAuth.getCurrentUser() == null){
+        //             startActivity(new Intent(ProfileDetailActivity.this, LoginActivity.class));
+        //         }
+        //     }
+        // };
 
         editFirstName = findViewById(R.id.first_name_text);
         editLastName = findViewById(R.id.last_name_text);
@@ -543,6 +557,11 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.change_photo:
                 changePhoto();
                 break;
+            // signOut btn
+            // case R.id.profile_detail_logout_button:
+            //     mFirebaseAuth.signOut();
+//                startActivity(new Intent(ProfileDetailActivity.this, LoginActivity.class));
+
         }
     }
 }

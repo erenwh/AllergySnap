@@ -1,15 +1,16 @@
 package com.example.brhee.allergysnap;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +34,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
+
+    // Google login
+    private GoogleSignInClient mGoogleSignInClient;
+    // Google instance variables
+    private GoogleApiClient mGoogleApiClient;
 
     private String userID;
     private User userObj;
@@ -138,6 +144,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // firebase + google signout
                 // firebase logout
                 mAuth.signOut();
                 // facebook logout
