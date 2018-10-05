@@ -19,6 +19,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="cam2">cam2</string>
     <string name="input_error_name">name required</string>
     <string name="input_error_email">email required</string>
     <string name="input_error_password">password required</string>
