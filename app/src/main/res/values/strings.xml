@@ -37,6 +37,10 @@
     <string name="title_allergies">Allergies</string>
     <string name="title_conflicts">Conflicts</string>
 
+    <!-- Facebook login -->
+    <string name="facebook_app_id">572379986552873</string>
+    <string name="fb_login_protocol_scheme">fb572379986552873</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
