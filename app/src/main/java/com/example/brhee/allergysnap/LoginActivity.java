@@ -75,6 +75,9 @@ public class LoginActivity extends AppCompatActivity implements
 
         // Buttons
         findViewById(R.id.FirebaseSighInBtn).setOnClickListener(this);
+
+        //findViewById(R.id.login_forgot_password_button).setOnClickListener(this);
+
         findViewById(R.id.sign_up_button).setOnClickListener(this);
         findViewById(R.id.forgot_password_button).setOnClickListener(this);
 
@@ -210,14 +213,13 @@ public class LoginActivity extends AppCompatActivity implements
                 FirebaseSignin(mEmailField.getText().toString(), mPasswordField.getText().toString());
                 System.out.println("FirebaseSignin HIT");
                 break;
-
+            case R.id.forgot_password_button:
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+                break;
             case R.id.sign_up_button:
                 startActivity(new Intent(LoginActivity.this, CreateUser.class));
                 break;
 
-            case R.id.forgot_password_button:
-                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
-                break;
             //case R.id.GoogleSighInBtn:
             //GooglesignIn();
             //break;
