@@ -25,10 +25,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button signout_button;
     private TextView fullname, username;
+
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
+
     private String userID;
     private User userObj;
     private CircleImageView userProfileImage;
@@ -45,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         fullname = (TextView) findViewById(R.id.profile_full_name);
         username = (TextView) findViewById(R.id.profile_username);
+        userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         if (user != null) {
             userID = user.getUid();
@@ -91,10 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
         fullname = (TextView) findViewById(R.id.profile_full_name);
         username = (TextView) findViewById(R.id.profile_username);
 
-        // This will cause the program to crash if a user is not found in the database.
-        //userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
-
-
+        userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         profileUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,9 +103,9 @@ public class ProfileActivity extends AppCompatActivity {
                     String myFirstName = dataSnapshot.child("fName").getValue().toString();
                     String myLastName = dataSnapshot.child("lName").getValue().toString();
                     String myUsername = dataSnapshot.child("username").getValue().toString();
-                    //String myProfileImage = dataSnapshot.child("profilepicture").getValue().toString();
+                    String myProfileImage = dataSnapshot.child("profilepicture").getValue().toString();
 
-                    //Picasso.get().load(myProfileImage).placeholder(R.drawable.ic_profile_default).into(userProfileImage);
+                    Picasso.get().load(myProfileImage).placeholder(R.drawable.ic_profile_default).into(userProfileImage);
 
                     if (myFirstName.equals("") && myLastName.equals("")) {
                         fullname.setText("Profile Name");
@@ -157,6 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
         else {
             fullname.setText("Profile Name");
         }
+
     }
 
     public void onStart() {
