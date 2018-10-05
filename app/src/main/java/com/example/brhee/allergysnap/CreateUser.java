@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -142,6 +143,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
+        //DatabaseReference emailCheck = FirebaseDatabase.getInstance().getReference("Users")
         Query emailCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("email").equalTo(email);
         emailCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -191,7 +193,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            updateUsername();
+                            //updateUsername();
                             User user = new User(username, email);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

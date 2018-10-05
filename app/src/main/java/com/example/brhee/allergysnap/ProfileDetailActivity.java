@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,9 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
     private String userID;
     private User userObj;
 
+    boolean emailInUse = false;;
+    boolean usernameInUse = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +47,18 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         editFirstName = findViewById(R.id.first_name_text);
         editLastName = findViewById(R.id.last_name_text);
         editEmail = findViewById(R.id.email_text);
-        editEmail.setEnabled(false);
+        //editEmail.setEnabled(false);
         editPassword = findViewById(R.id.password_text);
         editPasswordConfirm = findViewById(R.id.password_conf_text);
         editDOB = findViewById(R.id.dob_text);
         editUsername = findViewById(R.id.username_text);
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("Users");
         final FirebaseUser user = mAuth.getCurrentUser();
-        userObj = new User(user.getDisplayName(), user.getEmail());
+//        userObj = new User(user.getDisplayName(), user.getEmail());
 
         if (user != null) {
             userID = user.getUid();
@@ -125,9 +128,21 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         }
 
 
+        progressBar.setVisibility(View.GONE);
+
+    }
+
+    private void setEmailValidity(boolean email) {
+        emailInUse = email;
+    }
+
+    private void setUsernameValidity(boolean username) {
+        usernameInUse = username;
     }
 
     private void updateValues() {
+        emailInUse = false;
+        usernameInUse = false;
         String firstName = editFirstName.getText().toString().trim();
         String lastName = editLastName.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
@@ -156,16 +171,96 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             }
         }
 
+        if (!password.isEmpty() && password.length() < 6) {
+            editPassword.setError(getString(R.string.input_error_password_length));
+            editPassword.requestFocus();
+            return;
+        }
+
+        if (passwordConfirm.isEmpty() && !password.isEmpty()) {
+            editPasswordConfirm.setError(getString(R.string.input_error_confirm_password));
+            editPasswordConfirm.requestFocus();
+            return;
+        }
+
+        if (!password.equals(passwordConfirm)) {
+            editPasswordConfirm.setError(getString(R.string.input_error_match_password));
+            editPasswordConfirm.requestFocus();
+            return;
+        }
+
+        if (!email.equals(userObj.email)) {
+            Query emailCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("email").equalTo(email);
+            emailCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        setEmailValidity(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            if (emailInUse) {
+                editEmail.setError("Email already in use");
+                editEmail.requestFocus();
+                return;
+            }
+        }
+
+        if (!username.equals(userObj.username)) {
+            Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
+            usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        setUsernameValidity(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            if (usernameInUse) {
+                editUsername.setError("Username already in use");
+                editUsername.requestFocus();
+                return;
+            }
+        }
+
         progressBar.setVisibility(View.VISIBLE);
+
         if (!firstName.isEmpty() && !lastName.isEmpty()) {
             userObj.fName = firstName;
             userObj.lName = lastName;
             userObj.validName = true;
         }
-
         if (!DOB.isEmpty()) {
             userObj.DOB = DOB;
         }
+        if (!username.equals(userObj.username)) {
+            userObj.username = username;
+        }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (!email.equals(userObj.email)) {
+            userObj.email = email;
+            if (user != null) {
+                user.updateEmail(email);
+            }
+        }
+        if (!password.isEmpty()) {
+            if (user != null) {
+                user.updatePassword(password);
+            }
+        }
+
+
 
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
