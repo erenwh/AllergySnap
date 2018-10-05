@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleApiClient mGoogleApiClient;
 
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signinNavBtn
         //InitFirebaseAuth();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
         // cameraNavBtn
