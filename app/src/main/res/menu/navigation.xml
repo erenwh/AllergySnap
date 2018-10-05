@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_person_white_24dp"
+        android:title="@string/title_profile" />
+    <item
+        android:id="@+id/navigation_medications"
+        android:icon="@drawable/ic_medications_24dp"
+        android:title="@string/title_medications" />
+
+    <item
+        android:id="@+id/navigation_allergies"
+        android:icon="@drawable/ic_allergies_24dp"
+        android:title="@string/title_allergies" />
+
+    <item
+        android:id="@+id/navigation_conflicts"
+        android:icon="@drawable/ic_conflict_24dp"
+        android:title="@string/title_conflicts" />
+
+</menu>
