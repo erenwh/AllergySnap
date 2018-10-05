@@ -132,23 +132,25 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
     private void setValues() {
         progressBar.setVisibility(View.VISIBLE);
 
-        editEmail.setText(userObj.email);
-        editUsername.setText(userObj.username);
+        if (userObj != null) {
+            editEmail.setText(userObj.email);
+            editUsername.setText(userObj.username);
 
-        if(userObj.fName != null) {
-            editFirstName.setText(userObj.fName);
-        }
+            if (userObj.fName != null) {
+                editFirstName.setText(userObj.fName);
+            }
 
-        if(userObj.lName != null) {
-            editLastName.setText(userObj.lName);
-        }
+            if (userObj.lName != null) {
+                editLastName.setText(userObj.lName);
+            }
 
-        if(userObj.DOB != null) {
-            editDOB.setText(userObj.DOB);
-        }
+            if (userObj.DOB != null) {
+                editDOB.setText(userObj.DOB);
+            }
 
-        if (userObj.hasPFP && userObj.uri != null) {
-            Picasso.get().load(userObj.uri).into(profilePicture);
+            if (userObj.hasPFP && userObj.uri != null) {
+                Picasso.get().load(userObj.uri).into(profilePicture);
+            }
         }
 
         progressBar.setVisibility(View.GONE);
@@ -475,7 +477,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
     private void deactivate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDetailActivity.this);
-        builder.setMessage("Are you sure you want to Deactivate your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage("Are you sure you want to DEACTIVATE your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

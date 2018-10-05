@@ -180,15 +180,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //        else {
 //            fullname.setText("Profile Name");
 //        }
-        if (userObj.hasPFP && userObj.uri != null) {
-            Picasso.get().load(userObj.uri).into(userProfileImage);
-        }
-        username.setText(userObj.username);
-        if (userObj.fName == null) {
-            extra.setText(userObj.email);
-        } else {
-            String fullName = userObj.fName + " " + userObj.lName;
-            extra.setText(fullName);
+
+        if (userObj != null) {
+            if (userObj.hasPFP && userObj.uri != null) {
+                Picasso.get().load(userObj.uri).into(userProfileImage);
+            }
+            username.setText(userObj.username);
+            if (userObj.fName == null) {
+                extra.setText(userObj.email);
+            } else {
+                String fullName = userObj.fName + " " + userObj.lName;
+                extra.setText(fullName);
+            }
         }
 
 
