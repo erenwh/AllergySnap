@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_gradient"
     tools:context=".CreateUser">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,58 +15,154 @@
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
+        <ImageView
+            android:id="@+id/create_user_allergy_snap_logo"
+            android:layout_width="220dp"
+            android:layout_height="155dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/logo_trans" />
+
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:layout_marginBottom="15dp"
+            android:text="Signup with AllergySnap below!"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorText"
             android:textAlignment="center"
-            android:textSize="@dimen/app_name_size" />
+            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/edit_email"
+        <LinearLayout
+            android:layout_below="@id/create_user_allergy_snap_logo"
+            android:weightSum="2"
+            android:id="@+id/create_user_email_layout"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:nextFocusDown="@id/edit_username" />
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:src="@drawable/ic_profile_detail_email"
+                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="50dp" />
 
-        <EditText
-            android:id="@+id/edit_username"
+            <EditText
+                android:id="@+id/edit_email"
+                android:hint="Email"
+                android:fontFamily="sans-serif-light"
+                android:backgroundTint="@color/colorText"
+                android:textColorHint="@color/colorText"
+                android:inputType="textEmailAddress"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:nextFocusDown="@id/edit_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/edit_email"
+            android:weightSum="2"
+            android:id="@+id/create_user_username_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Username"
-            android:nextFocusDown="@id/edit_password" />
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:src="@drawable/ic_profile_detail_name"
+                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="50dp" />
 
-        <EditText
-            android:id="@+id/edit_password"
+            <EditText
+                android:id="@+id/edit_username"
+                android:hint="Username"
+                android:fontFamily="sans-serif-light"
+                android:backgroundTint="@color/colorText"
+                android:textColorHint="@color/colorText"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:nextFocusDown="@id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/edit_username"
+            android:weightSum="2"
+            android:id="@+id/create_user_password_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:nextFocusDown="@id/edit_password_confirm" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_password_confirm"
+            <ImageView
+                android:src="@drawable/ic_create_user_password"
+                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="50dp" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:hint="Password"
+                android:fontFamily="sans-serif-light"
+                android:backgroundTint="@color/colorText"
+                android:textColorHint="@color/colorText"
+                android:inputType="textPassword"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:nextFocusDown="@id/edit_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_below="@id/edit_password"
+            android:weightSum="2"
+            android:id="@+id/create_user_password_confirm_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:inputType="textPassword"
-            android:hint="Confirm Password"
-            android:nextFocusDown="@id/register_button"
-             />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_create_user_password"
+                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="50dp" />
+
+            <EditText
+                android:id="@+id/edit_password_confirm"
+                android:hint="Confirm Password"
+                android:fontFamily="sans-serif-light"
+                android:backgroundTint="@color/colorText"
+                android:textColorHint="@color/colorText"
+                android:inputType="textPassword"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:nextFocusDown="@id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create User"
-            android:textAllCaps="false" />
+            android:background="@color/colorProfile"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            android:text="Sign Up" />
 
     </LinearLayout>
 
