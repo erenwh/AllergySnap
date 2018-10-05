@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button signout_button;
-    private TextView fullname, username;
+    private TextView extra, username;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -45,8 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference("Users");
         final FirebaseUser user = mAuth.getCurrentUser();
 
-        fullname = (TextView) findViewById(R.id.profile_full_name);
-        username = (TextView) findViewById(R.id.profile_username);
+        username = (TextView) findViewById(R.id.username);
+        extra = (TextView) findViewById(R.id.extra);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         if (user != null) {
@@ -139,24 +138,36 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     private void setValues() {
-        if (userObj.username != null) {
-            username.setText(userObj.username);
+//        if (userObj.username != null) {
+//            username.setText(userObj.username);
+//        }
+//
+//        if(userObj.fName != null || userObj.lName != null ) {
+//            if (userObj.fName == null) {
+//                fullname.setText(" " + userObj.lName);
+//            }
+//            else if (userObj.lName == null) {
+//                fullname.setText(userObj.fName+ " ");
+//            }
+//            else {
+//                fullname.setText(userObj.fName + " " + userObj.lName);
+//            }
+//        }
+//        else {
+//            fullname.setText("Profile Name");
+//        }
+        if (userObj.hasPFP && userObj.uri != null) {
+            Picasso.get().load(userObj.uri).into(userProfileImage);
+        }
+        username.setText(userObj.username);
+        if (userObj.fName == null) {
+            extra.setText(userObj.email);
+        } else {
+            String fullName = userObj.fName + " " + userObj.lName;
+            extra.setText(fullName);
         }
 
-        if(userObj.fName != null || userObj.lName != null ) {
-            if (userObj.fName == null) {
-                fullname.setText(" " + userObj.lName);
-            }
-            else if (userObj.lName == null) {
-                fullname.setText(userObj.fName+ " ");
-            }
-            else {
-                fullname.setText(userObj.fName + " " + userObj.lName);
-            }
-        }
-        else {
-            fullname.setText("Profile Name");
-        }
+
 
     }
 

@@ -42,6 +42,11 @@ dependencies {
     // Google
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
 
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+
+
 }
 
 //Add to the bottom of the file
