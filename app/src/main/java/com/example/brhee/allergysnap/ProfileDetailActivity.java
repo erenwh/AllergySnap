@@ -251,7 +251,13 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         if (!email.equals(userObj.email)) {
             userObj.email = email;
             if (user != null) {
-                user.updateEmail(email);
+                if(!user.updateEmail(email).isSuccessful()) {
+                    editEmail.setError("Email already in use");
+                    editEmail.requestFocus();
+                    progressBar.setVisibility(View.GONE);
+                    return;
+
+                }
             }
         }
         if (!password.isEmpty()) {
