@@ -58,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
             }
         });
+
+        Button signOut = findViewById(R.id.SighOut);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateUser.class));
+            }
+        });
+
     }
 
     /*
