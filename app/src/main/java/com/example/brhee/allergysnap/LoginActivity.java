@@ -8,17 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -27,11 +19,13 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,18 +34,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -73,6 +62,8 @@ public class LoginActivity extends AppCompatActivity implements
 
     // Google instance variables
     private GoogleApiClient mGoogleApiClient;
+    // Google login
+    private GoogleSignInClient mGoogleSignInClient;
 
     // Facebook login
     private CallbackManager mCallbackManager;
@@ -82,13 +73,7 @@ public class LoginActivity extends AppCompatActivity implements
     private String LName;
     private String Email;
 
-    // Google login
-    private GoogleSignInClient mGoogleSignInClient;
 
-    // User Info
-    private String FName;
-    private String LName;
-    private String Email;
 
 
     @Override
@@ -120,16 +105,16 @@ public class LoginActivity extends AppCompatActivity implements
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        // user's login state
-        mAuthListenr = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                // if user is logined in
-                if (firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
-            }
-        };
+//        // user's login state
+//        mAuthListenr = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                // if user is logined in
+//                if (firebaseAuth.getCurrentUser() != null){
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                }
+//            }
+//        };
 
         // google SignInOption
         // Configure sign-in to request the user's ID, email address, and basic
@@ -141,7 +126,6 @@ public class LoginActivity extends AppCompatActivity implements
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -232,13 +216,7 @@ public class LoginActivity extends AppCompatActivity implements
         request.executeAsync();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
@@ -361,7 +339,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
         // check user's login state
-        mFirebaseAuth.addAuthStateListener(mAuthListenr);
+//        mFirebaseAuth.addAuthStateListener(mAuthListenr);
 
 //        // Check if user is signed in (non-null) and update UI accordingly.
 //        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
@@ -385,25 +363,28 @@ public class LoginActivity extends AppCompatActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println("---we insdie onactivityResult");
+        // FACEBOOK SignIn
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+        // GOOGLE SignIn
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                System.out.println("we inside of google signin");
                 GoogleSignInAccount acct = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(acct);
                 // Signed in successfully, show authenticated UI.
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
-                System.out.println("signin google failing -------------T.T");
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             }
         }
     }
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -428,7 +409,7 @@ public class LoginActivity extends AppCompatActivity implements
                                 String personId = acct.getId();
                                 Uri personPhoto = acct.getPhotoUrl();
 
-                                System.out.println("firstname: " + personName + " lastname: " + personFamilyName + " email: + " + personEmail);
+//                                System.out.println("firstname: " + personName + " lastname: " + personFamilyName + " email: + " + personEmail);
                                 Toast.makeText(LoginActivity.this, "Name : " + personName + "UserId : " + personId, Toast.LENGTH_SHORT).show();
 
                                 // Create random generator
@@ -449,6 +430,7 @@ public class LoginActivity extends AppCompatActivity implements
                                         //progressBar.setVisibility(View.GONE);
                                         if (task.isSuccessful()) {
                                             Toast.makeText(LoginActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         } else {
                                             Toast.makeText(LoginActivity.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
                                         }
