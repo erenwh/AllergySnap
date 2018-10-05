@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
-        // cameraNavBtn
+        Button cam2btn = findViewById(R.id.cam2);
+        cam2btn.setOnClickListener(this);
+      
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
 
@@ -131,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
+            // profile detail btn
+
+            case R.id.cam2:
+                startActivity(new Intent(MainActivity.this,  Camera2.class));
+
 //            // profile detail btn
 //            case R.id.TempRedirctToPDA:
 //                startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
