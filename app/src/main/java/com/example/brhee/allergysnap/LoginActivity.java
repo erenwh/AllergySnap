@@ -41,9 +41,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -422,7 +419,7 @@ public class LoginActivity extends AppCompatActivity implements
                                 int randomNumber = generator.nextInt(555555) + generator.nextInt(555545);
 
                                 // Generate username
-                                String userName = personName + personFamilyName + randomNumber;
+                                String userName = (personName + personFamilyName + randomNumber).replace(" ", "");
                                 System.out.println(userName);
 
                                 //add to firebase database

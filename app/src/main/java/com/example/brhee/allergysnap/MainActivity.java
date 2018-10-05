@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
-        Button cam2btn = findViewById(R.id.cam2);
-        cam2btn.setOnClickListener(this);
+//        Button cam2btn = findViewById(R.id.cam2);
+//        cam2btn.setOnClickListener(this);
       
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
@@ -115,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void openCameraActivity(View view){
-        Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
-        startActivity(startCameraActivity);
-    }
+//    public void openCameraActivity(View view){
+//        Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
+//        startActivity(startCameraActivity);
+//    }
 
 
     @Override
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //openCameraActivity
             case R.id.cameraBtn:
                 System.out.println("cameraBtn works");
-                openCameraActivity(v);
+                startActivity(new Intent(MainActivity.this,  Camera2.class));
                 break;
             //login btn
             case R.id.RedirectToSignInBtn:
@@ -135,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             // profile detail btn
 
-            case R.id.cam2:
-                startActivity(new Intent(MainActivity.this,  Camera2.class));
+//            case R.id.cam2:
+//                startActivity(new Intent(MainActivity.this,  Camera2.class));
 
 //            // profile detail btn
 //            case R.id.TempRedirctToPDA:
