@@ -95,9 +95,11 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
     //Verify inputs and create user
     private void registerUser() {
+        emailInUse = false;
+        usernameInUse = false;
         final String username = editUsername.getText().toString().trim();
         final String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+        final String password = editPassword.getText().toString().trim();
         String passwordConfirm = editPasswordConfirm.getText().toString().trim();
 
         if (username.isEmpty()) {
@@ -148,78 +150,65 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    setEmailValidity(true);
+                    editEmail.setError("Email already in use");
+                    editEmail.requestFocus();
+                    return;
                 } else {
-                    setEmailValidity(false);
+                    Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
+                    usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                editUsername.setError("Username already in use");
+                                editUsername.requestFocus();
+                                return;
+                            } else {
+                                progressBar.setVisibility(View.VISIBLE);
+                                mAuth.createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                progressBar.setVisibility(View.GONE);
+                                                if (task.isSuccessful()) {
+                                                    //updateUsername();
+                                                    //Create user object for database
+                                                    User user = new User(username, email);
+                                                    FirebaseDatabase.getInstance().getReference("Users")
+                                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            progressBar.setVisibility(View.GONE);
+                                                            if(task.isSuccessful()) {
+                                                                Toast.makeText(CreateUser.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                                            } else {
+                                                                Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
+                                                            }
+                                                        }
+                                                    });
+
+                                                } else {
+                                                    Toast.makeText(CreateUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-        if (emailInUse) {
-            editEmail.setError("Email already in use");
-            editEmail.requestFocus();
-            return;
-        }
 
         //Check for username in Database (NOT FUNCTIONING IN ORDER DUE TO FIREBASE THREADING)
-        Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
-        usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    setUsernameValidity(true);
-                } else {
-                    setEmailValidity(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        if (usernameInUse) {
-            editUsername.setError("Username already in use");
-            editUsername.requestFocus();
-            return;
-        }
 
         //Go and create the user
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
-                            //updateUsername();
-                            //Create user object for database
-                            User user = new User(username, email);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if(task.isSuccessful()) {
-                                        Toast.makeText(CreateUser.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
 
-                        } else {
-                            Toast.makeText(CreateUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
     }
 

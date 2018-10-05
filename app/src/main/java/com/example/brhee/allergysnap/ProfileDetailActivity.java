@@ -64,7 +64,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             userID = user.getUid();
         }
         Query userData = myRef;
-        userData.addListenerForSingleValueEvent(new ValueEventListener() {
+        userData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -143,13 +143,13 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
     private void updateValues() {
         emailInUse = false;
         usernameInUse = false;
-        String firstName = editFirstName.getText().toString().trim();
-        String lastName = editLastName.getText().toString().trim();
-        String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+        final String firstName = editFirstName.getText().toString().trim();
+        final String lastName = editLastName.getText().toString().trim();
+        final String email = editEmail.getText().toString().trim();
+        final String password = editPassword.getText().toString().trim();
         String passwordConfirm = editPasswordConfirm.getText().toString().trim();
-        String DOB = editDOB.getText().toString().trim();
-        String username = editUsername.getText().toString().trim();
+        final String DOB = editDOB.getText().toString().trim();
+        final String username = editUsername.getText().toString().trim();
 
         //Validate inputs
         if (!firstName.isEmpty() && lastName.isEmpty()) {
@@ -237,54 +237,75 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             }
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-
-        //Set values to user object
-        if (!firstName.isEmpty() && !lastName.isEmpty()) {
-            userObj.fName = firstName;
-            userObj.lName = lastName;
-        }
-        if (!DOB.isEmpty()) {
-            userObj.DOB = DOB;
-        }
-        if (!username.equals(userObj.username)) {
-            userObj.username = username;
-        }
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (!email.equals(userObj.email)) {
-            userObj.email = email;
-            if (user != null) {
-                if(!user.updateEmail(email).isSuccessful()) {
-                    //Checks if email is in use
-                    editEmail.setError("Email already in use");
-                    editEmail.requestFocus();
-                    progressBar.setVisibility(View.GONE);
-                    return;
-
-                }
-            }
-        }
-        if (!password.isEmpty()) {
-            if (user != null) {
-                user.updatePassword(password);
-            }
-        }
 
 
-        //Update User in Database
-        FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(userObj).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+
+        Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
+        usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                progressBar.setVisibility(View.GONE);
-                if (task.isSuccessful()) {
-                    Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    editUsername.setError("Username already in use");
+                    editUsername.requestFocus();
+                    return;
                 } else {
-                    Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
+                    //Update User in Database and Auth
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (!email.equals(userObj.email)) {
+                        if (user != null) {
+                            if(!user.updateEmail(email).isSuccessful()) {
+                                //Checks if email is in use
+                                editEmail.setError("Email already in use");
+                                editEmail.requestFocus();
+                                progressBar.setVisibility(View.GONE);
+                                return;
+                            }
+                        }
+                    }
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    userObj.email = email;
+                    userObj.username = username;
+
+
+                    if (!password.isEmpty()) {
+                        if (user != null) {
+                            user.updatePassword(password);
+                        }
+                    }
+
+                    //Set values to user object
+                    if (!firstName.isEmpty() && !lastName.isEmpty()) {
+                        userObj.fName = firstName;
+                        userObj.lName = lastName;
+                    }
+                    if (!DOB.isEmpty()) {
+                        userObj.DOB = DOB;
+                    }
+
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(userObj).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            progressBar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
 
     }
 
