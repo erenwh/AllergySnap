@@ -103,12 +103,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         final String password = editPassword.getText().toString().trim();
         String passwordConfirm = editPasswordConfirm.getText().toString().trim();
 
-        if (username.isEmpty()) {
-            editUsername.setError(getString(R.string.input_error_name));
-            editUsername.requestFocus();
-            return;
-        }
-
         if (email.isEmpty()) {
             editEmail.setError(getString(R.string.input_error_email));
             editEmail.requestFocus();
@@ -118,6 +112,30 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editEmail.setError(getString(R.string.input_error_email_invalid));
             editEmail.requestFocus();
+            return;
+        }
+
+        if (username.isEmpty()) {
+            editUsername.setError(getString(R.string.input_error_name));
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (username.length() < 3) {
+            editUsername.setError("Username must be at least 3 characters");
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (username.length() > 15) {
+            editUsername.setError("Username cannot be more than 15 characters");
+            editUsername.requestFocus();
+            return;
+        }
+
+        if (!username.matches("[A-Za-z0-9_]+")) {
+            editUsername.setError("Username may only contain letters, numbers and underscore");
+            editUsername.requestFocus();
             return;
         }
 
@@ -185,7 +203,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                                                                 try { Thread.sleep(500); }
                                                                 catch (InterruptedException ex) { android.util.Log.d("YourApplicationName", ex.toString()); }
                                                                 startActivity(new Intent(CreateUser.this, LoginActivity.class));
-
                                                             } else {
                                                                 Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
                                                             }
