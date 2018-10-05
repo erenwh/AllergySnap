@@ -32,6 +32,7 @@ dependencies {
 
     // Added libraries
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.4'
@@ -44,8 +45,13 @@ dependencies {
 
     // Facebook-login
     implementation 'com.facebook.android:facebook-login:[4,5)'
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 }
 
 //Add to the bottom of the file
 apply plugin: 'com.google.gms.google-services'
+
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
