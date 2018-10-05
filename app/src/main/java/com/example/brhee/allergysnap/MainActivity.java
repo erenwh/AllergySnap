@@ -51,7 +51,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // cameraNavBtn
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
+
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     public void openCameraActivity(View view){
         Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -137,7 +138,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // firebase logout
                 mAuth.signOut();
+                // facebook logout
+                LoginManager.getInstance().logOut();
+                // google logout
+                //TODO
+                // twitter logout
+                //TODO
                 finish();
                 startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             }

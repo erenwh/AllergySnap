@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -149,19 +150,21 @@ public class LoginActivity extends AppCompatActivity implements
                             System.out.println(username);
 
                             User user = new User(username, Email);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    //progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
+                            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        //progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
