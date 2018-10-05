@@ -118,21 +118,21 @@
         <!--app:layout_constraintTop_toTopOf="parent"-->
         <!--app:layout_constraintVertical_bias="0.015" />-->
 
-    <Button
-        android:id="@+id/cam2"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/cam2"
-        app:layout_constraintBottom_toBottomOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="@+id/frame_container"
-        app:layout_constraintHorizontal_bias="0.067"
-        app:layout_constraintStart_toStartOf="@+id/frame_container"
-        app:layout_constraintTop_toTopOf="@+id/frame_container"
-        app:layout_constraintVertical_bias="0.876" />
+    <!--<Button-->
+        <!--android:id="@+id/cam2"-->
+        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="@string/cam2"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/navigation"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/frame_container"-->
+        <!--app:layout_constraintHorizontal_bias="0.067"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/frame_container"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/frame_container"-->
+        <!--app:layout_constraintVertical_bias="0.876" />-->
 
 </android.support.constraint.ConstraintLayout>
