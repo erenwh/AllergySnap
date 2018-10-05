@@ -151,6 +151,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         String DOB = editDOB.getText().toString().trim();
         String username = editUsername.getText().toString().trim();
 
+        //Validate inputs
         if (!firstName.isEmpty() && lastName.isEmpty()) {
             editLastName.setError("Last name missing");
             editLastName.requestFocus();
@@ -189,6 +190,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             return;
         }
 
+        //Check for email in Database (NOT FUNCTIONING IN ORDER DUE TO FIREBASE THREADING)
         if (!email.equals(userObj.email)) {
             Query emailCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("email").equalTo(email);
             emailCheck.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -211,6 +213,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             }
         }
 
+        //Check for username in Database (NOT FUNCTIONING IN ORDER DUE TO FIREBASE THREADING)
         if (!username.equals(userObj.username)) {
             Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
             usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -236,6 +239,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
         progressBar.setVisibility(View.VISIBLE);
 
+        //Set values to user object
         if (!firstName.isEmpty() && !lastName.isEmpty()) {
             userObj.fName = firstName;
             userObj.lName = lastName;
@@ -252,6 +256,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             userObj.email = email;
             if (user != null) {
                 if(!user.updateEmail(email).isSuccessful()) {
+                    //Checks if email is in use
                     editEmail.setError("Email already in use");
                     editEmail.requestFocus();
                     progressBar.setVisibility(View.GONE);
@@ -267,7 +272,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         }
 
 
-
+        //Update User in Database
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(userObj).addOnCompleteListener(new OnCompleteListener<Void>() {

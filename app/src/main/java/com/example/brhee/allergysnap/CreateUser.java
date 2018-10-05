@@ -93,9 +93,8 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         usernameInUse = username;
     }
 
+    //Verify inputs and create user
     private void registerUser() {
-        emailInUse = false;
-        usernameInUse = false;
         final String username = editUsername.getText().toString().trim();
         final String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
@@ -143,13 +142,15 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
-        //DatabaseReference emailCheck = FirebaseDatabase.getInstance().getReference("Users")
+        //Check for email in Database (NOT FUNCTIONING IN ORDER DUE TO FIREBASE THREADING)
         Query emailCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("email").equalTo(email);
         emailCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     setEmailValidity(true);
+                } else {
+                    setEmailValidity(false);
                 }
             }
 
@@ -158,18 +159,22 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+
         if (emailInUse) {
             editEmail.setError("Email already in use");
             editEmail.requestFocus();
             return;
         }
 
+        //Check for username in Database (NOT FUNCTIONING IN ORDER DUE TO FIREBASE THREADING)
         Query usernameCheck = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(username);
         usernameCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     setUsernameValidity(true);
+                } else {
+                    setEmailValidity(false);
                 }
             }
 
@@ -178,7 +183,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
             }
         });
-
 
         if (usernameInUse) {
             editUsername.setError("Username already in use");
@@ -186,6 +190,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
+        //Go and create the user
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -194,6 +199,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             //updateUsername();
+                            //Create user object for database
                             User user = new User(username, email);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
