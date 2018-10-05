@@ -41,26 +41,27 @@ public class ProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUserID = firebaseAuth.getCurrentUser().getUid();
+
         profileUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
 
         fullname = (TextView) findViewById(R.id.profile_full_name);
         username = (TextView) findViewById(R.id.profile_username);
 
         // This will cause the program to crash if a user is not found in the database.
-        userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
+        //userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         profileUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String myFirstName = dataSnapshot.child("firstname").getValue().toString();
-                    String myLastName = dataSnapshot.child("lastname").getValue().toString();
+                    //String myFirstName = dataSnapshot.child("firstname").getValue().toString();
+                    //String myLastName = dataSnapshot.child("lastname").getValue().toString();
                     String myUsername = dataSnapshot.child("username").getValue().toString();
-                    String myProfileImage = dataSnapshot.child("profilepicture").getValue().toString();
+                    //String myProfileImage = dataSnapshot.child("profilepicture").getValue().toString();
 
-                    Picasso.get().load(myProfileImage).placeholder(R.drawable.ic_profile_default).into(userProfileImage);
+                    //Picasso.get().load(myProfileImage).placeholder(R.drawable.ic_profile_default).into(userProfileImage);
 
-                    fullname.setText(myFirstName + " " + myLastName);
+                    //fullname.setText(myFirstName + " " + myLastName);
                     username.setText(myUsername);
                 }
             }
