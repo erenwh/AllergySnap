@@ -115,11 +115,11 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         editEmail.setText(userObj.email);
         editUsername.setText(userObj.username);
 
-        if(userObj.validName) {
+        if(userObj.fName != null) {
             editFirstName.setText(userObj.fName);
         }
 
-        if(userObj.validName) {
+        if(userObj.lName != null) {
             editLastName.setText(userObj.lName);
         }
 
@@ -243,7 +243,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         if (!firstName.isEmpty() && !lastName.isEmpty()) {
             userObj.fName = firstName;
             userObj.lName = lastName;
-            userObj.validName = true;
         }
         if (!DOB.isEmpty()) {
             userObj.DOB = DOB;

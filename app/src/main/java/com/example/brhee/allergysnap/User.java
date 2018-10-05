@@ -2,10 +2,7 @@ package com.example.brhee.allergysnap;
 
 public class User {
     protected String username, email, DOB, fName, lName;
-    protected boolean validName = false;
     protected boolean hasPFP = false;
-    protected boolean validDOB = false;
-
     public User() { }
 
 
