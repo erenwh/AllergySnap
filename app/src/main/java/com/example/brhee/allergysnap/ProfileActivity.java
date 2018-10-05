@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,6 +58,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if (userID == null) {
             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
         }
+
+        // profileDetail Nav Btn
+        // cameraNavBtn
+        ImageView ProfileDetailNavBtn = (ImageView) findViewById(R.id.profile_picture);
+        ProfileDetailNavBtn.setOnClickListener(this);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -184,6 +190,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
 
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            // profile detail nav btn
+            case R.id.profile_picture:
+                startActivity(new Intent(ProfileActivity.this, ProfileDetailActivity.class));
+                break;
         }
     }
 

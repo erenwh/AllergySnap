@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // signinNavBtn
         //InitFirebaseAuth();
         Button btn = findViewById(R.id.RedirectToSignInBtn);
-
         btn.setOnClickListener(this);
 
         // cameraNavBtn
@@ -58,14 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
         startActivity(startCameraActivity);
     }
-
-        editbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-            }
-        });
-
 
 
     @Override
