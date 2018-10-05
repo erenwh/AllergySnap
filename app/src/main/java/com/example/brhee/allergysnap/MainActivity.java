@@ -65,9 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 ViewGroup btnView = (ViewGroup) btn.getParent();
                 if(user!=null){
-                    btnView.removeView(btn);
+                    btnView.setVisibility(View.GONE);
+                    btn.setOnClickListener(null);
                 } else {
-                    btnView.addView(btn);
+                    btnView.setVisibility(View.VISIBLE);
+                    btn.setOnClickListener(MainActivity.this);
                 }
             }
 

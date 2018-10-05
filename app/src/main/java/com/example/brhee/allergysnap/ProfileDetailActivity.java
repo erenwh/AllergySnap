@@ -466,16 +466,19 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
             public void onClick(DialogInterface dialogInterface, int i) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 final DatabaseReference usernameRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+
                 if (user != null) {
                     user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 usernameRef.removeValue();
+                                if (userObj.hasPFP) {
+                                    StorageReference pPath = FirebaseStorage.getInstance().getReferenceFromUrl(userObj.uri);
+                                    pPath.delete();
+                                }
                                 Toast.makeText(getApplicationContext(), "Account Deactivated", Toast.LENGTH_LONG).show();
-                                finish();
                                 startActivity(new Intent(ProfileDetailActivity.this, LoginActivity.class));
-
                             }
                             else {
                                 String message = task.getException().getMessage();
