@@ -1,6 +1,9 @@
 # Mac junk fils
 .DS_Store
 
+# app.iml
+app/app.iml
+
 # Built application files
 *.apk
 *.ap_
