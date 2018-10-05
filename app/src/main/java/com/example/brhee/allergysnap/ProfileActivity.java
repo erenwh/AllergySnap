@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -144,7 +145,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 // firebase + google signout
+                // firebase logout
                 mAuth.signOut();
+                // facebook logout
+                LoginManager.getInstance().logOut();
+                // google logout
+                //TODO
+                // twitter logout
+                //TODO
                 finish();
                 startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             }

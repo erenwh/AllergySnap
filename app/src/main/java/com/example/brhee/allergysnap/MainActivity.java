@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleApiClient mGoogleApiClient;
 
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signinNavBtn
         //InitFirebaseAuth();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
-        // cameraNavBtn
+        Button cam2btn = findViewById(R.id.cam2);
+        cam2btn.setOnClickListener(this);
+      
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(this);
+
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Button btn = findViewById(R.id.RedirectToSignInBtn);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.GONE);
+        } else {
+            // No user is signed in
+            System.out.println("NO USER LOGGED IN");
+            System.out.println(user);
+            btn.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     public void openCameraActivity(View view){
         Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
@@ -71,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
+            // profile detail btn
+
+            case R.id.cam2:
+                startActivity(new Intent(MainActivity.this,  Camera2.class));
+
 //            // profile detail btn
 //            case R.id.TempRedirctToPDA:
 //                startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
