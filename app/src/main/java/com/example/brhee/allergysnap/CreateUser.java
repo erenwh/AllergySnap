@@ -1,5 +1,6 @@
 package com.example.brhee.allergysnap;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -181,6 +182,10 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                                                             progressBar.setVisibility(View.GONE);
                                                             if(task.isSuccessful()) {
                                                                 Toast.makeText(CreateUser.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                                                try { Thread.sleep(500); }
+                                                                catch (InterruptedException ex) { android.util.Log.d("YourApplicationName", ex.toString()); }
+                                                                startActivity(new Intent(CreateUser.this, LoginActivity.class));
+
                                                             } else {
                                                                 Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
                                                             }
