@@ -162,8 +162,7 @@
             android:layout_marginLeft="100dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
-            android:text="Create User"
-            android:textAllCaps="false" />
+            android:text="Sign Up" />
 
     </LinearLayout>
 
