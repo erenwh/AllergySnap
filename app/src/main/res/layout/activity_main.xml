@@ -128,11 +128,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/cam2"
-        app:layout_constraintBottom_toBottomOf="@+id/navigationView"
-        app:layout_constraintEnd_toEndOf="@+id/container"
+        app:layout_constraintBottom_toBottomOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="@+id/frame_container"
         app:layout_constraintHorizontal_bias="0.067"
-        app:layout_constraintStart_toStartOf="@+id/container"
-        app:layout_constraintTop_toTopOf="@+id/container"
+        app:layout_constraintStart_toStartOf="@+id/frame_container"
+        app:layout_constraintTop_toTopOf="@+id/frame_container"
         app:layout_constraintVertical_bias="0.876" />
 
 </android.support.constraint.ConstraintLayout>
