@@ -492,6 +492,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+
     }
 
     @Override

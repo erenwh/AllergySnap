@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     private Button signout_button;
     private TextView extra, username;
@@ -32,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String userID;
     private User userObj;
+
     private CircleImageView userProfileImage;
 
     @Override
@@ -180,6 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+
         }
     }
 
