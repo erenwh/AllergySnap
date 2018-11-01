@@ -6,13 +6,37 @@
     android:layout_height="match_parent"
     tools:context="com.example.brhee.allergysnap.MedicationActivity">
 
-    <TextView
-        android:id="@+id/medicationPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medication Page"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="168dp"
-        tools:ignore="MissingConstraints" />
+    <ListView
+        android:id="@+id/results"
+        android:layout_width="369dp"
+        android:layout_height="505dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <EditText
+        android:id="@+id/med_search"
+        android:layout_width="287dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Medication Name"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/search_sub"
+        android:layout_width="85dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="+"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/med_search"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
