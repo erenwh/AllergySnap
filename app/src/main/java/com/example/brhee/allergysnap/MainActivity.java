@@ -7,12 +7,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,11 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
 
+    TextView barcodeResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        barcodeResult = (TextView)findViewById(R.id.barcode_result);
 
         // navigation bar
         toolbar = getSupportActionBar();
@@ -51,11 +58,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
+        final Button btn2= findViewById(R.id.barcode_scan);
+        btn2.setOnClickListener(this);
+
 //        Button cam2btn = findViewById(R.id.cam2);
 //        cam2btn.setOnClickListener(this);
       
-        ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
-        cameraBtn.setOnClickListener(this);
+        //ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
+        //cameraBtn.setOnClickListener(this);
+
+    }
+
+    public void scanBarcode(View v) {
+        Log.e("here", "herereer");
+        Intent intent = new Intent(MainActivity.this, Camera2.class);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra("barcode");
+
+                    Bundle bundle = new Bundle();
+                    Intent i = new Intent(this, ResultActivity.class);
+                    bundle.putString("barcode_value", barcode.displayValue);
+                    i.putExtras(bundle);
+                    startActivity(i);
+
+
+                    //barcodeResult.setText("Barcode value: " + barcode.displayValue);
+                }
+                else {
+                    //barcodeResult.setText("No barcode found!");
+                    Bundle bundle = new Bundle();
+                    Intent i = new Intent(this, ResultActivity.class);
+                    bundle.putString("barcode_value", "No barcode found!");
+                    i.putExtras(bundle);
+                    startActivity(i);
+                }
+            }
+
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
 
     }
 
@@ -124,13 +173,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             //openCameraActivity
-            case R.id.cameraBtn:
-                System.out.println("cameraBtn works");
-                startActivity(new Intent(MainActivity.this,  Camera2.class));
-                break;
+            //case R.id.cameraBtn:
+             //   System.out.println("cameraBtn works");
+               // startActivity(new Intent(MainActivity.this,  Camera2.class));
+                //startActivityForResult(new Intent(MainActivity.this,  Camera2.class), 0);
+                //break;
             //login btn
             case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                break;
+            case R.id.barcode_scan:
+                startActivity(new Intent(MainActivity.this, ResultActivity.class));
                 break;
             // profile detail btn
 
@@ -205,4 +258,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     };
+
 }
