@@ -264,7 +264,7 @@ public class ProfileActivity extends AppCompatActivity implements
             } else {
                 // Sending failed or it was canceled, show failure message to the user
                 // [START_EXCLUDE]
-                showMessage(getString(R.string.send_failed));
+                //showMessage(getString(R.string.send_failed));
                 // [END_EXCLUDE]
             }
         }
