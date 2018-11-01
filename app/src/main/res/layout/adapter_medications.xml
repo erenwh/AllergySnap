@@ -10,7 +10,7 @@
         android:id="@+id/med_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_weight="22"
+        android:layout_weight="20"
         android:gravity="center"
         android:text="TextView1" />
 
@@ -24,7 +24,6 @@
         android:background="@color/colorAlert"
         android:fontFamily="sans-serif-light"
         android:textColor="@android:color/background_light"
-        android:paddingRight="5dp"
         android:text="DELETE"
         android:textAlignment="center">
 

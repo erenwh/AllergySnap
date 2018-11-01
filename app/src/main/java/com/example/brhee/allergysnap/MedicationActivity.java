@@ -72,7 +72,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                     if (dataSnapshot.exists()) {
                         userObj = dataSnapshot.child(userID).getValue(User.class);
                         if (userObj != null) {
-                            MedicationAdapter adapter = new MedicationAdapter(MedicationActivity.this, R.layout.adapter_medications, userObj.medications);
+                            MedicationAdapter adapter = new MedicationAdapter(MedicationActivity.this, R.layout.adapter_medications, userObj.medications, userObj);
                             userMeds.setAdapter(adapter);
                         }
                     }
@@ -138,7 +138,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                         // success
                         if (userObj.medications != null) {
                             for (Medication med : userObj.medications) {
-                                if (med.name.equals(err.getElementsByTagName("name").item(0).getTextContent())) {
+                                if (med.name.equalsIgnoreCase(err.getElementsByTagName("name").item(0).getTextContent())) {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
