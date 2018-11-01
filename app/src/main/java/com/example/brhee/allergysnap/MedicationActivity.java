@@ -42,13 +42,14 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
 
     private EditText medSearch;
-    private ListView results;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseUser user;
     private User userObj;
     private String userID;
+    private ListView userMeds;
+    private ArrayList<String> medications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,29 +57,35 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_medication);
 
         medSearch = findViewById(R.id.med_search);
-        results = findViewById(R.id.results);
+        userMeds = findViewById(R.id.user_meds);
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("Users");
-        user = mAuth.getCurrentUser();
         findViewById(R.id.search_sub).setOnClickListener(this);
-        results.setVisibility(View.INVISIBLE);
-        userID = user.getUid();
-
-        Query userData = myRef;
-        userData.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    userObj = dataSnapshot.child(userID).getValue(User.class);
+        user = mAuth.getCurrentUser();
+        if (user != null) {
+            userID = user.getUid();
+            Query userData = myRef;
+            userData.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        userObj = dataSnapshot.child(userID).getValue(User.class);
+                        if (userObj != null) {
+                            MedicationAdapter adapter = new MedicationAdapter(MedicationActivity.this, R.layout.adapter_medications, userObj.medications);
+                            userMeds.setAdapter(adapter);
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+
+        }
 
         //findViewById(R.id.test_button).setOnClickListener(this);
 //        medSearch.addTextChangedListener(new TextWatcher() {

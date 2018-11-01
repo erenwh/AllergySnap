@@ -12,12 +12,15 @@ public class User {
     protected String uri;
     protected ArrayList<Medication> medications;
 
-    public User() { }
+    public User() {
+        medications = new ArrayList<>();
+    }
 
 
     public User(String username, String email) {
         this.username = username;
         this.email = email;
+        medications = new ArrayList<>();
     }
 
 
