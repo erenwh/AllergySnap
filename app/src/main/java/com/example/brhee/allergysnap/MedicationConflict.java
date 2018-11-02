@@ -8,17 +8,20 @@ public class MedicationConflict {
     public ArrayList<String> conflictDrugs;
     public String description;
     public String severity;
+    public String source;
 
-    public MedicationConflict(ArrayList<String> conflictDrugs, String description, String severity) {
+    public MedicationConflict(ArrayList<String> conflictDrugs, String description, String severity, String source) {
         this.conflictDrugs = conflictDrugs;
         this.description = description;
         this.severity = severity;
+        this.source = source;
     }
 
-    public MedicationConflict(ArrayList<String> conflictDrugs, String description) {
+    public MedicationConflict(ArrayList<String> conflictDrugs, String description, String source) {
 
         this.conflictDrugs = conflictDrugs;
         this.description = description;
+        this.source = source;
     }
 
     public ArrayList<String> getConflictDrugs() {

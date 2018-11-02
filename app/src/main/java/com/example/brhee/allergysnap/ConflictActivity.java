@@ -1,5 +1,6 @@
 package com.example.brhee.allergysnap;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -26,10 +28,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -69,7 +73,10 @@ public class ConflictActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         userObj = dataSnapshot.child(userID).getValue(User.class);
                         if (userObj != null) {
-                            ArrayList<MedicationConflict> conflictList = getConflicts();
+                            //conflictList = getConflicts();
+                            getConflicts();
+
+
                         }
                     }
                 }
@@ -79,9 +86,10 @@ public class ConflictActivity extends AppCompatActivity {
 
                 }
             });
+
+
         }
 
-        ListView mListView = (ListView) findViewById(R.id.listView);
 
 
 
@@ -105,38 +113,34 @@ public class ConflictActivity extends AppCompatActivity {
 
         conflictList.add(mc);
         conflictList.add(mc2);*/
-        if (conflictList != null) {
-            ConflictListAdapter adapter = new ConflictListAdapter(this, R.layout.adapter_view_layout, conflictList);
-            mListView.setAdapter(adapter);
-        }
-        else {
-            mListView.setEmptyView(findViewById(R.id.emptyElement));
-        }
+
     }
 
-    private ArrayList<MedicationConflict> getConflicts() {
-        ArrayList<MedicationConflict> res = new ArrayList<>();
-        // Get user Medications IDs
-        final ArrayList<Integer> myMeds= new ArrayList<>();
-        if (userObj.medications != null) {
-            for (Medication m :
-                    userObj.medications) {
-                myMeds.add(m.id);
-            }
-        }
-        final StringBuilder urlLink = new StringBuilder("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=");
-        for (int i :
-                myMeds) {
-            urlLink.append(i).append("+");
-        }
-
-        // Send to API
-        final StringBuffer buffer = new StringBuffer();
+    private void getConflicts() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                ArrayList<MedicationConflict> res = new ArrayList<>();
+                // Get user Medications IDs
+                final ArrayList<Integer> myMeds = new ArrayList<>();
+                if (userObj.medications != null) {
+                    for (Medication m :
+                            userObj.medications) {
+                        myMeds.add(m.id);
+                    }
+                }
+                final StringBuilder urlLink = new StringBuilder("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=");
+                for (int i :
+                        myMeds) {
+                    urlLink.append(i).append("+");
+                }
                 urlLink.setLength(urlLink.length() - 1);
                 System.out.println(urlLink);
+
+
+                // Send to API
+
+                final StringBuffer buffer = new StringBuffer();
                 HttpURLConnection connection = null;
                 BufferedReader reader = null;
                 try {
@@ -175,26 +179,89 @@ public class ConflictActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
+                // Extract info from JSON
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject(buffer.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                ArrayList<String> drugs;
+                String description;
+                String severity;
+                String source;
+
+                if (obj != null) {
+                    try {
+                        // Get fullInteractionTypeGroup
+                        JSONArray fullInteractionTypeGroup = obj.getJSONArray("fullInteractionTypeGroup");
+                        for (int i = 0; i < fullInteractionTypeGroup.length(); i++) {
+                            JSONObject fullInteractionTypeObj = fullInteractionTypeGroup.getJSONObject(i);
+                            JSONArray fullInteractionTypeArr = fullInteractionTypeObj.getJSONArray("fullInteractionType");
+                            description = "";
+                            severity = "";
+                            source = fullInteractionTypeObj.getString("sourceName");
+                            for (int j = 0; j < fullInteractionTypeArr.length(); j++) {
+                                JSONObject fullInteractionType = fullInteractionTypeArr.getJSONObject(j);
+
+                                JSONArray interactionPair = fullInteractionType.getJSONArray("interactionPair");
+                                drugs = new ArrayList<>();
+                                for (int k = 0; k < interactionPair.length(); k++) {
+                                    // Add description
+                                    JSONObject currPair = interactionPair.getJSONObject(k);
+                                    description = currPair.getString("description");
+                                    System.out.println(description);
+
+                                    // Add Severity
+                                    severity = currPair.getString("severity");
+                                    System.out.println(severity);
+
+                                    // Add drug name
+                                    JSONArray interactionConcept = currPair.getJSONArray("interactionConcept");
+                                    for (int l = 0; l < interactionConcept.length(); l++) {
+                                        JSONObject currDrug = interactionConcept.getJSONObject(l);
+                                        JSONObject sourceConceptItem = currDrug.getJSONObject("sourceConceptItem");
+                                        String drugName = sourceConceptItem.getString("name");
+                                        drugs.add(drugName);
+                                        System.out.println(drugName);
+                                    }
+                                    MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
+
+                                    res.add(mc);
+                                }
+
+                            }
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                conflictList = res;
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListView mListView = (ListView) findViewById(R.id.listView);
+                        if (conflictList != null) {
+                            ConflictListAdapter adapter = new ConflictListAdapter
+                                    (ConflictActivity.this,
+                                            R.layout.adapter_view_layout,
+                                            conflictList);
+                            mListView.setAdapter(adapter);
+                        } else {
+                            mListView.setEmptyView(findViewById(R.id.emptyElement));
+                        }
+                    }
+                });
+
             }
         }).start();
 
-        // Extract info from JSON
-        try {
-            JSONObject obj = new JSONObject(buffer.toString());
-            for (int i = 0; i < obj.length(); i++)
-            {
-                try {
-                    JSONObject oneObject = obj.getJSONObject(i);
-                    // Pulling items from the array
-
-                } catch (JSONException e) {
-                    // Oops
-                }
-            }
-        } catch (Throwable t) {
-        }
-
-        // Construct Array
-        return res;
     }
 }
+

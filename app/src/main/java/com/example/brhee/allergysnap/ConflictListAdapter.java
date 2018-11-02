@@ -35,7 +35,7 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         ArrayList<String> conflictDrugs = Objects.requireNonNull(getItem(position)).conflictDrugs;
         String description = Objects.requireNonNull(getItem(position)).description;
         String severity = Objects.requireNonNull(getItem(position)).severity;
-
+        String source = Objects.requireNonNull(getItem(position)).source;
         // Create the MedicationConflict Object
         MedicationConflict mc = new MedicationConflict(conflictDrugs, description, severity);
 
@@ -45,11 +45,13 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         TextView conflictDrugsView = convertView.findViewById(R.id.drugPair);
         TextView descriptionView = convertView.findViewById(R.id.interactionDescription);
         TextView severityView = convertView.findViewById(R.id.severity);
+        TextView sourceView = convertView.findViewById(R.id.source);
         ImageView myImageView = convertView.findViewById(R.id.conflictImg);
 
         conflictDrugsView.setText("Drugs: " + conflictDrugs.toString());
         descriptionView.setText("Conflict Description: " + description);
         severityView.setText("Severity: " + severity);
+        sourceView.setText("Source: " + source);
         myImageView.setImageResource(R.drawable.red_error);
 
 

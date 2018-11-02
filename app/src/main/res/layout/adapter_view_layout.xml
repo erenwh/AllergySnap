@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/conflictImg"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:layout_weight="80"
         android:gravity="center"
         tools:srcCompat="@drawable/red_error" />
@@ -24,7 +24,7 @@
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textAlignment="center"
             android:text="TextView1"
@@ -53,6 +53,19 @@
             android:textAlignment="center"
             android:text="TextView3"
             android:id="@+id/severity"
+            android:textColor="@android:color/background_light"
+            android:fontFamily="sans-serif-light"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="start"
+            android:textAlignment="center"
+            android:text="TextView3"
+            android:id="@+id/source"
             android:textColor="@android:color/background_light"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
