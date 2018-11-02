@@ -61,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btn2= findViewById(R.id.barcode_scan);
         btn2.setOnClickListener(this);
 
-//        Button cam2btn = findViewById(R.id.cam2);
-//        cam2btn.setOnClickListener(this);
-      
-        //ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
-        //cameraBtn.setOnClickListener(this);
-
     }
 
     public void scanBarcode(View v) {
@@ -162,22 +156,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-//    public void openCameraActivity(View view){
-//        Intent startCameraActivity= new Intent(MainActivity.this, CameraActivity.class);
-//        startActivity(startCameraActivity);
-//    }
-
-
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            //openCameraActivity
-            //case R.id.cameraBtn:
-             //   System.out.println("cameraBtn works");
-               // startActivity(new Intent(MainActivity.this,  Camera2.class));
-                //startActivityForResult(new Intent(MainActivity.this,  Camera2.class), 0);
-                //break;
             //login btn
             case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -185,19 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.barcode_scan:
                 startActivity(new Intent(MainActivity.this, ResultActivity.class));
                 break;
-            // profile detail btn
-
-//            case R.id.cam2:
-//                startActivity(new Intent(MainActivity.this,  Camera2.class));
-
-//            // profile detail btn
-//            case R.id.TempRedirctToPDA:
-//                startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
-//                break;
-//            // signOut btn
-//            case R.id.SignOutBtn:
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                break;
         }
     }
 
