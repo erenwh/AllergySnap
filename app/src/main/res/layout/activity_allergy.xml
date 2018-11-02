@@ -10,6 +10,7 @@
     android:paddingRight="2dp"
     android:paddingTop="2dp"
     android:orientation="vertical"
+    android:background="@drawable/ic_gradient"
 
     tools:context="com.example.brhee.allergysnap.AllergyActivity">
 
@@ -22,20 +23,47 @@
             android:id="@+id/txtSearchAllergy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="22dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:text="Search Allergy" />
 
         <SearchView
             android:id="@+id/search"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:layout_below="@id/txtSearchAllergy">
-
             <requestFocus />
+
         </SearchView>
+
+        <!--<EditText-->
+            <!--android:id="@+id/alle_search"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Allergy Name"-->
+            <!--android:inputType="text"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--android:textColor="@color/colorText"-->
+            <!--android:layout_below="@id/txtSearchAllergy"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnAddToAllergyList"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:text="+"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textAlignment="center"-->
+            <!--android:background="@color/colorPlus"-->
+            <!--android:layout_below="@+id/txtSearchAllergy"-->
+
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/alle_search"-->
+            <!--app:layout_constraintTop_toTopOf="@id/txtSearchAllergy"/>-->
 
         <ListView
             android:id="@+id/listview_search"
@@ -57,7 +85,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:textSize="18dp"
+            android:textSize="22dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:text="My Allergy List" />

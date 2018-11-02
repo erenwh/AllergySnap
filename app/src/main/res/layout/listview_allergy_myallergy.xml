@@ -12,7 +12,7 @@
         android:textSize="16dp"/>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/myAllergyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/nameLabel"

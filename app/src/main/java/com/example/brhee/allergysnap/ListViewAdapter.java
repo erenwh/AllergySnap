@@ -6,16 +6,21 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 // listview adapter for allergy
-public class ListViewAdapter extends ArrayAdapter<Allergy>{
+//public class ListViewAdapter extends ArrayAdapter<Allergy>{
+public class ListViewAdapter extends BaseAdapter{
 
 
     // Declare Variables
@@ -24,19 +29,24 @@ public class ListViewAdapter extends ArrayAdapter<Allergy>{
     private List<Allergy> allergyNamesList = null;
     private ArrayList<Allergy> arrayList;
     private User user;
-
     LayoutInflater inflater;
 
 
-    public ListViewAdapter(Context context, int resource, ArrayList<Allergy> objects, List<Allergy> allergyNamesList, User user){
-        super(context, resource, objects);
+
+
+
+    //    public ListViewAdapter(Context context, int resource, ArrayList<Allergy> objects, List<Allergy> allergyNamesList, User user){
+    public ListViewAdapter(Context context, List<Allergy> allergyNamesList, User user){
+//        super(context, resource, objects);
+//        mResource = resource;
+
         mContext = context;
-        mResource = resource;
         this.allergyNamesList = allergyNamesList;
-        inflater = LayoutInflater.from(mContext);
         this.arrayList = new ArrayList<Allergy>();
         this.arrayList.addAll(allergyNamesList);
+        inflater = LayoutInflater.from(mContext);
         this.user = user;
+
     }
 
     public class ViewHolder{
@@ -47,7 +57,6 @@ public class ListViewAdapter extends ArrayAdapter<Allergy>{
     public int getCount() {
         return allergyNamesList.size();
     }
-
 
     @Override
     public Allergy getItem(int position) {
@@ -60,13 +69,11 @@ public class ListViewAdapter extends ArrayAdapter<Allergy>{
     }
 
     @Override
-    public View getView(int position, View view, final ViewGroup parent) {
-//        final String allergy = user.allergies.get(position).getName().substring(0, 1).toUpperCase() + user.allergies.get(position).getName().substring(1);
-        final String searchedAllergy = allergyNamesList.get(position).getName();
-
+    public View getView(final int position, View view, final ViewGroup parent) {
         final ViewHolder holder;
         if (view == null){
             holder = new ViewHolder();
+//            inflater = LayoutInflater.from(mContext);
             view = inflater.inflate(R.layout.listview_allergy_search, null);
             //locate the textviews in listview_item.xml
             holder.name = (TextView) view.findViewById(R.id.name);
@@ -80,14 +87,48 @@ public class ListViewAdapter extends ArrayAdapter<Allergy>{
 
         // add to my allergylist
         Button addBtn = (Button) view.findViewById(R.id.add_btn);
+        final View finalView = view;
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
-                builder.setMessage("Adding " + searchedAllergy + "to my allergy list?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builder.setMessage("Adding " + allergyNamesList.get(position).getName() + " to my allergy list?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // add to firebase
+                        boolean duplicate = false;
+                        // no duplicate one -> add to firebase
+                        if(user.allergies != null){
+                            for(Allergy alle: user.allergies){
+                                if(alle.getName().equalsIgnoreCase(allergyNamesList.get(position).getName())){
+                                    AlertDialog.Builder adbuilder = new AlertDialog.Builder(parent.getContext());
+                                    adbuilder.setMessage("Allergy already added")
+                                            .setTitle("Duplicate Allergy");
+
+                                    AlertDialog dialog1 = adbuilder.create();
+                                    dialog1.show();
+                                    duplicate = true;
+                                }
+                            }
+                        }
+                        if (!duplicate){
+                            Allergy newAlle = new Allergy(allergyNamesList.get(position).getName());
+                            if (user.allergies == null){
+                                user.allergies = new ArrayList<>();
+                            }
+                            user.allergies.add(newAlle);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user);
+
+                            Toast.makeText(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", Toast.LENGTH_LONG).show();
+
+//                            SearchView alleSearh = (SearchView) finalView.findViewById(R.id.search);
+//                            alleSearh.setQuery("",false);
+//                            SearchView editsearch = (SearchView) finalView.findViewById(R.id.search);
+//                            finalView.findViewById(R.id.search).setOnQueryTextListener(null);
+//                            ((SearchView) finalView.findViewById(R.id.search)).setQuery(null, true);
+                        }
 
                     }
                 }).setNegativeButton("Cancel", null);
@@ -99,6 +140,8 @@ public class ListViewAdapter extends ArrayAdapter<Allergy>{
         return view;
     }
 
+
+    
     // Filter Class
     public void filter(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
