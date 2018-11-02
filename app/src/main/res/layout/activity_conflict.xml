@@ -8,6 +8,15 @@
     android:background="@drawable/ic_gradient"
     tools:context="com.example.brhee.allergysnap.ConflictActivity">
 
+    <TextView android:id="@+id/emptyElement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/background_light"
+        android:fontFamily="sans-serif-light"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
