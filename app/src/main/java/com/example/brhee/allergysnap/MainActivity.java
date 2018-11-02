@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         barcodeName = (TextView)findViewById(R.id.barcode_name);
         qrResult = (TextView)findViewById(R.id.qr_result);
 
+        barcode_number = "";
+        product_name = "";
+        ingredients = "";
+
         // navigation bar
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -101,15 +105,36 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
-
+                    barcode_number = "";
+                    product_name = "";
+                    ingredients = "";
+                    if (barcodeIngredients != null) {
+                        barcodeIngredients.setText("");
+                    }
+                    if (barcodeName != null) {
+                        barcodeName.setText("");
+                    }
+                    if (barcodeResult != null) {
+                        barcodeResult.setText("");
+                    }
+                    if (qrResult != null) {
+                        qrResult.setText("");
+                    }
                     //If the Barcode is a number
                     if(barcode.valueFormat == 5) {
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=n1fr3ogpc7kikr2wrgsyivbxnj43mh");
+                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=wwq66ngo7q89lo506tz68iqys4dfxo");
                     }
-                    if (barcode.valueFormat == 8) {
+                    else if (barcode.valueFormat == 8) {
                         Bundle bundle = new Bundle();
                         Intent i = new Intent(this, ResultActivity.class);
                         bundle.putString("qr_result", barcode.displayValue);
+                        i.putExtras(bundle);
+                        startActivity(i);
+                    }
+                    else {
+                        Bundle bundle = new Bundle();
+                        Intent i = new Intent(this, ResultActivity.class);
+                        bundle.putString("barcode_number", "No barcode found!");
                         i.putExtras(bundle);
                         startActivity(i);
                     }
@@ -143,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
 
         protected String doInBackground(String... params) {
 
+            barcode_number = "";
+            product_name = "";
+            ingredients = "";
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
@@ -160,6 +188,9 @@ public class MainActivity extends AppCompatActivity {
 
                 ResultActivity.Sample.RootObject value = g.fromJson(data2, ResultActivity.Sample.RootObject.class);
 
+                barcode_number = "";
+                product_name = "";
+                ingredients = "";
                 barcode_number = value.products[0].barcode_number;
 
                 product_name = value.products[0].product_name;

@@ -108,6 +108,10 @@ public class ResultActivity extends AppCompatActivity {
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
         qrResult = (TextView)findViewById(R.id.qr_result);
 
+        barcode_number = "";
+        product_name = "";
+        ingredients = "";
+
         // Checks MainActivity bundle
         Bundle bundle = getIntent().getExtras();
         barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
@@ -155,12 +159,27 @@ public class ResultActivity extends AppCompatActivity {
 
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=n1fr3ogpc7kikr2wrgsyivbxnj43mh");
+                        if (barcodeIngredients != null) {
+                            barcodeIngredients.setText("");
+                        }
+                        if (barcodeName != null) {
+                            barcodeName.setText("");
+                        }
+                        if (barcodeResult != null) {
+                            barcodeResult.setText("");
+                        }
+                        if (qrResult != null) {
+                            qrResult.setText("");
+                        }
+                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=wwq66ngo7q89lo506tz68iqys4dfxo");
                     }
                     // If the scan results in a URL
-                    if (barcode.valueFormat == 8) {
+                    else if (barcode.valueFormat == 8) {
                         qrResult.setText(barcode.displayValue);
                         qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
+                    else {
+                        barcodeResult.setText("No barcode found!");
                     }
                 }
                 else {
@@ -188,6 +207,9 @@ public class ResultActivity extends AppCompatActivity {
 
             HttpURLConnection connection = null;
             BufferedReader reader = null;
+            barcode_number = "";
+            product_name = "";
+            ingredients = "";
 
             try {
                 URL url = new URL(params[0]);
@@ -202,11 +224,13 @@ public class ResultActivity extends AppCompatActivity {
                 Gson g = new Gson();
 
                 Sample.RootObject value = g.fromJson(data2, Sample.RootObject.class);
-
+                barcode_number = "";
                 barcode_number = value.products[0].barcode_number;
 
+                product_name = "";
                 product_name = value.products[0].product_name;
 
+                ingredients = "";
                 ingredients = value.products[0].ingredients;
 
             } catch (MalformedURLException e) {
