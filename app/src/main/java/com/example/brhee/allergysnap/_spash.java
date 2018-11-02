@@ -40,7 +40,7 @@ public class _spash extends AppCompatActivity {
         }, 3000);
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
@@ -54,5 +54,5 @@ public class _spash extends AppCompatActivity {
                 _spash.this.startActivity(mainIntent);
             }
         }, 5000); // 5000 milliseconds
-    }
+    }*/
 }
