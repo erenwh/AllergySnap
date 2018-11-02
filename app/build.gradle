@@ -53,7 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.3'
 
     // Facebook-login
-    implementation 'com.facebook.android:facebook-login:[4,5)'
+    implementation 'com.facebook.android:facebook-login:4.38.1'
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
