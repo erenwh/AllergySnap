@@ -29,10 +29,19 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Camera2 extends AppCompatActivity {
 
@@ -58,11 +67,66 @@ public class Camera2 extends AppCompatActivity {
 
     public void TakePicture(View v) {
         cameraSource.stop();
+        String source = tv.getText().toString();
+        String ret = "";
+        source = source.replaceAll("-", " ");
+        source = source.replaceAll(",", "");
+        source = source.replaceAll("\\.", "");
+        source = source.replaceAll("[(]", "");
+        source = source.replaceAll("[)]", "");
+        source = source.replaceAll("\\[", "");
+        source = source.replaceAll("\\]", "");
+        source = source.replaceAll("\\:", "");
+        source = source.replaceAll("\\s", " ");
+        source = source.replaceAll("INGREDIENTS", "");
+        source = source.replaceAll("Ingredients", "");
+        source = source.replaceAll("ingredients", "");
+//        List<String> list = new ArrayList<>();
+//        StringTokenizer st = new StringTokenizer(source, " ");
+//        String tok;
+//        while (st.hasMoreTokens()) {
+//            tok =  st.nextToken();
+//            if (tok.length() > 1) {
+//                if (!tok.equals("INGREDIENTS") && !tok.equals("ingredients") && !tok.equals("Ingredients")) {
+//                    if (wordcheck(tok)) {
+//                        list.add(tok);
+//                    }
+//                }
+//            }
+//        }
+//        if (!list.isEmpty()) {
+//            for (int x = 0; x < list.size(); x++) {
+//                ret+=list.get(x);
+//                ret+=", ";
+//            }
+//        }
         Bundle bundle = new Bundle();
         Intent i = new Intent(this, ResultActivity.class);
-        bundle.putString("picture_value", tv.getText().toString());
+        bundle.putString("picture_value", source);
         i.putExtras(bundle);
         startActivity(i);
+    }
+
+    public boolean wordcheck(String word) {
+        File external = new File("../words.txt");
+        try {
+            InputStream is = getApplicationContext().getAssets().open("words.txt");
+//            FileInputStream fis = new FileInputStream(external);
+//            DataInputStream din = new DataInputStream(fis);
+            BufferedReader in = new BufferedReader(new InputStreamReader(is));
+            String str;
+            //Log.e("string", "found words.txt");
+            while ((str = in.readLine()) != null) {
+                if (str.indexOf(word) != -1) {
+                    return true;
+                }
+            }
+            in.close();
+        } catch (IOException e) {
+            Log.e("string", "could not find word.txt");
+        }
+
+        return false;
     }
 
     private void startCameraSource() {
@@ -142,7 +206,7 @@ public class Camera2 extends AppCompatActivity {
                             @Override
                             public void run() {
                                 StringBuilder stringBuilder = new StringBuilder();
-                                for(int i=0;i<items.size();i++){
+                                for(int i=0;i<items.size();i++) {
                                     TextBlock item = items.valueAt(i);
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("-");
