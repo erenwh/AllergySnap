@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btn = findViewById(R.id.RedirectToSignInBtn);
         btn.setOnClickListener(this);
 
-        final Button btn2= findViewById(R.id.barcode_scan);
-        btn2.setOnClickListener(this);
-
 //        Button cam2btn = findViewById(R.id.cam2);
 //        cam2btn.setOnClickListener(this);
       
@@ -70,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void scanBarcode(View v) {
-        Log.e("here", "herereer");
         Intent intent = new Intent(MainActivity.this, Camera2.class);
         startActivityForResult(intent, 0);
     }
@@ -81,18 +77,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
-
                     Bundle bundle = new Bundle();
                     Intent i = new Intent(this, ResultActivity.class);
                     bundle.putString("barcode_value", barcode.displayValue);
                     i.putExtras(bundle);
                     startActivity(i);
-
-
-                    //barcodeResult.setText("Barcode value: " + barcode.displayValue);
                 }
                 else {
-                    //barcodeResult.setText("No barcode found!");
                     Bundle bundle = new Bundle();
                     Intent i = new Intent(this, ResultActivity.class);
                     bundle.putString("barcode_value", "No barcode found!");
@@ -181,9 +172,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //login btn
             case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                break;
-            case R.id.barcode_scan:
-                startActivity(new Intent(MainActivity.this, ResultActivity.class));
                 break;
             // profile detail btn
 
