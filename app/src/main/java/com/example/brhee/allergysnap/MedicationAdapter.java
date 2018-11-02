@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,7 +46,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         //get the persons information
-        final String medication = user.medications.get(position).getName().substring(0, 1).toUpperCase() + user.medications.get(position).getName().substring(1);
+        final String medication = user.medications.get(position).getName();
 
         //medication = medication.substring(0, 1).toUpperCase() + medication.substring(1);
 
@@ -68,6 +69,8 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user);
+                        Toast.makeText(parent.getContext(), "Deleted " + medication + " from your medications", Toast.LENGTH_LONG).show();
+
                     }
                 }).setNegativeButton("Cancel", null);
                 AlertDialog alert = builder.create();

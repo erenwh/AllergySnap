@@ -7,6 +7,23 @@
     android:background="@drawable/ic_gradient"
     tools:context="com.example.brhee.allergysnap.MedicationActivity">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="377dp"
@@ -21,6 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+
         <EditText
             android:id="@+id/med_search"
             android:layout_width="match_parent"
@@ -28,9 +47,10 @@
             android:layout_weight="20"
             android:ems="10"
             android:hint="Medication Name"
-            android:inputType="textPersonName"
+            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorText"/>
 
         <Button
             android:id="@+id/search_sub"

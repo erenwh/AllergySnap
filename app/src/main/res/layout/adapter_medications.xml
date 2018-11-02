@@ -12,7 +12,8 @@
         android:layout_height="60dp"
         android:layout_weight="20"
         android:gravity="center"
-        android:text="TextView1" />
+        android:text="TextView1"
+        android:textColor="@color/colorText"/>
 
     <Button
         android:id="@+id/med_delete"
