@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -102,7 +103,9 @@ public class ResultActivity extends AppCompatActivity {
         barcodeResult.setText(bundle.getString("barcode_value"));
 
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
+        barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
         barcodeIngredients.setText(bundle.getString("picture_value"));
+
 
     }
 
