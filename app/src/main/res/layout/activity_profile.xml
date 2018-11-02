@@ -66,6 +66,30 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/inviteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="259dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginBottom="440dp"
+            android:background="?attr/colorPrimaryDark"
+            android:text="Invite a friend!!"
+            android:textColor="@android:color/background_light" />
+
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/snackbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"/>
 
 </RelativeLayout>
