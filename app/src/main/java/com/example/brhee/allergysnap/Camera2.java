@@ -131,7 +131,6 @@ public class Camera2 extends AppCompatActivity {
 
     private void startCameraSource() {
 
-
         // Create the BarcodeDetector
         barcodeDetector = new BarcodeDetector.Builder(this).build();
 
