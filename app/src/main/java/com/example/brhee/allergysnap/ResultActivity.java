@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -23,8 +26,9 @@ import java.net.URL;
 
 public class ResultActivity extends AppCompatActivity {
 
-    public String txtJson = "";
     public String ingredients = "";
+    public String product_name = "";
+    public String barcode_number = "";
 
     public class Sample {
         public class Store {
@@ -89,6 +93,8 @@ public class ResultActivity extends AppCompatActivity {
 
     public TextView barcodeResult;
     public TextView barcodeIngredients;
+    public TextView barcodeName;
+    public TextView qrResult;
 
     public AsyncTask data2;
     @Override
@@ -97,16 +103,44 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         barcodeResult = (TextView)findViewById(R.id.barcode_result);
-
-        Bundle bundle = getIntent().getExtras();
-        barcodeResult.setText(bundle.getString("barcode_value"));
-
+        barcodeName = (TextView)findViewById(R.id.barcode_name);
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
-        barcodeIngredients.setText(bundle.getString("picture_value"));
+        qrResult = (TextView)findViewById(R.id.qr_result);
 
+        // Checks MainActivity bundle
+        Bundle bundle = getIntent().getExtras();
+
+        // Bundle from MainActivity
+        barcodeResult.setText(bundle.getString("barcode_number"));
+        if (bundle.getString("ingredients") != null) {
+            barcodeIngredients.setText(bundle.getString("ingredients"));
+        }
+        barcodeName.setText(bundle.getString("product_name"));
+        if (bundle.getString("qr_result") != null) {
+            qrResult.setText(bundle.getString("qr_result"));
+            qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        //Bundle from Camera2
+        String s = bundle.getString("picture_value");
+        if (s != null) {
+            barcodeIngredients.setText(s);
+        }
     }
 
     public void scanBarcode(View v) {
+        if (barcodeIngredients != null) {
+            barcodeIngredients.setText("");
+        }
+        if (barcodeName != null) {
+            barcodeName.setText("");
+        }
+        if (barcodeResult != null) {
+            barcodeResult.setText("");
+        }
+        if (qrResult != null) {
+            qrResult.setText("");
+        }
         Intent intent = new Intent(this, Camera2.class);
         startActivityForResult(intent, 0);
     }
@@ -118,11 +152,15 @@ public class ResultActivity extends AppCompatActivity {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
 
-                    new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=6jefu0ayi6urzdqq1k4j8bljb6rn7u");
-
-                    barcodeResult.setText(barcode.displayValue);
-                    barcodeIngredients.setText(ingredients);
-
+                    // If the Barcode is a number
+                    if (barcode.valueFormat == 5) {
+                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=n1fr3ogpc7kikr2wrgsyivbxnj43mh");
+                    }
+                    // If the scan results in a URL
+                    if (barcode.valueFormat == 8) {
+                        qrResult.setText(barcode.displayValue);
+                        qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
                 }
                 else {
                     barcodeResult.setText("No barcode found!");
@@ -164,9 +202,9 @@ public class ResultActivity extends AppCompatActivity {
 
                 Sample.RootObject value = g.fromJson(data2, Sample.RootObject.class);
 
-                String barcode2 = value.products[0].barcode_number;
+                barcode_number = value.products[0].barcode_number;
 
-                String name = value.products[0].product_name;
+                product_name = value.products[0].product_name;
 
                 ingredients = value.products[0].ingredients;
 
@@ -195,8 +233,15 @@ public class ResultActivity extends AppCompatActivity {
             if (pd.isShowing()) {
                 pd.dismiss();
             }
-            barcodeIngredients.setText(ingredients.toString());
-            txtJson = result;
+            if (product_name != null) {
+                barcodeName.setText(product_name.toString());
+            }
+            if (ingredients != null) {
+                barcodeIngredients.setText(ingredients.toString());
+            }
+            if (barcode_number != null) {
+                barcodeResult.setText(barcode_number);
+            }
         }
     }
 }
