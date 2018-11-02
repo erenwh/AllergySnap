@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     //If the Barcode is a number
                     if(barcode.valueFormat == 5) {
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=wwq66ngo7q89lo506tz68iqys4dfxo");
+                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
                         Bundle bundle = new Bundle();

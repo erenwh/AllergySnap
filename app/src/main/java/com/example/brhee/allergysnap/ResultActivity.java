@@ -171,7 +171,7 @@ public class ResultActivity extends AppCompatActivity {
                         if (qrResult != null) {
                             qrResult.setText("");
                         }
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=wwq66ngo7q89lo506tz68iqys4dfxo");
+                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     // If the scan results in a URL
                     else if (barcode.valueFormat == 8) {
