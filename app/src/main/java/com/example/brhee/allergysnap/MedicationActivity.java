@@ -1,5 +1,6 @@
 package com.example.brhee.allergysnap;
 
+import android.content.Context;
 import android.nfc.Tag;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.common.StringUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,13 +54,14 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
     private User userObj;
     private String userID;
     private ListView userMeds;
-    private ArrayList<String> medications;
+    private ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication);
-
+        progressbar = findViewById(R.id.progressBar);
+        progressbar.setVisibility(View.VISIBLE);
         medSearch = findViewById(R.id.med_search);
         userMeds = findViewById(R.id.user_meds);
         mAuth = FirebaseAuth.getInstance();
@@ -75,6 +81,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                             MedicationAdapter adapter = new MedicationAdapter(MedicationActivity.this, R.layout.adapter_medications, userObj.medications, userObj);
                             userMeds.setAdapter(adapter);
                         }
+                        progressbar.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -110,90 +117,111 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void search(String med) {
-        final String medicine = med;
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                // Do network action in this function
-                try {
-                    String urlLink = "https://rxnav.nlm.nih.gov/REST/rxcui?name=" + medicine;
-                    URL url = new URL(urlLink);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    int responseCode = con.getResponseCode();
-                    System.out.println("Response Code : " + responseCode);
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-                    Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                            .parse(new InputSource(new StringReader(response.toString())));
-                    NodeList errNodes = doc.getElementsByTagName("idGroup");
-                    Element err = (Element)errNodes.item(0);
-                    if (err.getElementsByTagName("rxnormId").getLength() > 0) {
-                        boolean duplicate = false;
-                        // success
-                        if (userObj.medications != null) {
-                            for (Medication med : userObj.medications) {
-                                if (med.name.equalsIgnoreCase(err.getElementsByTagName("name").item(0).getTextContent())) {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(MedicationActivity.this);
-                                            builder.setMessage("Medication already added")
-                                                    .setTitle("Duplicate Medication");
+        if (med.trim().length() > 0) {
+            final String medicine = med;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // Do network action in this function
+                    try {
+                        String urlLink = "https://rxnav.nlm.nih.gov/REST/rxcui?name=" + medicine;
+                        URL url = new URL(urlLink);
+                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                        int responseCode = con.getResponseCode();
+                        System.out.println("Response Code : " + responseCode);
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(con.getInputStream()));
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+                        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                                .parse(new InputSource(new StringReader(response.toString())));
+                        NodeList errNodes = doc.getElementsByTagName("idGroup");
+                        Element err = (Element) errNodes.item(0);
+                        if (err.getElementsByTagName("rxnormId").getLength() > 0) {
+                            boolean duplicate = false;
+                            // success
+                            if (userObj.medications != null) {
+                                for (Medication med : userObj.medications) {
+                                    if (med.name.equalsIgnoreCase(err.getElementsByTagName("name").item(0).getTextContent())) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(MedicationActivity.this);
+                                                builder.setMessage("Medication already added")
+                                                        .setTitle("Duplicate Medication");
 
-                                            AlertDialog dialog = builder.create();
-                                            dialog.show();
-                                        }
-                                    });
-                                    duplicate = true;
+                                                AlertDialog dialog = builder.create();
+                                                dialog.show();
+                                            }
+                                        });
+                                        duplicate = true;
+                                    }
                                 }
                             }
-                        }
-                        if (!duplicate) {
-                            Medication newMed = new Medication(err.getElementsByTagName("name").item(0).getTextContent(), Integer.parseInt(err.getElementsByTagName("rxnormId").item(0).getTextContent()));
-                            if (userObj.medications == null) {
-                                userObj.medications = new ArrayList<>();
-                            }
-                            userObj.medications.add(newMed);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(userObj);
+                            if (!duplicate) {
+                                char[] chars = err.getElementsByTagName("name").item(0).getTextContent().toLowerCase().toCharArray();
+                                boolean found = false;
+                                for (int i = 0; i < chars.length; i++) {
+                                    if (!found && Character.isLetter(chars[i])) {
+                                        chars[i] = Character.toUpperCase(chars[i]);
+                                        found = true;
+                                    } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                                        found = false;
+                                    }
+                                }
+                                final String medFilter = String.valueOf(chars);
+                                Medication newMed = new Medication(medFilter, Integer.parseInt(err.getElementsByTagName("rxnormId").item(0).getTextContent()));
+                                if (userObj.medications == null) {
+                                    userObj.medications = new ArrayList<>();
+                                }
+                                userObj.medications.add(newMed);
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(userObj);
 
-                        }
-                    } else {
-                        // error
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MedicationActivity.this);
-                                builder.setMessage("Medication not found")
-                                        .setTitle("Invalid search");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
+                                        medSearch.setText("");
+                                    }
+                                });
 
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+
                             }
-                        });
+                        } else {
+                            // error
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MedicationActivity.this);
+                                    builder.setMessage("Medication not found")
+                                            .setTitle("Invalid search");
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        //Log.d(TAG, e.getMessage());
+                        System.out.println(e.getMessage());
                     }
-                } catch (Exception e) {
-                    //Log.d(TAG, e.getMessage());
-                    System.out.println(e.getMessage());
                 }
-            }
-        }).start();
+            }).start();
 
-
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_sub:
-                if (medSearch.getText().toString().trim().length() > 3) {
+                if (medSearch.getText().toString().trim().length() > 0) {
                     search(medSearch.getText().toString().trim());
                 }
                 break;
