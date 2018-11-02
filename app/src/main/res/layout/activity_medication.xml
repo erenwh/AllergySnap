@@ -4,28 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_gradient"
     tools:context="com.example.brhee.allergysnap.MedicationActivity">
 
     <LinearLayout
         android:id="@+id/search_layout"
-        android:layout_width="391dp"
-        android:layout_height="62dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_width="377dp"
+        android:layout_height="47dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="8dp"
+        app:layout_goneMarginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/med_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:ems="10"
             android:layout_weight="20"
+            android:ems="10"
             android:hint="Medication Name"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,15 +36,14 @@
             android:id="@+id/search_sub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="80"
-            android:text="+"
             android:background="@color/colorPlus"
-            android:textSize="25dp"
+            android:text="+"
+            android:textAlignment="center"
+            android:textSize="20dp"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/med_search"
             app:layout_constraintTop_toTopOf="parent" />
 
