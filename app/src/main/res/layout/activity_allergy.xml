@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22dp"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:text="Search Allergy" />
@@ -84,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
+            android:layout_centerHorizontal="true"
             android:paddingBottom="5dp"
             android:textSize="22dp"
             android:textColor="@color/colorPrimary"
