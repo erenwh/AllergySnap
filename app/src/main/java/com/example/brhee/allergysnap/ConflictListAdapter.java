@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,10 +45,13 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         TextView conflictDrugsView = convertView.findViewById(R.id.drugPair);
         TextView descriptionView = convertView.findViewById(R.id.interactionDescription);
         TextView severityView = convertView.findViewById(R.id.severity);
+        ImageView myImageView = convertView.findViewById(R.id.conflictImg);
 
-        conflictDrugsView.setText(conflictDrugs.toString());
-        descriptionView.setText(description);
-        severityView.setText(severity);
+        conflictDrugsView.setText("Drugs: " + conflictDrugs.toString());
+        descriptionView.setText("Conflict Description: " + description);
+        severityView.setText("Severity: " + severity);
+        myImageView.setImageResource(R.drawable.red_error);
+
 
         return convertView;
     }

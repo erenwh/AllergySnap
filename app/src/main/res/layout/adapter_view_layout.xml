@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="100"
+    android:background="@drawable/ic_gradient"
     >
 
     <ImageView
@@ -13,7 +14,7 @@
         android:layout_height="120dp"
         android:layout_weight="80"
         android:gravity="center"
-        tools:srcCompat="@android:drawable/ic_delete" />
+        tools:srcCompat="@drawable/red_error" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,26 +25,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:gravity="center"
+            android:layout_gravity="start"
             android:textAlignment="center"
             android:text="TextView1"
             android:id="@+id/drugPair"
+            android:textColor="@android:color/background_light"
+            android:fontFamily="sans-serif-light"
+            android:textSize="15sp"
+            android:textStyle="bold"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center"
+            android:gravity="start"
             android:textAlignment="center"
             android:text="TextView2"
             android:id="@+id/interactionDescription"
+            android:textColor="@android:color/background_light"
+            android:fontFamily="sans-serif-light"
+            android:textSize="15sp"
+            android:textStyle="bold"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:gravity="center"
+            android:gravity="start"
             android:textAlignment="center"
             android:text="TextView3"
             android:id="@+id/severity"
+            android:textColor="@android:color/background_light"
+            android:fontFamily="sans-serif-light"
+            android:textSize="15sp"
+            android:textStyle="bold"
             />
 
     </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.brhee.allergysnap;
 
+import android.media.Image;
+
 import java.util.ArrayList;
 
 public class MedicationConflict {
@@ -8,7 +10,6 @@ public class MedicationConflict {
     public String severity;
 
     public MedicationConflict(ArrayList<String> conflictDrugs, String description, String severity) {
-
         this.conflictDrugs = conflictDrugs;
         this.description = description;
         this.severity = severity;
