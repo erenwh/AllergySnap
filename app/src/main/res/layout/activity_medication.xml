@@ -7,26 +7,6 @@
     android:background="@drawable/ic_gradient"
     tools:context="com.example.brhee.allergysnap.MedicationActivity">
 
-    <TextView
-        android:id="@+id/medication_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:text="My Medications"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/list_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -48,19 +28,16 @@
         android:id="@+id/search_layout"
         android:layout_width="377dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        app:layout_goneMarginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:weightSum="100"
-        app:layout_constraintBottom_toBottomOf="@+id/list_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004"
-        app:layout_goneMarginEnd="8dp">
+        app:layout_constraintTop_toTopOf="parent">
+
 
 
         <EditText
@@ -71,9 +48,9 @@
             android:ems="10"
             android:hint="Medication Name"
             android:inputType="text"
-            android:textColor="@color/colorText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorText"/>
 
         <Button
             android:id="@+id/search_sub"
@@ -95,21 +72,21 @@
     <LinearLayout
         android:id="@+id/list_layout"
         android:layout_width="match_parent"
-        android:layout_height="465dp"
+        android:layout_height="509dp"
         android:layout_below="@id/search_layout"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="55dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
         android:paddingTop="10dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <ListView
             android:id="@+id/user_meds"
