@@ -23,6 +23,22 @@
           }
         },
         {
+          "client_id": "685757815116-d7cqr3rakgeb9mjlmotb7mfrg1gp1cg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brhee.allergysnap",
+            "certificate_hash": "65e242d7475351b271c79c399198421d1e546110"
+          }
+        },
+        {
+          "client_id": "685757815116-l9368vmm1jtlujgh5aqatmjf8o7m9no5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brhee.allergysnap",
+            "certificate_hash": "e5d0ae716e91f2ddb57052b0f9f1ed36f4867870"
+          }
+        },
+        {
           "client_id": "685757815116-7tpr4tsqvvb94hq1tdj2m6j8ive7aedp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -59,11 +75,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "685757815116-h46s6qneii5dn7vm7st7s6gbm6p5p4fr.apps.googleusercontent.com",
+          "client_id": "685757815116-tsshki9jlckjn1o6jh21k3hhm4idj8at.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "purdue.cs.allergysnap",
-            "certificate_hash": "40451adf562dfdebc62aabeeeae722e1d5b729e2"
+            "certificate_hash": "65e242d7475351b271c79c399198421d1e546110"
           }
         },
         {
@@ -72,6 +88,22 @@
           "android_info": {
             "package_name": "purdue.cs.allergysnap",
             "certificate_hash": "bf78873277977bff678f3a3774b41c664071e01a"
+          }
+        },
+        {
+          "client_id": "685757815116-h46s6qneii5dn7vm7st7s6gbm6p5p4fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "purdue.cs.allergysnap",
+            "certificate_hash": "40451adf562dfdebc62aabeeeae722e1d5b729e2"
+          }
+        },
+        {
+          "client_id": "685757815116-jq537hobipviibla9ns3mqldmvbikce6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "purdue.cs.allergysnap",
+            "certificate_hash": "e5d0ae716e91f2ddb57052b0f9f1ed36f4867870"
           }
         },
         {

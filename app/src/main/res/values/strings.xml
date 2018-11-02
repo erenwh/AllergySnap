@@ -45,4 +45,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Firebase Invite -->
+    <string name="invitation_title">Try AllergySnap</string>
+    <string name="invitation_message">Try this App</string>
+    <string name="invitation_deep_link">https://allergysnap.page.link/wMv3</string>
+    <string name="invitation_deep_link_kotlin">https://allergysnap.page.link/wMv3</string>
+    <string name="invitation_custom_image">https://developers.google.com/identity/images/g-logo.png</string>
+    <string name="invitation_cta">Install!</string>
+    <string name="send_failed">Sending invitations failed</string>
+    <string name="invite_dialog_title">You got an invitation!</string>
+
+    <string name="google_play_services_error">Google Play Services Error</string>
+
+
+    <string name="deep_link_default">Deep link not set</string>
+    <string name="deep_link_fmt" formatted="false">Deep Link: %s</string>
+
 </resources>
