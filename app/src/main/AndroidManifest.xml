@@ -64,6 +64,7 @@
             </intent-filter>
             -->
         </activity>
+
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".ProfileDetailActivity" />
@@ -75,8 +76,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Camera2" />
         <activity android:name=".MedicationActivity" />
-        <activity android:name=".AllergyActivity" />
-        <activity android:name=".ConflictActivity" />
+
+
+
+        <activity android:name=".AllergyActivity"
+            android:label="allergyPage"
+            android:parentActivityName=".MainActivity"/>
+
+
+
+        <activity android:name=".ConflictActivity"></activity>
 
         <!-- Barcode/OCR -->
         <meta-data
