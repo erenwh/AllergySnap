@@ -58,6 +58,11 @@ public class Camera2 extends AppCompatActivity {
 
     public void TakePicture(View v) {
         cameraSource.stop();
+        Bundle bundle = new Bundle();
+        Intent i = new Intent(this, ResultActivity.class);
+        bundle.putString("picture_value", tv.getText().toString());
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     private void startCameraSource() {

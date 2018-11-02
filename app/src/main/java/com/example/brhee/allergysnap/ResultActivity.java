@@ -102,6 +102,7 @@ public class ResultActivity extends AppCompatActivity {
         barcodeResult.setText(bundle.getString("barcode_value"));
 
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
+        barcodeIngredients.setText(bundle.getString("picture_value"));
 
     }
 
