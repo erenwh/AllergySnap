@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.brhee.allergysnap">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -78,9 +78,15 @@
         <activity android:name=".AllergyActivity" />
         <activity android:name=".ConflictActivity" />
 
+        <!-- Barcode/OCR -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr" />
+            android:value="barcode, ocr" />
+
+        <activity android:name=".ResultActivity"></activity>
 
         <activity android:name="._spash">
             <intent-filter>
