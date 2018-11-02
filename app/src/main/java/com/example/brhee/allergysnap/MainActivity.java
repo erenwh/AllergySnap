@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signinNavBtn
         //InitFirebaseAuth();
-        final Button btn = findViewById(R.id.RedirectToSignInBtn);
-        btn.setOnClickListener(this);
+        //final Button btn = findViewById(R.id.RedirectToSignInBtn);
+        //btn.setOnClickListener(this);
 
 //        Button cam2btn = findViewById(R.id.cam2);
 //        cam2btn.setOnClickListener(this);
@@ -213,68 +213,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            System.out.println("USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.GONE);
-        } else {
-            // No user is signed in
-            System.out.println("NO USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            System.out.println("USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.GONE);
-        } else {
-            // No user is signed in
-            System.out.println("NO USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Button btn = findViewById(R.id.RedirectToSignInBtn);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            System.out.println("USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.GONE);
-        } else {
-            // No user is signed in
-            System.out.println("NO USER LOGGED IN");
-            System.out.println(user);
-            btn.setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             //login btn
-            case R.id.RedirectToSignInBtn:
+            /*case R.id.RedirectToSignInBtn:
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                break;
-
+                break;*/
             // profile detail btn
 
 //            case R.id.cam2:
