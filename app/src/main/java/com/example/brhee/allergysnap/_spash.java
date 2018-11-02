@@ -38,7 +38,21 @@ public class _spash extends AppCompatActivity {
                 }
             }
         }, 3000);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // finish the splash activity so it can't be returned to
+                _spash.this.finish();
+                // create an Intent that will start the second activity
+                Intent mainIntent = new Intent(_spash.this, MainActivity.class);
+                _spash.this.startActivity(mainIntent);
+            }
+        }, 5000); // 5000 milliseconds
     }
 }
