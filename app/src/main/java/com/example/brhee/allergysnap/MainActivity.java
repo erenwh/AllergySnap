@@ -33,7 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
 
@@ -43,18 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Static vars
     public static final String ANONYMOUS = "anonymous";
-
-    // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-
-    private String mUsername;
-    private String mPhotoUrl;
-
-    private GoogleApiClient mGoogleApiClient;
-
-    private FirebaseAuth firebaseAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
 
     TextView barcodeResult;
     TextView barcodeIngredients;
@@ -78,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signinNavBtn
         //InitFirebaseAuth();
-        //final Button btn = findViewById(R.id.RedirectToSignInBtn);
-        //btn.setOnClickListener(this);
+        /*final Button btn = findViewById(R.id.RedirectToSignInBtn);
+        btn.setOnClickListener(this);*/
 
 //        Button cam2btn = findViewById(R.id.cam2);
 //        cam2btn.setOnClickListener(this);
@@ -212,64 +200,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
         }
     }
-
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            //login btn
-            /*case R.id.RedirectToSignInBtn:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                break;*/
-            // profile detail btn
-
-//            case R.id.cam2:
-//                startActivity(new Intent(MainActivity.this,  Camera2.class));
-
-//            // profile detail btn
-//            case R.id.TempRedirctToPDA:
-//                startActivity(new Intent(MainActivity.this, ProfileDetailActivity.class));
-//                break;
-//            // signOut btn
-//            case R.id.SignOutBtn:
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                break;
-        }
-    }
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.SighOut:
-                mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                mUsername = ANONYMOUS;
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
-
-    /*
-    private void InitFirebaseAuth() {
-        // Initialize Firebase Auth
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        } else {
-            mUsername = mFirebaseUser.getDisplayName();
-            if (mFirebaseUser.getPhotoUrl() != null) {
-                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-            }
-        }
-    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

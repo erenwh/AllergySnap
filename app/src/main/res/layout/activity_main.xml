@@ -13,7 +13,6 @@
     <!--bottom navigation bar-->
     <FrameLayout
         android:id="@+id/frame_container"
-        android:background="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:background="@drawable/ic_gradient"
 
@@ -77,76 +76,5 @@
         app:layout_constraintTop_toTopOf="@+id/frame_container"
         app:layout_constraintVertical_bias="0.714"
         app:srcCompat="@drawable/ic_cam_color" />
-
-
-    <Button
-        android:id="@+id/RedirectToSignInBtn"
-        android:layout_width="wrap_content"
-        android:background="@color/colorProfile"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-
-        android:text="SIGNIN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
-    <!--<Button-->
-    <!--android:id="@+id/SignOutBtn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:text="SIGNOUT"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.932"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintVertical_bias="0.015" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/TempRedirctToPDA"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:text="Button"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.103"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintVertical_bias="0.015" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/cam2"-->
-    <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:text="@string/cam2"-->
-    <!--app:layout_constraintBottom_toBottomOf="@+id/navigation"-->
-    <!--app:layout_constraintEnd_toEndOf="@+id/frame_container"-->
-    <!--app:layout_constraintHorizontal_bias="0.067"-->
-    <!--app:layout_constraintStart_toStartOf="@+id/frame_container"-->
-    <!--app:layout_constraintTop_toTopOf="@+id/frame_container"-->
-    <!--app:layout_constraintVertical_bias="0.876" />-->
 
 </android.support.constraint.ConstraintLayout>
