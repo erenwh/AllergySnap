@@ -13,7 +13,7 @@
         android:layout_weight="20"
         android:gravity="center"
         android:text="TextView1"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="@color/colorText"/>
 
     <Button
