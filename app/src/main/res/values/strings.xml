@@ -30,6 +30,7 @@
     <string name="registration_success">Registered Successfully</string>
     <string name="registration_failure">Failed to register</string>
     <string name="input_error_email_invalid">enter a valid email</string>
+    <string name="agree_to_tos">Terms and Conditions must be agreed to</string>
     <string name="button_camera">Camera</string>
 
     <string name="title_activity_camera">camera</string>

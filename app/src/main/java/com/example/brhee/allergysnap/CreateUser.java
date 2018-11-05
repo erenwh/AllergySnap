@@ -2,11 +2,13 @@ package com.example.brhee.allergysnap;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
 
     private EditText editEmail, editUsername, editPassword, editPasswordConfirm;
+    private CheckBox tos;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     boolean emailInUse = false;;
@@ -44,6 +47,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         editUsername = findViewById(R.id.edit_username);
         editPassword = findViewById(R.id.edit_password);
         editPasswordConfirm = findViewById(R.id.edit_password_confirm);
+        tos = findViewById(R.id.tos_cb);
 
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
@@ -160,6 +164,17 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         if (!password.equals(passwordConfirm)) {
             editPasswordConfirm.setError(getString(R.string.input_error_match_password));
             editPasswordConfirm.requestFocus();
+            return;
+        }
+
+        if (!tos.isChecked()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.agree_to_tos)
+                    .setTitle("Complete User Registration");
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            tos.requestFocus();
             return;
         }
 
