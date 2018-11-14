@@ -224,7 +224,9 @@ public class ConflictActivity extends AppCompatActivity {
                                         JSONObject currDrug = interactionConcept.getJSONObject(l);
                                         JSONObject sourceConceptItem = currDrug.getJSONObject("sourceConceptItem");
                                         String drugName = sourceConceptItem.getString("name");
-                                        drugs.add(drugName);
+                                        if (!drugs.contains(drugName)) {
+                                            drugs.add(drugName);
+                                        }
                                         System.out.println(drugName);
                                     }
                                     MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
