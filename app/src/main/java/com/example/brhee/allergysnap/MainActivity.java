@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gigamole.library.PulseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        final PulseView pulseView = (PulseView) findViewById(R.id.pv);
+        pulseView.startPulse();
 
         // signinNavBtn
         //InitFirebaseAuth();
