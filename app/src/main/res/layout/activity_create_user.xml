@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/create_user_allergy_snap_logo"
-            android:layout_width="220dp"
-            android:layout_height="155dp"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/logo_trans" />
+            app:srcCompat="@drawable/allergysnap_logo" />
 
         <TextView
 
@@ -154,12 +154,12 @@
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorProfile"
+            android:background="@drawable/roundedbutton"
             android:fontFamily="sans-serif-light"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             android:text="Sign Up" />
