@@ -21,13 +21,12 @@
 
     <ImageView
         android:id="@+id/capture"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
         android:onClick="TakePicture"
-
-        app:srcCompat="@drawable/cambut" />
+        app:srcCompat="@drawable/color_button" />
 
 </RelativeLayout>

@@ -17,18 +17,18 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_picture"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_profile_default" />
 
     <Button
-        android:id="@+id/change_photo"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/change_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
         android:layout_below="@id/profile_picture"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-light"
@@ -56,6 +56,8 @@
             android:hint="First Name"
             android:fontFamily="sans-serif-light"
             android:textColorHint="@color/colorText"
+            android:gravity="center"
+            android:textColor="@color/colorText"
             android:inputType="textPersonName"
             android:backgroundTint="@color/colorText"
             android:layout_weight="1"
@@ -66,7 +68,9 @@
             android:id="@+id/last_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="1"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Last Name"
@@ -88,7 +92,9 @@
             android:id="@+id/email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
             android:layout_weight="1"
+            android:gravity="center"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Email"
@@ -112,6 +118,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Username"
@@ -141,10 +149,25 @@
             android:id="@+id/password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="1"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/colorText" />
+
+        <EditText
+            android:id="@+id/password_conf_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorText"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorText"
+            android:hint="Confirm Password"
             android:inputType="textPassword"
             android:textColorHint="@color/colorText" />
 
@@ -166,16 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/password_conf_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorText"
-            android:fontFamily="sans-serif-light"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:textColorHint="@color/colorText" />
+
 
         <!--<ImageView-->
         <!--android:src="@drawable/ic_profile_detail_email"-->
@@ -200,7 +214,9 @@
             android:id="@+id/dob_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="1"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:hint="Date of Birth (dd-mm-yyyy)"
@@ -209,16 +225,16 @@
             />
     </LinearLayout>
 
-
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginLeft="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dob_layout"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/deactivate_button"
-        android:background="@color/colorProfile"
+        android:background="@drawable/roundedbutton"
+        android:paddingRight="100dp"
+        android:paddingLeft="100dp"
         android:fontFamily="sans-serif-light"
         android:text="Submit"
         android:textColor="@android:color/background_light"
@@ -227,18 +243,14 @@
 
     <Button
         android:id="@+id/deactivate_button"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:background="@color/colorAlert"
-        android:fontFamily="sans-serif-light"
-        android:text="Deactivate"
-        android:textColor="@android:color/background_light"
-        android:layout_marginRight="45dp"
-        android:layout_marginLeft="45dp"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="20dp"
+        android:layout_below="@id/submit_button"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/colorText"
+        android:text="Want to Deactivate Your Account? Click Here" />
+
 </RelativeLayout>

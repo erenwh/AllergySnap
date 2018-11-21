@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffffff</color>
     <color name="colorProfile">#FFB75E</color>
     <color name="colorProfileDark">#ED7003</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorAlert">#ff1100</color>
     <color name="colorPlus">#3ec74e</color>
+    <color name="colorHint">#808080</color>
 </resources>

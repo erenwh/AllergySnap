@@ -95,7 +95,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         progressBar = findViewById(R.id.progressBar);
         profilePicture = findViewById(R.id.profile_picture);
 
-
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("Users");
@@ -477,7 +476,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
     private void deactivate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDetailActivity.this);
-        builder.setMessage("Are you sure you want to DEACTIVATE your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage("Are you sure you want to deactivate your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -507,6 +506,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         }).setNegativeButton("Cancel", null);
         AlertDialog alert = builder.create();
         alert.show();
+        alert.getButton(alert.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAlert));
+        alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAlert));
     }
 
     private void changePhoto() {
