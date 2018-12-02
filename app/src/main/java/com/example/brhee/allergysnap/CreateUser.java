@@ -5,12 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +38,8 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
 
     private EditText editEmail, editUsername, editPassword, editPasswordConfirm;
-    private CheckBox tos;
+    private TextView tac_info;
+    private CheckBox tac;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     boolean emailInUse = false;;
@@ -47,7 +55,22 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         editUsername = findViewById(R.id.edit_username);
         editPassword = findViewById(R.id.edit_password);
         editPasswordConfirm = findViewById(R.id.edit_password_confirm);
-        tos = findViewById(R.id.tos_cb);
+        tac = findViewById(R.id.tac_cb);
+        tac_info = findViewById(R.id.tac_info);
+        String content = "I have read and agree to the " +
+                "<a href='com.example.brhee.allergysnap.TermsAndConditionsActivity://Kode'>Terms and Conditions</a>";
+        Spannable s = (Spannable) Html.fromHtml(content);
+        for (URLSpan u: s.getSpans(0, s.length(), URLSpan.class)) {
+            s.setSpan(new UnderlineSpan() {
+                public void updateDrawState(TextPaint tp) {
+                    tp.setUnderlineText(false);
+                }
+            }, s.getSpanStart(u), s.getSpanEnd(u), 0);
+        }
+        tac_info.setText(s);
+        tac_info.setClickable(true);
+        tac_info.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
@@ -66,7 +89,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             //handle the already login user
         }
     }
-
+/*
     //Set UserDisplay Name
     private void updateUsername()
     {
@@ -97,6 +120,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     private void setUsernameValidity(boolean username) {
         usernameInUse = username;
     }
+*/
 
     //Verify inputs and create user
     private void registerUser() {
@@ -167,14 +191,14 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
-        if (!tos.isChecked()) {
+        if (!tac.isChecked()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.agree_to_tos)
+            builder.setMessage(R.string.agree_to_tac)
                     .setTitle("Complete User Registration");
 
             AlertDialog dialog = builder.create();
             dialog.show();
-            tos.requestFocus();
+            tac.requestFocus();
             return;
         }
 

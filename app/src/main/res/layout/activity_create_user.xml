@@ -10,10 +10,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="543dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
@@ -156,26 +155,30 @@
             android:id="@+id/tos_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_password_confirm"
+            android:layout_below="@id/create_user_password_confirm_layout"
             android:orientation="horizontal"
             android:weightSum="1">
 
             <CheckBox
-                android:id="@+id/tos_cb"
+                android:id="@+id/tac_cb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:linksClickable="false"
-                android:text="I accept the Terms of Service"
-                android:textColor="@color/colorText"
-                />
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tac_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:clickable="true"
+                android:textColor="@color/colorText"/>
+
         </LinearLayout>
 
         <Button
             android:id="@+id/register_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="141dp"
+            android:layout_height="32dp"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
             android:layout_marginTop="40dp"
@@ -185,7 +188,6 @@
             android:textColor="@color/colorText"
             android:textSize="18sp"
             android:textStyle="bold" />
-
 
 
     </LinearLayout>
