@@ -78,7 +78,6 @@
         <activity android:name=".MedicationActivity" />
 
 
-
         <activity android:name=".AllergyActivity"
             android:label="allergyPage"
             android:parentActivityName=".MainActivity"/>
