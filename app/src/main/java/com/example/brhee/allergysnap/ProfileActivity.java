@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
 
     private Button signout_button;
-    private TextView extra, username;
+    private TextView extra, username, ingredients, barcodes, qrcodes;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -74,6 +74,9 @@ public class ProfileActivity extends AppCompatActivity implements
 
         username = (TextView) findViewById(R.id.username);
         extra = (TextView) findViewById(R.id.extra);
+        ingredients = findViewById(R.id.ingredient_scans);
+        barcodes = findViewById(R.id.barcode_scans);
+        qrcodes = findViewById(R.id.qr_scans);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
 
         if (user != null) {
@@ -295,6 +298,9 @@ public class ProfileActivity extends AppCompatActivity implements
 //        }
 
         if (userObj != null) {
+            ingredients.setText(userObj.scans.get(0).toString());
+            barcodes.setText(userObj.scans.get(1).toString());
+            qrcodes.setText(userObj.scans.get(2).toString());
             if (userObj.hasPFP && userObj.uri != null) {
                 Picasso.get().load(userObj.uri).into(userProfileImage);
             }
