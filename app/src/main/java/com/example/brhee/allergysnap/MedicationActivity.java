@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.common.StringUtils;
+import com.medialablk.easytoast.EasyToast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -205,7 +206,8 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
+                                        EasyToast.custom(MedicationActivity.this, "Added " + medFilter + " successfully!", R.drawable.ic_medications_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                                         medSearch.setText("");
                                     }
                                 });
