@@ -12,6 +12,11 @@
         android:title="@string/title_medications" />
 
     <item
+        android:id="@+id/navigation_main"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/title_main" />
+
+    <item
         android:id="@+id/navigation_allergies"
         android:icon="@drawable/ic_allergies_24dp"
         android:title="@string/title_allergies" />

@@ -11,72 +11,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/ic_profile_default" />
+        <!--bottom navigation bar-->
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:background="@drawable/ic_gradient"
+            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_picture"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Username"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
-                android:textSize="30sp" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:itemBackground="@color/colorProfile"
+            app:itemIconTint="@color/colorProfileDark"
+            app:itemTextColor="@color/colorText"
+            android:background="@drawable/ic_gradient"
+            app:menu="@menu/navigation"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/extra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/username"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Name/Email"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
-                android:textSize="25sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_profile_default" />
 
-            <Button
-                android:id="@+id/profile_signout_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/roundedbutton"
-                android:fontFamily="sans-serif-light"
-                android:text="Logout"
-                android:textColor="@android:color/background_light"
-                android:layout_marginRight="100dp"
-                android:layout_marginLeft="100dp"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_picture"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Username"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/inviteButton"
-                android:layout_below="@+id/extra"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/roundedbutton"
-                android:text="Invite a friend!!"
-                android:textColor="@android:color/background_light" />
+        <TextView
+            android:id="@+id/extra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Name/Email"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/profile_signout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/roundedbutton"
+            android:fontFamily="sans-serif-light"
+            android:text="Logout"
+            android:textColor="@android:color/background_light"
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/inviteButton"
+            android:layout_below="@+id/extra"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/roundedbutton"
+            android:text="Invite a friend!!"
+            android:textColor="@android:color/background_light" />
 
     </RelativeLayout>
 

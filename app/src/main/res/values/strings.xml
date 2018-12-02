@@ -37,6 +37,7 @@
     <string name="title_medications">Medications</string>
     <string name="title_allergies">Allergies</string>
     <string name="title_conflicts">Conflicts</string>
+    <string name="title_main">Home</string>
 
     <!-- Facebook login -->
     <string name="facebook_app_id">572379986552873</string>

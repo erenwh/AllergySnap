@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -62,6 +66,8 @@ public class ProfileActivity extends AppCompatActivity implements
     private static final String TAG = ProfileActivity.class.getSimpleName();
     private static final int REQUEST_INVITE = 0;
 
+    private ActionBar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +81,12 @@ public class ProfileActivity extends AppCompatActivity implements
         username = (TextView) findViewById(R.id.username);
         extra = (TextView) findViewById(R.id.extra);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
+
+        // navigation bar
+        toolbar = getSupportActionBar();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_profile);
 
         if (user != null) {
             userID = user.getUid();
@@ -336,5 +348,32 @@ public class ProfileActivity extends AppCompatActivity implements
                 break;
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_medications:
+                    startActivity(new Intent(ProfileActivity.this, MedicationActivity.class));
+                    return true;
+                case R.id.navigation_allergies:
+                    startActivity(new Intent(ProfileActivity.this, AllergyActivity.class));
+                    return true;
+                case R.id.navigation_main:
+                    startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                    return true;
+                case R.id.navigation_conflicts:
+                    startActivity(new Intent(ProfileActivity.this, ConflictActivity.class));
+                    return true;
+                case R.id.navigation_profile:
+                    //startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
 
 }

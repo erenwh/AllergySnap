@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_main);
 
         final PulseView pulseView = (PulseView) findViewById(R.id.pv);
         pulseView.startPulse();
@@ -248,6 +249,9 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_allergies:
                     startActivity(new Intent(MainActivity.this, AllergyActivity.class));
+                    return true;
+                case R.id.navigation_main:
+                    //startActivity(new Intent(MainActivity.this, MainActivity.class));
                     return true;
                 case R.id.navigation_conflicts:
                     startActivity(new Intent(MainActivity.this, ConflictActivity.class));
