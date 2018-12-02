@@ -81,25 +81,23 @@ public class Camera2 extends AppCompatActivity {
         source = source.replaceAll("INGREDIENTS", "");
         source = source.replaceAll("Ingredients", "");
         source = source.replaceAll("ingredients", "");
-//        List<String> list = new ArrayList<>();
-//        StringTokenizer st = new StringTokenizer(source, " ");
-//        String tok;
-//        while (st.hasMoreTokens()) {
-//            tok =  st.nextToken();
-//            if (tok.length() > 1) {
-//                if (!tok.equals("INGREDIENTS") && !tok.equals("ingredients") && !tok.equals("Ingredients")) {
-//                    if (wordcheck(tok)) {
-//                        list.add(tok);
-//                    }
-//                }
-//            }
-//        }
-//        if (!list.isEmpty()) {
-//            for (int x = 0; x < list.size(); x++) {
-//                ret+=list.get(x);
-//                ret+=", ";
-//            }
-//        }
+        List<String> list = new ArrayList<>();
+        StringTokenizer st = new StringTokenizer(source, " ");
+        String tok;
+        while (st.hasMoreTokens()) {
+            tok =  st.nextToken();
+            if (tok.length() > 1) {
+                if (wordcheck(tok)) {
+                    list.add(tok);
+                }
+            }
+        }
+        if (!list.isEmpty()) {
+            for (int x = 0; x < list.size(); x++) {
+                ret+=list.get(x);
+                ret+=", ";
+            }
+        }
         Bundle bundle = new Bundle();
         Intent i = new Intent(this, ResultActivity.class);
         bundle.putString("picture_value", source);
