@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.StringTokenizer;
 
 
 public class ResultActivity extends AppCompatActivity {
@@ -129,7 +130,20 @@ public class ResultActivity extends AppCompatActivity {
         //Bundle from Camera2
         String s = bundle.getString("picture_value");
         if (s != null) {
-            barcodeIngredients.setText(s);
+            StringTokenizer st = new StringTokenizer(s, " ");
+            String dispText = "";
+            String d;
+            int count = 0;
+            while (st.hasMoreTokens()) {
+                d = st.nextToken();
+                //dispText += d.toUpperCase();
+                dispText += d;
+                if (count > 0 && count % 5 == 0 ) dispText += System.getProperty("line.separator");
+                else dispText += " ";
+                count++;
+            }
+            barcodeIngredients.setText(dispText);
+            //barcodeIngredients.setText(s);
         }
     }
 
