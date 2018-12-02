@@ -68,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity implements
 
     private ActionBar toolbar;
 
+    public BottomNavigationView navigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
         // navigation bar
         toolbar = getSupportActionBar();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_profile);
 
@@ -375,5 +377,12 @@ public class ProfileActivity extends AppCompatActivity implements
             return false;
         }
     };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(0).setChecked(true);
+    }
 
 }

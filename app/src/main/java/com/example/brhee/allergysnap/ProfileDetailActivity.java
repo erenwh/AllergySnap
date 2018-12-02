@@ -506,8 +506,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         }).setNegativeButton("Cancel", null);
         AlertDialog alert = builder.create();
         alert.show();
-        alert.getButton(alert.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAlert));
-        alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAlert));
     }
 
     private void changePhoto() {

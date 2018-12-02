@@ -9,24 +9,28 @@
     <TextView
         android:id="@+id/med_name"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_weight="20"
+        android:layout_marginTop="1dp"
         android:gravity="center"
+        android:fontFamily="sans-serif-light"
         android:text="TextView1"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="@color/colorText"/>
 
     <Button
         android:id="@+id/med_delete"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="80"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/colorAlert"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@android:color/background_light"
-        android:text="DELETE"
+        android:background="@drawable/roundedbuttonremove"
+        android:text="-"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:textAlignment="center">
 
     </Button>

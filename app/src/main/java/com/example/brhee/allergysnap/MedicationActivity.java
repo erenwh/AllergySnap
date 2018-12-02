@@ -1,14 +1,21 @@
 package com.example.brhee.allergysnap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.nfc.Tag;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,10 +63,22 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
     private ListView userMeds;
     private ProgressBar progressbar;
 
+    private ActionBar toolbar;
+    public BottomNavigationView navigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication);
+
+        // navigation bar
+        toolbar = getSupportActionBar();
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_medications);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         progressbar = findViewById(R.id.progressBar);
         progressbar.setVisibility(View.VISIBLE);
         medSearch = findViewById(R.id.med_search);
@@ -226,5 +245,39 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                 }
                 break;
         }
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_medications:
+                    //startActivity(new Intent(MedicationActivity.this, MedicationActivity.class));
+                    return true;
+                case R.id.navigation_allergies:
+                    startActivity(new Intent(MedicationActivity.this, AllergyActivity.class));
+                    return true;
+                case R.id.navigation_main:
+                    startActivity(new Intent(MedicationActivity.this, MainActivity.class));
+                    return true;
+                case R.id.navigation_conflicts:
+                    startActivity(new Intent(MedicationActivity.this, ConflictActivity.class));
+                    return true;
+                case R.id.navigation_profile:
+                    startActivity(new Intent(MedicationActivity.this, ProfileActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(1).setChecked(true);
     }
 }
