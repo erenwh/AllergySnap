@@ -64,7 +64,6 @@
             </intent-filter>
             -->
         </activity>
-
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".ProfileDetailActivity" />
@@ -80,11 +79,8 @@
 
         <activity android:name=".AllergyActivity"
             android:label="allergyPage"
-            android:parentActivityName=".MainActivity"/>
-
-
-
-        <activity android:name=".ConflictActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ConflictActivity" />
 
         <!-- Barcode/OCR -->
         <meta-data
@@ -94,8 +90,7 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode, ocr" />
 
-        <activity android:name=".ResultActivity"></activity>
-
+        <activity android:name=".ResultActivity" />
         <activity android:name="._spash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -103,8 +98,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name="purdue.cs.allergysnap.deeplink" />-->
-        <activity android:name=".DeepLink"></activity>
+        <!-- <activity android:name="purdue.cs.allergysnap.deeplink" /> -->
+        <activity android:name=".DeepLink" />
+        <activity android:name=".TermsAndConditionsActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="com.example.brhee.allergysnap.TermsAndConditionsActivity" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

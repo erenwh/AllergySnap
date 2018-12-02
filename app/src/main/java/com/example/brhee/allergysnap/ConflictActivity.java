@@ -1,11 +1,14 @@
 package com.example.brhee.allergysnap;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +52,7 @@ public class ConflictActivity extends AppCompatActivity {
     private FirebaseUser user;
     private User userObj;
     private String userID;
+    private TextView disclaimer;
 
     ArrayList<MedicationConflict> conflictList;
 
@@ -89,6 +93,19 @@ public class ConflictActivity extends AppCompatActivity {
 
 
         }
+
+        disclaimer = findViewById(R.id.disclaimer);
+        disclaimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ConflictActivity.this);
+                builder.setMessage(R.string.disclaimer)
+                        .setTitle("DISCLAIMER");
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
 
