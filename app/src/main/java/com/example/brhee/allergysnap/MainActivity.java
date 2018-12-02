@@ -1,5 +1,6 @@
 package com.example.brhee.allergysnap;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     TextView barcodeName;
     TextView qrResult;
 
+    public BottomNavigationView navigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         // navigation bar
         toolbar = getSupportActionBar();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_main);
 
@@ -263,5 +266,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(2).setChecked(true);
+    }
 
 }
