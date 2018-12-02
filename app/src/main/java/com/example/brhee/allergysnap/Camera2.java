@@ -28,6 +28,14 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -52,6 +60,13 @@ public class Camera2 extends AppCompatActivity {
     private MultiDetector multiDetector;
     private CameraSource cameraSource;
 
+    private FirebaseAuth mAuth;
+    private String userID;
+    private User userObj;
+    private FirebaseUser user;
+    private DatabaseReference myRef;
+    private FirebaseDatabase mFirebaseDatabase;
+
     private static final int requestPermissionID = 101;
 
     @Override
@@ -62,7 +77,31 @@ public class Camera2 extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.tv_barcode);
         tv.setMovementMethod(new ScrollingMovementMethod());
 
-        startCameraSource();
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("Users");
+        user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            userID = user.getUid();
+        }
+        Query userData = myRef;
+        userData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userObj = dataSnapshot.child(userID).getValue(User.class);
+                    startCameraSource();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     public void TakePicture(View v) {
@@ -98,6 +137,13 @@ public class Camera2 extends AppCompatActivity {
                 ret+=", ";
             }
         }
+        //ingredients count - ashwin
+        if (!source.equals("")) {
+            userObj.scans.set(0, userObj.scans.get(0) + 1);
+        }
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(userObj);
         Bundle bundle = new Bundle();
         Intent i = new Intent(this, ResultActivity.class);
         bundle.putString("picture_value", source);

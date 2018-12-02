@@ -15,6 +15,14 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -97,6 +105,13 @@ public class ResultActivity extends AppCompatActivity {
     public TextView barcodeName;
     public TextView qrResult;
 
+    private FirebaseAuth mAuth;
+    private String userID;
+    private User userObj;
+    private FirebaseUser user;
+    private DatabaseReference myRef;
+    private FirebaseDatabase mFirebaseDatabase;
+
     public AsyncTask data2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,25 +127,50 @@ public class ResultActivity extends AppCompatActivity {
         product_name = "";
         ingredients = "";
 
-        // Checks MainActivity bundle
-        Bundle bundle = getIntent().getExtras();
-        barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
-        // Bundle from MainActivity
-        barcodeResult.setText(bundle.getString("barcode_number"));
-        if (bundle.getString("ingredients") != null) {
-            barcodeIngredients.setText(bundle.getString("ingredients"));
-        }
-        barcodeName.setText(bundle.getString("product_name"));
-        if (bundle.getString("qr_result") != null) {
-            qrResult.setText(bundle.getString("qr_result"));
-            qrResult.setMovementMethod(LinkMovementMethod.getInstance());
-        }
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("Users");
+        user = mAuth.getCurrentUser();
+//        userObj = new User(user.getDisplayName(), user.getEmail());
 
-        //Bundle from Camera2
-        String s = bundle.getString("picture_value");
-        if (s != null) {
-            barcodeIngredients.setText(s);
+        if (user != null) {
+            userID = user.getUid();
         }
+        Query userData = myRef;
+        userData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userObj = dataSnapshot.child(userID).getValue(User.class);
+                    // Checks MainActivity bundle
+                    Bundle bundle = getIntent().getExtras();
+                    barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
+                    // Bundle from MainActivity
+                    barcodeResult.setText(bundle.getString("barcode_number"));
+                    if (bundle.getString("ingredients") != null) {
+                        barcodeIngredients.setText(bundle.getString("ingredients"));
+                    }
+                    barcodeName.setText(bundle.getString("product_name"));
+                    if (bundle.getString("qr_result") != null) {
+                        qrResult.setText(bundle.getString("qr_result"));
+                        qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
+
+                    //Bundle from Camera2
+                    String s = bundle.getString("picture_value");
+                    if (s != null) {
+                        barcodeIngredients.setText(s);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     public void scanBarcode(View v) {
@@ -159,6 +199,8 @@ public class ResultActivity extends AppCompatActivity {
 
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
+                        //barcode - ashwin
+                        userObj.scans.set(1, userObj.scans.get(1) + 1);
                         if (barcodeIngredients != null) {
                             barcodeIngredients.setText("");
                         }
@@ -172,11 +214,19 @@ public class ResultActivity extends AppCompatActivity {
                             qrResult.setText("");
                         }
                         new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                     }
                     // If the scan results in a URL
                     else if (barcode.valueFormat == 8) {
+                        //qr - ashwin
+                        userObj.scans.set(2, userObj.scans.get(2) + 1);
                         qrResult.setText(barcode.displayValue);
                         qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                     }
                     else {
                         barcodeResult.setText("No barcode found!");
