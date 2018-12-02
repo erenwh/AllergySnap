@@ -9,7 +9,7 @@
     <SurfaceView
         android:id="@+id/sv_barcode"
         android:layout_width="392dp"
-        android:layout_height="652dp"
+        android:layout_height="580dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
