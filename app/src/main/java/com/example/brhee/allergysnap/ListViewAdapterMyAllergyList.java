@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListViewAdapterMyAllergyList extends ArrayAdapter<Allergy> {
 
@@ -25,8 +24,6 @@ public class ListViewAdapterMyAllergyList extends ArrayAdapter<Allergy> {
     Context mContext;
     private int mResource;
     LayoutInflater inflater;
-    private List<Allergy> myAllergyNamesList = null;
-    private ArrayList<Allergy> myAllergyArraylist;
     private User user;
 
 //    public ListViewAdapterMyAllergyList(Context context, int resource, ArrayList<Allergy> objects, List<Allergy> allergyNamesList, User user){
@@ -70,39 +67,7 @@ public class ListViewAdapterMyAllergyList extends ArrayAdapter<Allergy> {
                 alert.show();
             }
         });
-
-//        final ListViewAdapterMyAllergyList.ViewHolder holder;
-//
-//        if (view == null){
-//            holder = new ListViewAdapterMyAllergyList.ViewHolder();
-//            view = inflater.inflate(R.layout.listview_allergy_myallergy, null);
-//            //locate the textviews in listview_item.xml
-//            holder.name = (TextView) view.findViewById(R.id.name);
-//            view.setTag(holder);
-//        }
-//        else {
-//            holder = (ListViewAdapterMyAllergyList.ViewHolder) view.getTag();
-//        }
-//        // set the results into textviews
-//        holder.name.setText(myAllergyNamesList.get(position).getName());
-//
-//        Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
         return view;
     }
 
-//    // Filter Class
-//    public void filter(String charText){
-//        charText = charText.toLowerCase(Locale.getDefault());
-//        myAllergyNamesList.clear();
-//        if (charText.length() == 0) {
-//            myAllergyNamesList.addAll(myAllergyArraylist);
-//        } else {
-//            for (Allergy wp : myAllergyArraylist) {
-//                if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
-//                    myAllergyNamesList.add(wp);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
 }
