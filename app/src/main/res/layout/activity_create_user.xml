@@ -10,8 +10,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
@@ -27,142 +28,168 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="Signup with AllergySnap below!"
             android:fontFamily="sans-serif-light"
-            android:textColor="@color/colorText"
+            android:text="Signup with AllergySnap below!"
             android:textAlignment="center"
+            android:textColor="@color/colorText"
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_below="@id/create_user_allergy_snap_logo"
-            android:weightSum="2"
             android:id="@+id/create_user_email_layout"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/create_user_allergy_snap_logo"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
-                android:src="@drawable/ic_profile_detail_email"
-                android:layout_weight="1"
                 android:layout_width="70dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_profile_detail_email" />
 
             <EditText
                 android:id="@+id/edit_email"
-                android:hint="Email"
-                android:fontFamily="sans-serif-light"
-                android:backgroundTint="@color/colorText"
-                android:textColorHint="@color/colorText"
-                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/colorText"
+                android:fontFamily="sans-serif-light"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/edit_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textColorHint="@color/colorText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@id/edit_email"
-            android:weightSum="2"
             android:id="@+id/create_user_username_layout"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_email"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
-                android:src="@drawable/ic_profile_detail_name"
-                android:layout_weight="1"
                 android:layout_width="70dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_profile_detail_name" />
 
             <EditText
                 android:id="@+id/edit_username"
-                android:hint="Username"
-                android:fontFamily="sans-serif-light"
-                android:backgroundTint="@color/colorText"
-                android:textColorHint="@color/colorText"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:nextFocusDown="@id/edit_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorText"
+                android:fontFamily="sans-serif-light"
+                android:hint="Username"
+                android:nextFocusDown="@id/edit_password"
+                android:textColorHint="@color/colorText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@id/edit_username"
-            android:weightSum="2"
             android:id="@+id/create_user_password_layout"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_username"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
-                android:src="@drawable/ic_create_user_password"
-                android:layout_weight="1"
                 android:layout_width="70dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_create_user_password" />
 
             <EditText
                 android:id="@+id/edit_password"
-                android:hint="Password"
-                android:fontFamily="sans-serif-light"
-                android:backgroundTint="@color/colorText"
-                android:textColorHint="@color/colorText"
-                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/colorText"
+                android:fontFamily="sans-serif-light"
+                android:hint="Password"
+                android:inputType="textPassword"
                 android:nextFocusDown="@id/edit_password_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textColorHint="@color/colorText" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_below="@id/edit_password"
-            android:weightSum="2"
             android:id="@+id/create_user_password_confirm_layout"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_password"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
-                android:src="@drawable/ic_create_user_password"
-                android:layout_weight="1"
                 android:layout_width="70dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_create_user_password" />
 
             <EditText
                 android:id="@+id/edit_password_confirm"
-                android:hint="Confirm Password"
-                android:fontFamily="sans-serif-light"
-                android:backgroundTint="@color/colorText"
-                android:textColorHint="@color/colorText"
-                android:inputType="textPassword"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:nextFocusDown="@id/register_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorText"
+                android:fontFamily="sans-serif-light"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:nextFocusDown="@id/register_button"
+                android:textColorHint="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tos_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbutton"
+            android:layout_below="@id/create_user_password_confirm_layout"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <CheckBox
+                android:id="@+id/tac_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tac_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:clickable="true"
+                android:textColor="@color/colorText"/>
 
         </LinearLayout>
 
         <Button
             android:id="@+id/register_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
-            android:fontFamily="sans-serif-light"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
+            android:layout_width="141dp"
+            android:layout_height="32dp"
             android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorProfile"
+            android:fontFamily="sans-serif-light"
+            android:text="Sign Up"
             android:textColor="@color/colorText"
             android:textSize="18sp"
-            android:text="Sign Up" />
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 

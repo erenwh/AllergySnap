@@ -1,12 +1,17 @@
 package com.example.brhee.allergysnap;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class AllergyActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -29,52 +35,104 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
     private FirebaseUser user;
     private User userObj;
     private String userID;
+    private ProgressBar progressbar;
+    private int idcounter;
 
     // search allergy variable
     ListView    list;
     ListViewAdapter adapter;
-    private EditText alleSearch;
     SearchView editsearch;
-    //    Button addBtn = (Button) findViewById(R.id.btnAddToAllergyList);
-    String[]    allergyNameList;
-    ArrayList<Allergy> arrayList = new ArrayList<Allergy>();
 
     // my Allergy List variable
+    String[]    allergyNameList;
+    ArrayList<Allergy> allergyNameList_user = new ArrayList<Allergy>();
     ListView    listV_myAllergyList;
     ListViewAdapterMyAllergyList myAllergyAdapter;
-    String[] myAllergyNameList;
-    ArrayList<Allergy> myAllergyArraylist = new ArrayList<Allergy>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergy);
+        progressbar = findViewById(R.id.progressBar);
+        progressbar.setVisibility(View.VISIBLE);
+        Button addBtn = (Button) findViewById(R.id.btnAddToAllergyList_User);
+
 
         // check with allergy database
-        // Generate allergy data
-        allergyNameList = new String[]{"egg", "fish", "fruit", "garlic", "hot peppers", "oats", "meat", "milk", "peanut", "rice", "sesame", "soy", "sulfites", "tartrazine", "tree nut", "wheat", "tetracycline", "dilantin", "tegretol", "penicillin", "cephalosporins", "sulfonamides", "pollen", "cat", "dog", "insect sting", "mold", "perfume", "cosmetics", "semen", "latex", "water", "house dust mite", "nickel", "gold", "chromium", "cobalt", "formaldehyde", "fungicide", "dimethylaminopropylamine", "latex", "paraphenylenediamine", "glyceryl monothioglycolate", "toluenesulfonamide formaldehyde"};
+        // Generate allergysnap allergy data
+        allergyNameList = new String[]{"egg", "fish", "shellfish", "fruit", "garlic", "hot peppers", "oats", "meat", "milk", "peanut", "rice", "sesame", "soy", "sulfites", "tartrazine", "tree nut", "wheat", "tetracycline", "dilantin", "tegretol", "penicillin", "cephalosporins", "sulfonamides", "pollen", "cat", "dog", "insect sting", "mold", "perfume", "cosmetics", "semen", "latex", "water", "house dust mite", "nickel", "gold", "chromium", "cobalt", "formaldehyde", "fungicide", "dimethylaminopropylamine", "latex", "paraphenylenediamine", "glyceryl monothioglycolate", "toluenesulfonamide formaldehyde"};
+        Arrays.sort(allergyNameList);
         for (int i = 0; i < allergyNameList.length; i++) {
             Allergy allergy = new Allergy(allergyNameList[i]);
             // Bind all strings into an array
-            arrayList.add(allergy);
+            allergyNameList_user.add(allergy);
         }
 
         // Take input from User : locate the EditText in activity_allergy.xml
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(AllergyActivity.this);
+        final CharSequence query = editsearch.getQuery();
 
-        // TODO: add more allergy to database
-//        String newAllegyByUser = "";
-//        int currentSize = allergyNameList.length;
-//        int newSize = currentSize+1;
-//        String[] tempAllergyNameList = new String[newSize];
-//        for (int i = 0; i < currentSize; i++) {
-//            tempAllergyNameList[i] = allergyNameList[i];
-//        }
-//        tempAllergyNameList[newSize-1] = newAllegyByUser;
-//        allergyNameList = tempAllergyNameList;
 
+        // users own allergy list (copy allergysnap allerylist and append users added allergylist)
+        addBtn.setOnClickListener(new View.OnClickListener() {
+//            final String queryString = query.toString();
+            @Override
+            public void onClick(View v) {
+                System.out.println("adding allergy: " + query.toString());
+                if (query.toString().isEmpty()){
+                    AlertDialog.Builder adbuilder1 = new AlertDialog.Builder(AllergyActivity.this);
+                    adbuilder1.setMessage("please type at least one allergy")
+                            .setTitle("Empty Text");
+                    AlertDialog dialog1 = adbuilder1.create();
+                    dialog1.show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("Are you sure you want to ADD " + query.toString() + " to your allergy list?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                                boolean duplicate = false;
+                                if(userObj.allergies != null){
+                                    for(Allergy alle: userObj.allergies){
+                                        if(alle.getName().equalsIgnoreCase(query.toString())){
+                                            AlertDialog.Builder adbuilder = new AlertDialog.Builder(AllergyActivity.this);
+                                            adbuilder.setMessage("Allergy already added")
+                                                    .setTitle("Duplicate Allergy");
+                                            AlertDialog dialog1 = adbuilder.create();
+                                            dialog1.show();
+//                                            editsearch.setQuery("", false);
+                                            duplicate = true;
+                                        }
+                                    }
+                                }
+                                // add to firebase
+                                if (!duplicate){
+                                    if (userObj.allergies == null){
+                                        userObj.allergies = new ArrayList<>();
+                                    }
+                                    else{
+                                        idcounter = userObj.allergies.size()-1;
+//                                        Allergy allergy = new Allergy(query.toString());
+                                        Allergy allergy = new Allergy(query.toString(), ++idcounter);
+
+                                        allergyNameList_user.add(allergy);
+                                        userObj.allergies.add(allergy);
+                                        FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .setValue(userObj);
+
+                                        Toast.makeText(AllergyActivity.this, "Successfully Added " + query.toString() + " to your allergy list", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                        }
+                    }).setNegativeButton("Cancel", null);
+                    AlertDialog alert = builder.create();
+                    alert.show();
+//                    editsearch.setQuery("", false);
+                }
+            }
+        });
 
         // setting listview
         // ********* search allergy ********//
@@ -101,12 +159,13 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                             // my allergy list
                             myAllergyAdapter = new ListViewAdapterMyAllergyList(AllergyActivity.this, R.layout.listview_allergy_myallergy, userObj.allergies, userObj);
                             listV_myAllergyList.setAdapter(myAllergyAdapter);
-                            // show the allergy search list
-                            // pass results to ListViewAdapter Class
-//                            adapter = new ListViewAdapter(AllergyActivity.this, R.layout.listview_allergy_search, arrayList, userObj.allergies, userObj);
-                            adapter = new ListViewAdapter(AllergyActivity.this, arrayList, userObj);
+                            // show the allergy search list & pass results to ListViewAdapter Class
+
+                            //adapter = new ListViewAdapter(AllergyActivity.this, arrayList, userObj);
+                            adapter = new ListViewAdapter(AllergyActivity.this, allergyNameList_user, userObj);
                             list.setAdapter(adapter);
                         }
+                        progressbar.setVisibility(View.INVISIBLE);
                     }
                 }
 

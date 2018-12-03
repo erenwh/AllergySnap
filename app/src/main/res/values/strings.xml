@@ -30,7 +30,9 @@
     <string name="registration_success">Registered Successfully</string>
     <string name="registration_failure">Failed to register</string>
     <string name="input_error_email_invalid">enter a valid email</string>
+    <string name="agree_to_tac">Terms and Conditions must be agreed to</string>
     <string name="button_camera">Camera</string>
+    <string name="disclaimer">The information contained herein should NOT be used as a substitute for the advice of an appropriately qualified and licensed physician or other health care provider. The information provided here is for informational purposes only. This tool may not cover all possible drug interactions. Please check with a physician if you have health questions or concerns. Although we attempt to provide accurate and up-to-date information, no guarantee is made to that effect.</string>
 
     <string name="title_activity_camera">camera</string>
     <string name="title_profile">Profile</string>
@@ -62,6 +64,6 @@
 
     <string name="deep_link_default">Deep link not set</string>
     <string name="deep_link_fmt" formatted="false">Deep Link: %s</string>
-
+    <string name="invite_a_friend">Invite a friend!!</string>
 
 </resources>

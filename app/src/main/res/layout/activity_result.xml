@@ -9,6 +9,17 @@
     tools:context=".ResultActivity">
 
     <TextView
+        android:id="@+id/conflict_result"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/qr_result"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/scanresults"
         android:fontFamily="sans-serif-light"
         android:textColor="@android:color/background_light"

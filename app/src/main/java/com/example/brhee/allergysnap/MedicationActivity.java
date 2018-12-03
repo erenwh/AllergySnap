@@ -115,7 +115,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
         }
 
         //findViewById(R.id.test_button).setOnClickListener(this);
-//        medSearch.addTextChangedListener(new TextWatcher() {
+//        medSearch.addTextChangedListener(new TextWatcher() {e
 //            @Override
 //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 //

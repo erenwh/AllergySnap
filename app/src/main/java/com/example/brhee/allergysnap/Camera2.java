@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import android.Manifest;
@@ -51,6 +54,7 @@ public class Camera2 extends AppCompatActivity {
     private TextRecognizer textRecognizer;
     private MultiDetector multiDetector;
     private CameraSource cameraSource;
+    private ProgressBar progressbar;
 
     private static final int requestPermissionID = 101;
 
@@ -61,71 +65,64 @@ public class Camera2 extends AppCompatActivity {
         sv = (SurfaceView)findViewById(R.id.sv_barcode);
         tv = (TextView) findViewById(R.id.tv_barcode);
         tv.setMovementMethod(new ScrollingMovementMethod());
-
+        progressbar = findViewById(R.id.progressBar);
+        progressbar.setVisibility(View.INVISIBLE);
+        final ImageView picButton = findViewById(R.id.capture);
+        picButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                progressbar.setVisibility(View.VISIBLE);
+                TakePicture(v);
+            }
+        });
         startCameraSource();
     }
 
     public void TakePicture(View v) {
         cameraSource.stop();
         String source = tv.getText().toString();
-        String ret = "";
         source = source.replaceAll("-", " ");
-        source = source.replaceAll(",", "");
-        source = source.replaceAll("\\.", "");
-        source = source.replaceAll("[(]", "");
-        source = source.replaceAll("[)]", "");
-        source = source.replaceAll("\\[", "");
-        source = source.replaceAll("\\]", "");
-        source = source.replaceAll("\\:", "");
+        source = source.replaceAll(",", " ");
+        source = source.replaceAll("\\.", " ");
+        source = source.replaceAll("\\/", " ");
+        source = source.replaceAll("[(]", " ");
+        source = source.replaceAll("[)]", " ");
+        source = source.replaceAll("\\[", " ");
+        source = source.replaceAll("\\]", " ");
+        source = source.replaceAll("\\:", " ");
         source = source.replaceAll("\\s", " ");
-        source = source.replaceAll("INGREDIENTS", "");
-        source = source.replaceAll("Ingredients", "");
-        source = source.replaceAll("ingredients", "");
-//        List<String> list = new ArrayList<>();
-//        StringTokenizer st = new StringTokenizer(source, " ");
-//        String tok;
-//        while (st.hasMoreTokens()) {
-//            tok =  st.nextToken();
-//            if (tok.length() > 1) {
-//                if (!tok.equals("INGREDIENTS") && !tok.equals("ingredients") && !tok.equals("Ingredients")) {
-//                    if (wordcheck(tok)) {
-//                        list.add(tok);
-//                    }
-//                }
-//            }
-//        }
-//        if (!list.isEmpty()) {
-//            for (int x = 0; x < list.size(); x++) {
-//                ret+=list.get(x);
-//                ret+=", ";
-//            }
-//        }
+        StringTokenizer st = new StringTokenizer(source, " ");
+        String tok;
+        List<String> list = new ArrayList<>();
+        while (st.hasMoreTokens()) {
+            tok = st.nextToken();
+            if (wordcheck(tok)) {
+                if (!tok.equals("a")) list.add(tok);
+            }
+        }
+        String ret = "";
+        for (int x = 0; x < list.size(); x++) {
+            ret += list.get(x);
+            ret += " ";
+        }
         Bundle bundle = new Bundle();
         Intent i = new Intent(this, ResultActivity.class);
-        bundle.putString("picture_value", source);
+        bundle.putString("picture_value", ret);
         i.putExtras(bundle);
         startActivity(i);
     }
 
     public boolean wordcheck(String word) {
-        File external = new File("../words.txt");
         try {
-            InputStream is = getApplicationContext().getAssets().open("words.txt");
-//            FileInputStream fis = new FileInputStream(external);
-//            DataInputStream din = new DataInputStream(fis);
+            InputStream is = getApplicationContext().getAssets().open("words2.txt");
             BufferedReader in = new BufferedReader(new InputStreamReader(is));
             String str;
-            //Log.e("string", "found words.txt");
             while ((str = in.readLine()) != null) {
-                if (str.indexOf(word) != -1) {
-                    return true;
-                }
+                if (str.toLowerCase().equals(word.toLowerCase())) return true;
             }
             in.close();
         } catch (IOException e) {
             Log.e("string", "could not find word.txt");
         }
-
         return false;
     }
 
