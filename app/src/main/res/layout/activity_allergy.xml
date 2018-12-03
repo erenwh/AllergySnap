@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_allergy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="2dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
-    android:paddingTop="2dp"
-    android:orientation="vertical"
     android:background="@drawable/ic_gradient"
-
     tools:context="com.example.brhee.allergysnap.AllergyActivity">
 
     <ProgressBar
@@ -32,88 +25,140 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <!--bottom navigation bar-->
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:background="@drawable/ic_gradient"
+            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:itemBackground="@color/colorProfile"
+            app:itemIconTint="@color/colorProfileDark"
+            app:itemTextColor="@color/colorText"
+            android:background="@drawable/ic_gradient"
+            app:menu="@menu/navigation"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/txtSearchAllergy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
+            android:textSize="30dp"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:text="Search Allergy" />
+            android:textColor="@color/colorText"
+            android:fontFamily="sans-serif-light"
+            android:text="Here are your allergies!" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Add allergies to your profile below."
+            android:textSize="15sp"
+            android:layout_below="@+id/txtSearchAllergy"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/text2" />
 
         <LinearLayout
-            android:id="@+id/searchviewLinear"
             android:layout_width="match_parent"
-            android:layout_below="@id/txtSearchAllergy"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_below="@id/text2"
+            android:orientation="vertical">
 
-            <SearchView
-                android:id="@+id/search"
+
+            <LinearLayout
+                android:id="@+id/searchviewLinear"
+                android:layout_width="match_parent"
+                android:layout_below="@id/txtSearchAllergy"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <SearchView
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="80"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Allergy"
+                    android:layout_below="@id/txtSearchAllergy">
+
+                </SearchView>
+
+
+
+                <Button
+                    android:id="@+id/btnAddToAllergyList_User"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_weight="20"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="+"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:background="@drawable/roundedbuttonadd" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview_search"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:listSelector="@color/colorProfile"
+                android:layout_below="@id/searchviewLinear" />
+
+
+
+            <TextView
+                android:id="@+id/txtMyAllergyList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:iconifiedByDefault="false"
-                android:queryHint="Type Here"
-                android:layout_below="@id/txtSearchAllergy">
-                <requestFocus />
+                android:paddingTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textColor="@color/colorText"
+                android:fontFamily="sans-serif-light"
+                android:text="My Allergy List" />
 
-            </SearchView>
-
-            <Button
-                android:id="@+id/btnAddToAllergyList_User"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_weight="1"
-                android:layout_marginBottom="5dp"
-                android:text="+"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:background="@color/PaleVioletRed" />
+            <ListView
+                android:id="@+id/listview_myAllergyList"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:listSelector="@color/colorProfile"
+                android:layout_below="@+id/txtMyAllergyList" />
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listview_search"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:listSelector="@color/colorProfile"
-            android:layout_below="@id/searchviewLinear" />
+
         
     </RelativeLayout>
-    
-    <RelativeLayout
-        android:layout_weight="0.5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txtMyAllergyList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="5dp"
-            android:textSize="22dp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:text="My Allergy List" />
 
-        <ListView
-            android:id="@+id/listview_myAllergyList"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:listSelector="@color/colorProfile"
-            android:layout_below="@+id/txtMyAllergyList" />
 
-    </RelativeLayout>
 
-</LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
 
 
 

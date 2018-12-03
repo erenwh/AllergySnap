@@ -5,9 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -49,14 +55,25 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
     ListView    listV_myAllergyList;
     ListViewAdapterMyAllergyList myAllergyAdapter;
 
+    public BottomNavigationView navigation;
+    private ActionBar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergy);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         progressbar = findViewById(R.id.progressBar);
         progressbar.setVisibility(View.VISIBLE);
         Button addBtn = (Button) findViewById(R.id.btnAddToAllergyList_User);
 
+        // navigation bar
+        toolbar = getSupportActionBar();
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_allergies);
 
         // check with allergy database
         // Generate allergysnap allergy data
@@ -72,7 +89,6 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(AllergyActivity.this);
         final CharSequence query = editsearch.getQuery();
-
 
         // users own allergy list (copy allergysnap allerylist and append users added allergylist)
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -191,5 +207,39 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
         String text = newText;
         adapter.filter(text);
         return false;
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_medications:
+                    startActivity(new Intent(AllergyActivity.this, MedicationActivity.class));
+                    return true;
+                case R.id.navigation_allergies:
+                    //startActivity(new Intent(AllergyActivity.this, AllergyActivity.class));
+                    return true;
+                case R.id.navigation_main:
+                    startActivity(new Intent(AllergyActivity.this, MainActivity.class));
+                    return true;
+                case R.id.navigation_conflicts:
+                    startActivity(new Intent(AllergyActivity.this, ConflictActivity.class));
+                    return true;
+                case R.id.navigation_profile:
+                    startActivity(new Intent(AllergyActivity.this, ProfileActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(3).setChecked(true);
     }
 }

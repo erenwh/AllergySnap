@@ -1,11 +1,17 @@
 package com.example.brhee.allergysnap;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,12 +62,20 @@ public class ConflictActivity extends AppCompatActivity {
 
     ArrayList<MedicationConflict> conflictList;
 
+    public BottomNavigationView navigation;
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conflict);
         Log.d(TAG, "onCreate: Started");
+
+        // navigation bar
+        toolbar = getSupportActionBar();
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_conflicts);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -282,5 +296,40 @@ public class ConflictActivity extends AppCompatActivity {
         }).start();
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_medications:
+                    startActivity(new Intent(ConflictActivity.this, MedicationActivity.class));
+                    return true;
+                case R.id.navigation_allergies:
+                    startActivity(new Intent(ConflictActivity.this, AllergyActivity.class));
+                    return true;
+                case R.id.navigation_main:
+                    startActivity(new Intent(ConflictActivity.this, MainActivity.class));
+                    return true;
+                case R.id.navigation_conflicts:
+                    //startActivity(new Intent(ConflictActivity.this, ConflictActivity.class));
+                    return true;
+                case R.id.navigation_profile:
+                    startActivity(new Intent(ConflictActivity.this, ProfileActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(4).setChecked(true);
+    }
+
 }
 

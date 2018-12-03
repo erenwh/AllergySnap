@@ -45,7 +45,7 @@
         android:layout_marginTop="45dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to Scan for an Allergy" />
+        android:text="Tap to scan for an allergy!" />
 
     <!--camera btn -->
     <ImageView
