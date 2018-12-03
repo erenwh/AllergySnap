@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.medialablk.easytoast.EasyToast;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -400,7 +401,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         progressBar.setVisibility(View.GONE);
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                            //Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                            EasyToast.custom(ProfileDetailActivity.this, "Updated Information Successfully", R.drawable.ic_profile_default, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                                                         } else {
                                                             Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
@@ -447,7 +449,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                                         public void onComplete(@NonNull Task<Void> task) {
                                             progressBar.setVisibility(View.GONE);
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                EasyToast.custom(ProfileDetailActivity.this, "Updated Information Successfully", R.drawable.ic_profile_default, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                                             } else {
                                                 Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
