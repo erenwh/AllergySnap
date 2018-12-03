@@ -11,17 +11,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
         <ImageView
             android:id="@+id/create_user_allergy_snap_logo"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/allergysnap_logo" />
+            android:src="@drawable/allergysnap_logo"
+            android:adjustViewBounds="true"/>
 
         <TextView
 
@@ -155,7 +154,6 @@
             android:id="@+id/tos_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
             android:layout_below="@id/create_user_password_confirm_layout"
             android:orientation="horizontal"
             android:weightSum="1">
@@ -164,6 +162,7 @@
                 android:id="@+id/tac_cb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/colorText"
                 android:text="" />
 
             <TextView
@@ -176,22 +175,24 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="141dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/colorProfile"
-            android:fontFamily="sans-serif-light"
-            android:text="Sign Up"
-            android:textColor="@color/colorText"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundedbutton"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:paddingRight="60dp"
+        android:paddingLeft="60dp"
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        android:text="Sign Up" />
 
     <ProgressBar
         android:id="@+id/progressbar"
