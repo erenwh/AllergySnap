@@ -130,8 +130,8 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
     public void search(String med) {
         if (med.trim().length() > 0) {
-            progressbar.setVisibility(View.VISIBLE);
             final String medicine = med;
+            progressbar.setVisibility(View.VISIBLE);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -169,6 +169,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
                                                 AlertDialog dialog = builder.create();
                                                 dialog.show();
+                                                progressbar.setVisibility(View.INVISIBLE);
                                             }
                                         });
                                         duplicate = true;
@@ -225,11 +226,10 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(userObj);
-
-                                progressbar.setVisibility(View.INVISIBLE);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        progressbar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
                                         medSearch.setText("");
                                     }
@@ -261,7 +261,6 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
             }).start();
         }
 
-        progressbar.setVisibility(View.INVISIBLE);
     }
 
     @Override
