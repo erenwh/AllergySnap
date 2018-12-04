@@ -40,7 +40,7 @@ public class ProfileFeedAdapter extends ArrayAdapter<UserItem> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        //Setting each item in the ListView on the profile
+        // Setting each item in the ListView on the profile
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
@@ -81,6 +81,8 @@ public class ProfileFeedAdapter extends ArrayAdapter<UserItem> {
                 plural = "";
             timeStamp.setText(String.valueOf((int)(elapsedTimeMillis/(24*60*60*1000F))) + " day" + plural + " ago");
         }
+
+        // Dialog box displayed to show more info about the medication if clicked
         if (getItem(position) instanceof Medication) {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

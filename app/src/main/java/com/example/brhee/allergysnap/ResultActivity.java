@@ -199,7 +199,7 @@ public class ResultActivity extends AppCompatActivity {
 
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
-                        //barcode - ashwin
+                        // Increment barcode scanning - from scan again
                         userObj.scans.set(1, userObj.scans.get(1) + 1);
                         if (barcodeIngredients != null) {
                             barcodeIngredients.setText("");
@@ -220,7 +220,7 @@ public class ResultActivity extends AppCompatActivity {
                     }
                     // If the scan results in a URL
                     else if (barcode.valueFormat == 8) {
-                        //qr - ashwin
+                        // Increment qr scanning - from scan again
                         userObj.scans.set(2, userObj.scans.get(2) + 1);
                         qrResult.setText(barcode.displayValue);
                         qrResult.setMovementMethod(LinkMovementMethod.getInstance());

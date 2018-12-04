@@ -137,7 +137,7 @@ public class Camera2 extends AppCompatActivity {
                 ret+=", ";
             }
         }
-        //ingredients count - ashwin
+        // If it scanned some text, add to counter
         if (!source.equals("")) {
             userObj.scans.set(0, userObj.scans.get(0) + 1);
         }

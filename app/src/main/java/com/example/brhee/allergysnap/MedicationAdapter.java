@@ -47,10 +47,10 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        //get the persons information
+        // get the persons information
         final String medication = user.medications.get(position).name;
 
-        //medication = medication.substring(0, 1).toUpperCase() + medication.substring(1);
+        // medication = medication.substring(0, 1).toUpperCase() + medication.substring(1);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -58,7 +58,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
         TextView medText = convertView.findViewById(R.id.med_name);
         medText.setText(medication);
 
-        //Dialog box displayed to show more info about the medication
+        // Dialog box displayed to show more info about the medication
         medText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +82,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
             }
         });
 
+        // Delete button is pressed
         Button deleteBtn = (Button)convertView.findViewById(R.id.med_delete);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override

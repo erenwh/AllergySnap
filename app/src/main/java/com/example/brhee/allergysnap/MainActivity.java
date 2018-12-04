@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     //If the Barcode is a number
                     if(barcode.valueFormat == 5) {
-                        //barcode - ashwin
+                        // Increment barcode scanning - from main screen
                         userObj.scans.set(1, userObj.scans.get(1) + 1);
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                         new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
-                        //qr - ashwin
+                        // Increment qr scanning - from main screen
                         userObj.scans.set(2, userObj.scans.get(2) + 1);
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

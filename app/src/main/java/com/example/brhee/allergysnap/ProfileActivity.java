@@ -156,21 +156,20 @@ public class ProfileActivity extends AppCompatActivity implements
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //get User info
+                            // get User info (updates when user info changes)
                             userObj = dataSnapshot.getValue(User.class);
-                            for (Medication x : userObj.medications) {
-                                if (!items.contains(x)) {
-                                    items.add(x);
-                                }
-                            }
-                            for (Allergy x : userObj.allergies) {
-                                if (!items.contains(x)) {
-                                    items.add(x);
-                                }
-                            }
+
+                            // add all the medications and allergies to arraylist and sort them
+                            items.clear();
+                            items.addAll(userObj.medications);
+                            items.addAll(userObj.allergies);
                             Collections.sort(items);
                             Log.d(TAG, "items sorted");
+
+                            // set Text values
                             setValues();
+
+                            // display profile feed
                             ProfileFeedAdapter adapter = new ProfileFeedAdapter(ProfileActivity.this, R.layout.adapter_profile_feed, items);
                             profileFeed.setAdapter(adapter);
                         }
