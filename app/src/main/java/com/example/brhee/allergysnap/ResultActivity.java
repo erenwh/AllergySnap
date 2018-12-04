@@ -154,8 +154,6 @@ public class ResultActivity extends AppCompatActivity {
             qrResult.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
-        final List<String> conflictList = new ArrayList<>();
-        conflictView.setText("CONFLICTS");
         //Bundle from Camera2
         String s = bundle.getString("picture_value");
         if (s != null) {
