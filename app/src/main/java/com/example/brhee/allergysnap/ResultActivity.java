@@ -231,41 +231,6 @@ public class ResultActivity extends AppCompatActivity {
             conflictView.setText(conflictText);
 
         }
-        Query userData = myRef;
-        userData.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    userObj = dataSnapshot.child(userID).getValue(User.class);
-                    // Checks MainActivity bundle
-                    Bundle bundle = getIntent().getExtras();
-                    barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
-                    // Bundle from MainActivity
-                    barcodeResult.setText(bundle.getString("barcode_number"));
-                    if (bundle.getString("ingredients") != null) {
-                        barcodeIngredients.setText(bundle.getString("ingredients"));
-                    }
-                    barcodeName.setText(bundle.getString("product_name"));
-                    if (bundle.getString("qr_result") != null) {
-                        qrResult.setText(bundle.getString("qr_result"));
-                        qrResult.setMovementMethod(LinkMovementMethod.getInstance());
-                    }
-
-                    //Bundle from Camera2
-                    String s = bundle.getString("picture_value");
-                    if (s != null) {
-                        barcodeIngredients.setText(s);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
     }
 
     public void scanBarcode(View v) {
