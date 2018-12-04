@@ -2,6 +2,7 @@ package com.example.brhee.allergysnap;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.medialablk.easytoast.EasyToast;
 
 import java.util.ArrayList;
 
@@ -96,7 +98,8 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user);
-                        Toast.makeText(parent.getContext(), "Deleted " + medication + " from your medications", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(parent.getContext(), "Deleted " + medication + " from your medications", Toast.LENGTH_LONG).show();
+                        EasyToast.custom(parent.getContext(), "Deleted " + medication + " from your medications!", R.drawable.ic_medications_24dp, mContext.getResources().getColor(R.color.colorAlert), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                     }
                 }).setNegativeButton("Cancel", null);

@@ -1,5 +1,6 @@
 package com.example.brhee.allergysnap;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gigamole.library.PulseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -57,12 +59,15 @@ public class MainActivity extends AppCompatActivity {
     TextView barcodeName;
     TextView qrResult;
 
+
     private FirebaseAuth mAuth;
     private String userID;
     private User userObj;
     private FirebaseUser user;
     private DatabaseReference myRef;
     private FirebaseDatabase mFirebaseDatabase;
+    public BottomNavigationView navigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
         // navigation bar
         toolbar = getSupportActionBar();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_main);
+
+        final PulseView pulseView = (PulseView) findViewById(R.id.pv);
+        pulseView.startPulse();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -294,6 +303,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_allergies:
                     startActivity(new Intent(MainActivity.this, AllergyActivity.class));
                     return true;
+                case R.id.navigation_main:
+                    //startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    return true;
                 case R.id.navigation_conflicts:
                     startActivity(new Intent(MainActivity.this, ConflictActivity.class));
                     return true;
@@ -304,5 +316,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigation.getMenu().getItem(2).setChecked(true);
+    }
 
 }

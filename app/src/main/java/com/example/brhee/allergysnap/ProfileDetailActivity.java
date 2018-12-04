@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.medialablk.easytoast.EasyToast;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -94,7 +95,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         editUsername = findViewById(R.id.username_text);
         progressBar = findViewById(R.id.progressBar);
         profilePicture = findViewById(R.id.profile_picture);
-
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -401,7 +401,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         progressBar.setVisibility(View.GONE);
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                            //Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                            EasyToast.custom(ProfileDetailActivity.this, "Updated Information Successfully", R.drawable.ic_profile_default, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                                                         } else {
                                                             Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
@@ -448,7 +449,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                                         public void onComplete(@NonNull Task<Void> task) {
                                             progressBar.setVisibility(View.GONE);
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(ProfileDetailActivity.this, "Updated Information Successfully", Toast.LENGTH_LONG).show();
+                                                EasyToast.custom(ProfileDetailActivity.this, "Updated Information Successfully", R.drawable.ic_profile_default, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                                             } else {
                                                 Toast.makeText(ProfileDetailActivity.this, "Update Failure: Try again", Toast.LENGTH_LONG).show();
@@ -477,7 +479,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
     private void deactivate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDetailActivity.this);
-        builder.setMessage("Are you sure you want to DEACTIVATE your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage("Are you sure you want to deactivate your account?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

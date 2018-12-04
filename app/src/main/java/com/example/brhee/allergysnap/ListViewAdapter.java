@@ -29,6 +29,7 @@ public class ListViewAdapter extends BaseAdapter{
     private List<Allergy> allergyNamesList = null;
     private ArrayList<Allergy> arrayList;
     private User user;
+    private int idcounter;
     LayoutInflater inflater;
 
 
@@ -37,9 +38,6 @@ public class ListViewAdapter extends BaseAdapter{
 
     //    public ListViewAdapter(Context context, int resource, ArrayList<Allergy> objects, List<Allergy> allergyNamesList, User user){
     public ListViewAdapter(Context context, List<Allergy> allergyNamesList, User user){
-//        super(context, resource, objects);
-//        mResource = resource;
-
         mContext = context;
         this.allergyNamesList = allergyNamesList;
         this.arrayList = new ArrayList<Allergy>();
@@ -88,6 +86,7 @@ public class ListViewAdapter extends BaseAdapter{
         // add to my allergylist
         Button addBtn = (Button) view.findViewById(R.id.add_btn);
         final View finalView = view;
+        idcounter = user.allergies.size()-1;
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +111,7 @@ public class ListViewAdapter extends BaseAdapter{
                             }
                         }
                         if (!duplicate){
-                            Allergy newAlle = new Allergy(allergyNamesList.get(position).getName());
+                            Allergy newAlle = new Allergy(allergyNamesList.get(position).getName(), ++idcounter);
                             if (user.allergies == null){
                                 user.allergies = new ArrayList<>();
                             }
@@ -122,12 +121,6 @@ public class ListViewAdapter extends BaseAdapter{
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user);
                             Toast.makeText(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", Toast.LENGTH_LONG).show();
-
-//                            SearchView alleSearh = (SearchView) finalView.findViewById(R.id.search);
-//                            alleSearh.setQuery("",false);
-//                            SearchView editsearch = (SearchView) finalView.findViewById(R.id.search);
-//                            finalView.findViewById(R.id.search).setOnQueryTextListener(null);
-//                            ((SearchView) finalView.findViewById(R.id.search)).setQuery(null, true);
                         }
 
                     }

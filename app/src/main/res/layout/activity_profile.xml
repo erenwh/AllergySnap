@@ -11,12 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/layout_p1"
+        <!--bottom navigation bar-->
+        <FrameLayout
+            android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:background="@drawable/ic_gradient"
+            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:itemBackground="@color/colorProfile"
+            app:itemIconTint="@color/colorProfileDark"
+            app:itemTextColor="@color/colorText"
+            android:background="@drawable/ic_gradient"
+            app:menu="@menu/navigation"
+            tools:ignore="MissingConstraints" />
+        <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_picture"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
@@ -24,6 +41,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_profile_default" />
+
 
             <TextView
                 android:id="@+id/username"
@@ -61,7 +79,7 @@
                 android:layout_below="@+id/extra"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:background="?attr/colorPrimaryDark"
+                android:background="@drawable/roundedbutton"
                 android:text="@string/invite_a_friend"
                 android:textColor="@android:color/background_light" />
 
@@ -192,6 +210,7 @@
             android:layout_below="@id/layout_p2"
             >
 
+
             <ListView
                 android:id="@+id/prof_feed"
                 android:layout_width="match_parent"
@@ -217,6 +236,7 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="bold" />
+
 
     </RelativeLayout>
 

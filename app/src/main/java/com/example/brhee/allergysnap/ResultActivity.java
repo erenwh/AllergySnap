@@ -3,6 +3,7 @@ package com.example.brhee.allergysnap;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -25,12 +26,17 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 
 public class ResultActivity extends AppCompatActivity {
@@ -38,6 +44,13 @@ public class ResultActivity extends AppCompatActivity {
     public String ingredients = "";
     public String product_name = "";
     public String barcode_number = "";
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseUser user;
+    private User userObj;
+    private String userID;
 
     public class Sample {
         public class Store {
@@ -104,6 +117,7 @@ public class ResultActivity extends AppCompatActivity {
     public TextView barcodeIngredients;
     public TextView barcodeName;
     public TextView qrResult;
+    public TextView conflictView;
 
     private FirebaseAuth mAuth;
     private String userID;
@@ -118,10 +132,16 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("Users");
+        user = mAuth.getCurrentUser();
+
         barcodeResult = (TextView)findViewById(R.id.barcode_result);
         barcodeName = (TextView)findViewById(R.id.barcode_name);
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
         qrResult = (TextView)findViewById(R.id.qr_result);
+        conflictView = (TextView)findViewById(R.id.conflict_result);
 
         barcode_number = "";
         product_name = "";
@@ -133,8 +153,66 @@ public class ResultActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 //        userObj = new User(user.getDisplayName(), user.getEmail());
 
-        if (user != null) {
-            userID = user.getUid();
+        //Bundle from Camera2
+        String s = bundle.getString("picture_value");
+        if (s != null) {
+            StringTokenizer st = new StringTokenizer(s, " ");
+            String dispText = "";
+            String d;
+            int count = 0;
+            while (st.hasMoreTokens()) {
+                d = st.nextToken();
+                //dispText += d.toUpperCase();
+                dispText += d;
+                if (count > 0 && count % 5 == 0 ) dispText += System.getProperty("line.separator");
+                else dispText += " ";
+                count++;
+            }
+            final String tokenizer = s;
+            if (user != null) {
+                userID = user.getUid();
+                Query userData = myRef;
+                userData.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            userObj = dataSnapshot.child(userID).getValue(User.class);
+                            if (userObj != null) {
+                                conflictCheck(tokenizer,userObj.allergies);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            barcodeIngredients.setText(dispText);
+        }
+    }
+
+    public void conflictCheck(String s, List<Allergy> allergies ) {
+        StringTokenizer tokenizer = new StringTokenizer(s, " ");
+        List<String> conflictList = new ArrayList<>();
+        while (tokenizer.hasMoreTokens()) {
+            String conflict = tokenizer.nextToken();
+            for (int x = 0; x < allergies.size(); x++) {
+                if (conflict.toLowerCase().equals(allergies.get(x).name.toLowerCase())) {
+                    if (!conflictList.contains(conflict)) conflictList.add(conflict);
+                }
+            }
+        }
+        if (!conflictList.isEmpty()) {
+            String conflictText = "You have Conflicts!" + System.getProperty("line.separator");
+            for (int x = 0; x < conflictList.size(); x++) {
+                conflictText += conflictList.get(x);
+                conflictText += " allergy";
+                conflictText += " ";
+            }
+            conflictView.setText(conflictText);
+
         }
         Query userData = myRef;
         userData.addValueEventListener(new ValueEventListener() {
