@@ -1,8 +1,6 @@
 package com.example.brhee.allergysnap;
 
-public class Medication {
-    protected String name, info;
-    protected int id;
+public class Medication extends UserItem {
 
     public Medication() { }
 
@@ -24,18 +22,5 @@ public class Medication {
     public Medication(String name, int id) {
         this.id = id;
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof Medication){
-            Medication p = (Medication) o;
-            return this.name.equals(p.getName());
-        } else
-            return false;
     }
 }

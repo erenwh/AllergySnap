@@ -1,5 +1,15 @@
 package com.example.brhee.allergysnap;
 
+import java.net.*;
+import java.util.*;
+import java.io.*;
+import javax.net.ssl.HttpsURLConnection;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import android.content.Context;
 import android.nfc.Tag;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +38,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.common.StringUtils;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -118,6 +130,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
     public void search(String med) {
         if (med.trim().length() > 0) {
+            progressbar.setVisibility(View.VISIBLE);
             final String medicine = med;
             new Thread(new Runnable() {
                 @Override
@@ -174,15 +187,46 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
                                     }
                                 }
                                 final String medFilter = String.valueOf(chars);
-                                Medication newMed = new Medication(medFilter, Integer.parseInt(err.getElementsByTagName("rxnormId").item(0).getTextContent()));
+                                int rxId = Integer.parseInt(err.getElementsByTagName("rxnormId").item(0).getTextContent());
+
+                                Medication newMed = new Medication(medFilter, rxId);
                                 if (userObj.medications == null) {
                                     userObj.medications = new ArrayList<>();
                                 }
+                                newMed.timeAdded = System.currentTimeMillis();
+
+                                String subscriptionKey = "a29f39d77de74657927b964a761a4073";
+                                String host = "https://api.cognitive.microsoft.com";
+                                String imgPath = "/bing/v7.0/images/search";
+
+                                // construct the search request URL (in the form of endpoint + query string)
+                                URL urlImg = new URL(host + imgPath + "?q=" + URLEncoder.encode(medFilter, "UTF-8") + "&imageType=transparent");
+                                HttpsURLConnection connection = (HttpsURLConnection) urlImg.openConnection();
+                                connection.setRequestProperty("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+                                // receive JSON body
+                                InputStream stream = connection.getInputStream();
+                                String responseInfo = new Scanner(stream).useDelimiter("\\A").next();
+                                // construct result object for return
+                                stream.close();
+                                JsonParser parser = new JsonParser();
+                                JsonObject json = parser.parse(responseInfo).getAsJsonObject();
+                                JsonArray results = json.getAsJsonArray("value");
+                                JsonObject first_result = (JsonObject)results.get(0);
+                                String resultURL = first_result.get("contentUrl").getAsString();
+                                newMed.url = resultURL;
+
+                                String urlInfo = "https://www.google.com/search?q=" + medFilter;
+                                org.jsoup.nodes.Document docInfo = Jsoup.connect(urlInfo).get();
+                                Elements temp = docInfo.select("div[class=K9xsvf Uva9vc kno-fb-ctx]");
+                                newMed.info = temp.get(0).getElementsByTag("span").first().text();
+
                                 userObj.medications.add(newMed);
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(userObj);
 
+                                progressbar.setVisibility(View.INVISIBLE);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -204,17 +248,20 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
                                     AlertDialog dialog = builder.create();
                                     dialog.show();
+                                    progressbar.setVisibility(View.INVISIBLE);
                                 }
                             });
                         }
                     } catch (Exception e) {
                         //Log.d(TAG, e.getMessage());
                         System.out.println(e.getMessage());
+                        progressbar.setVisibility(View.INVISIBLE);
                     }
                 }
             }).start();
-
         }
+
+        progressbar.setVisibility(View.INVISIBLE);
     }
 
     @Override

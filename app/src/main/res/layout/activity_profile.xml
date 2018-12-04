@@ -74,21 +74,24 @@
                 android:layout_margin="2.5dp"
                 android:text="# of Scans"
                 android:textAlignment="center"
-                android:textSize="18sp"
-                android:textColor="@android:color/background_light"/>
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
 
         </RelativeLayout>
+
         <LinearLayout
+            android:id="@+id/layout_p2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/layout_p1">
+            android:layout_below="@id/layout_p1"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
 
                 <LinearLayout
@@ -103,7 +106,8 @@
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:text="Ingredients"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/ingredient_scans"
@@ -112,7 +116,8 @@
                         android:padding="4dp"
                         android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -127,7 +132,8 @@
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:text="Barcodes"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/barcode_scans"
@@ -136,8 +142,10 @@
                         android:padding="4dp"
                         android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,7 +158,8 @@
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:text="QR Codes"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/qr_scans"
@@ -159,28 +168,59 @@
                         android:padding="4dp"
                         android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/background_light"/>
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+
+
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_above="@id/profile_signout_button"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/layout_p2"
+            >
+
+            <ListView
+                android:id="@+id/prof_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/profile_signout_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@color/colorProfile"
+            android:fontFamily="sans-serif-light"
+            android:text="Logout"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/profile_signout_button"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorProfile"
-        android:fontFamily="sans-serif-light"
-        android:text="Logout"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+
 
     <FrameLayout
         android:id="@+id/snackbarLayout"

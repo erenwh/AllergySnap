@@ -21,6 +21,7 @@ public class User {
         this.username = username;
         this.email = email;
         medications = new ArrayList<>();
+        allergies = new ArrayList<>();
     }
 
 

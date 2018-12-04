@@ -9,11 +9,8 @@ package com.example.brhee.allergysnap;
  */
 
 
-public class Allergy {
-    protected String name;
-    protected int id;
+public class Allergy extends UserItem {
     protected AllergyType allergyType;
-    protected String info;
 
 
     public Allergy() {

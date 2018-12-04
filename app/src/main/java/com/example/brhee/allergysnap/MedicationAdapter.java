@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class MedicationAdapter extends ArrayAdapter<Medication> {
-    private static final String TAG = "PersonListAdapter";
+    private static final String TAG = "MedicationAdapter";
 
     private Context mContext;
     private int mResource;
@@ -30,7 +30,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
 
 
     /**
-     * Default constructor for the PersonListAdapter
+     * Default constructor for the MedicationAdapter
      * @param context
      * @param resource
      * @param objects
@@ -46,7 +46,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         //get the persons information
-        final String medication = user.medications.get(position).getName();
+        final String medication = user.medications.get(position).name;
 
         //medication = medication.substring(0, 1).toUpperCase() + medication.substring(1);
 
