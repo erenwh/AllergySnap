@@ -140,22 +140,6 @@ public class ResultActivity extends AppCompatActivity {
         product_name = "";
         ingredients = "";
 
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference("Users");
-        user = mAuth.getCurrentUser();
-//        userObj = new User(user.getDisplayName(), user.getEmail());
-
-        barcodeResult = (TextView)findViewById(R.id.barcode_result);
-        barcodeName = (TextView)findViewById(R.id.barcode_name);
-        barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
-        qrResult = (TextView)findViewById(R.id.qr_result);
-        conflictView = (TextView)findViewById(R.id.conflict_result);
-
-        barcode_number = "";
-        product_name = "";
-        ingredients = "";
-
         // Checks MainActivity bundle
         Bundle bundle = getIntent().getExtras();
         barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
@@ -229,7 +213,6 @@ public class ResultActivity extends AppCompatActivity {
                 conflictText += " ";
             }
             conflictView.setText(conflictText);
-
         }
     }
 
