@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -55,6 +57,30 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
 
         TextView medText = convertView.findViewById(R.id.med_name);
         medText.setText(medication);
+
+        //Dialog box displayed to show more info about the medication
+        medText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+                LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+                View mView = inflater.inflate(R.layout.dialog_medication, null);
+                ImageView image = mView.findViewById(R.id.med_img);
+                TextView medName = mView.findViewById(R.id.med_name);
+                TextView medInfo = mView.findViewById(R.id.med_info);
+
+                if (getItem(position).url != null) {
+                    Picasso.get().load(getItem(position).url).into(image);
+                } else {
+                    Picasso.get().load("https://banner2.kisspng.com/20180308/gjq/kisspng-drug-material-yellow-vector-medicine-pills-5aa0fcdf9ba139.9135045515204999356375.jpg").into(image);
+                }
+                medName.setText(getItem(position).name);
+                medInfo.setText(getItem(position).info);
+                builder.setView(mView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         Button deleteBtn = (Button)convertView.findViewById(R.id.med_delete);
         deleteBtn.setOnClickListener(new View.OnClickListener() {

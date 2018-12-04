@@ -2,6 +2,7 @@ package com.example.brhee.allergysnap;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,30 @@ public class ProfileFeedAdapter extends ArrayAdapter<UserItem> {
             if ((int)(elapsedTimeMillis/(24*60*60*1000F)) == 1)
                 plural = "";
             timeStamp.setText(String.valueOf((int)(elapsedTimeMillis/(24*60*60*1000F))) + " day" + plural + " ago");
+        }
+        if (getItem(position) instanceof Medication) {
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+                    LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View mView = inflater.inflate(R.layout.dialog_medication, null);
+                    ImageView image = mView.findViewById(R.id.med_img);
+                    TextView medName = mView.findViewById(R.id.med_name);
+                    TextView medInfo = mView.findViewById(R.id.med_info);
+
+                    if (getItem(position).url != null) {
+                        Picasso.get().load(getItem(position).url).into(image);
+                    } else {
+                        Picasso.get().load("https://banner2.kisspng.com/20180308/gjq/kisspng-drug-material-yellow-vector-medicine-pills-5aa0fcdf9ba139.9135045515204999356375.jpg").into(image);
+                    }
+                    medName.setText(getItem(position).name);
+                    medInfo.setText(getItem(position).info);
+                    builder.setView(mView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
         }
 
         return convertView;
