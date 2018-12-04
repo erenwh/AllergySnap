@@ -119,13 +119,6 @@ public class ResultActivity extends AppCompatActivity {
     public TextView qrResult;
     public TextView conflictView;
 
-    private FirebaseAuth mAuth;
-    private String userID;
-    private User userObj;
-    private FirebaseUser user;
-    private DatabaseReference myRef;
-    private FirebaseDatabase mFirebaseDatabase;
-
     public AsyncTask data2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +145,30 @@ public class ResultActivity extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference("Users");
         user = mAuth.getCurrentUser();
 //        userObj = new User(user.getDisplayName(), user.getEmail());
+
+        barcodeResult = (TextView)findViewById(R.id.barcode_result);
+        barcodeName = (TextView)findViewById(R.id.barcode_name);
+        barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
+        qrResult = (TextView)findViewById(R.id.qr_result);
+        conflictView = (TextView)findViewById(R.id.conflict_result);
+
+        barcode_number = "";
+        product_name = "";
+        ingredients = "";
+
+        // Checks MainActivity bundle
+        Bundle bundle = getIntent().getExtras();
+        barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
+        // Bundle from MainActivity
+        barcodeResult.setText(bundle.getString("barcode_number"));
+        if (bundle.getString("ingredients") != null) {
+            barcodeIngredients.setText(bundle.getString("ingredients"));
+        }
+        barcodeName.setText(bundle.getString("product_name"));
+        if (bundle.getString("qr_result") != null) {
+            qrResult.setText(bundle.getString("qr_result"));
+            qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         //Bundle from Camera2
         String s = bundle.getString("picture_value");
