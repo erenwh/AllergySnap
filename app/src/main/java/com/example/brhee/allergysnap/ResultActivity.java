@@ -242,6 +242,8 @@ public class ResultActivity extends AppCompatActivity {
 
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
+                        // Increment barcode scanning - from scan again
+                        userObj.scans.set(1, userObj.scans.get(1) + 1);
                         if (barcodeIngredients != null) {
                             barcodeIngredients.setText("");
                         }
@@ -255,11 +257,19 @@ public class ResultActivity extends AppCompatActivity {
                             qrResult.setText("");
                         }
                         new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                     }
                     // If the scan results in a URL
                     else if (barcode.valueFormat == 8) {
+                        // Increment qr scanning - from scan again
+                        userObj.scans.set(2, userObj.scans.get(2) + 1);
                         qrResult.setText(barcode.displayValue);
                         qrResult.setMovementMethod(LinkMovementMethod.getInstance());
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                     }
                     else {
                         barcodeResult.setText("No barcode found!");

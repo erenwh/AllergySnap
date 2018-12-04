@@ -115,11 +115,11 @@ public class ListViewAdapter extends BaseAdapter{
                             if (user.allergies == null){
                                 user.allergies = new ArrayList<>();
                             }
+                            newAlle.timeAdded = System.currentTimeMillis();
                             user.allergies.add(newAlle);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user);
-
                             Toast.makeText(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", Toast.LENGTH_LONG).show();
                         }
 

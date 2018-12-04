@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -37,6 +38,13 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+
+import javax.xml.datatype.Duration;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity implements
@@ -45,7 +53,8 @@ public class ProfileActivity extends AppCompatActivity implements
 
 
     private Button signout_button;
-    private TextView extra, username;
+    private TextView extra, username, ingredients, barcodes, qrcodes;
+    private ListView profileFeed;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -59,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
     private String userID;
     private User userObj;
+    private ArrayList<UserItem> items = new ArrayList<>();
 
     private CircleImageView userProfileImage;
 
@@ -77,7 +87,6 @@ public class ProfileActivity extends AppCompatActivity implements
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference("Users");
         final FirebaseUser user = mAuth.getCurrentUser();
 
         username = (TextView) findViewById(R.id.username);
@@ -92,10 +101,22 @@ public class ProfileActivity extends AppCompatActivity implements
 
         if (user != null) {
             userID = user.getUid();
+            myRef = mFirebaseDatabase.getReference("Users/"+userID);
         }
         if (userID == null) {
             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
         }
+
+
+        username = findViewById(R.id.username);
+        extra = findViewById(R.id.extra);
+        ingredients = findViewById(R.id.ingredient_scans);
+        barcodes = findViewById(R.id.barcode_scans);
+        qrcodes = findViewById(R.id.qr_scans);
+        userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
+        profileFeed = findViewById(R.id.prof_feed);
+
+
 
         // Firebase Invite
         // Invite button click listener
@@ -146,25 +167,34 @@ public class ProfileActivity extends AppCompatActivity implements
         // cameraNavBtn
         ImageView ProfileDetailNavBtn = (ImageView) findViewById(R.id.profile_picture);
         ProfileDetailNavBtn.setOnClickListener(this);
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Query userData = myRef;
-                    userData.addValueEventListener(new ValueEventListener() {
+                    myRef.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                userObj = dataSnapshot.child(userID).getValue(User.class);
-                                setValues();
-                            }
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // get User info (updates when user info changes)
+                            userObj = dataSnapshot.getValue(User.class);
+
+                            // add all the medications and allergies to arraylist and sort them
+                            items.clear();
+                            items.addAll(userObj.medications);
+                            items.addAll(userObj.allergies);
+                            Collections.sort(items);
+                            Log.d(TAG, "items sorted");
+
+                            // set Text values
+                            setValues();
+
+                            // display profile feed
+                            ProfileFeedAdapter adapter = new ProfileFeedAdapter(ProfileActivity.this, R.layout.adapter_profile_feed, items);
+                            profileFeed.setAdapter(adapter);
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
                     });
@@ -174,6 +204,10 @@ public class ProfileActivity extends AppCompatActivity implements
                 }
             }
         };
+
+
+
+
 
 
         /*
@@ -309,6 +343,9 @@ public class ProfileActivity extends AppCompatActivity implements
 //        }
 
         if (userObj != null) {
+            ingredients.setText(userObj.scans.get(0).toString());
+            barcodes.setText(userObj.scans.get(1).toString());
+            qrcodes.setText(userObj.scans.get(2).toString());
             if (userObj.hasPFP && userObj.uri != null) {
                 Picasso.get().load(userObj.uri).into(userProfileImage);
             }

@@ -7,102 +7,234 @@
     android:background="@drawable/ic_gradient"
     tools:context=".ProfileActivity">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="@drawable/ic_gradient"
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <!--bottom navigation bar-->
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
-            android:background="@drawable/ic_gradient"
-            android:layout_alignParentBottom="true"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:itemBackground="@color/colorProfile"
-            app:itemIconTint="@color/colorProfileDark"
-            app:itemTextColor="@color/colorText"
-            android:background="@drawable/ic_gradient"
-            app:menu="@menu/navigation"
-            tools:ignore="MissingConstraints" />
+    <RelativeLayout
+        android:id="@+id/layout_p1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/ic_profile_default" />
+                android:id="@+id/profile_picture"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_profile_default" />
 
-        <TextView
-            android:id="@+id/username"
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="379dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_picture"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Username"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/extra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Name/Email"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/inviteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/extra"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/roundedbutton"
+                android:text="@string/invite_a_friend"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/num_of_scans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inviteButton"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="2.5dp"
+                android:text="# of Scans"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_p2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_picture"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Username"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
+            android:layout_below="@id/layout_p1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/extra"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Ingredients"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/ingredient_scans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Barcodes"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/barcode_scans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="QR Codes"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/qr_scans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/username"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Name/Email"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
-            android:textSize="25sp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_above="@id/profile_signout_button"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/layout_p2"
+            >
+
+
+            <ListView
+                android:id="@+id/prof_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:itemBackground="@color/colorProfile"
+        app:itemIconTint="@color/colorProfileDark"
+        app:itemTextColor="@color/colorText"
+        android:background="@drawable/ic_gradient"
+        app:menu="@menu/navigation"
+        tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/profile_signout_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_height="40dp"
+            android:layout_above="@id/navigation"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"
-            android:background="@drawable/roundedbutton"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@color/colorProfile"
             android:fontFamily="sans-serif-light"
             android:text="Logout"
             android:textColor="@android:color/background_light"
-            android:layout_marginRight="100dp"
-            android:layout_marginLeft="100dp"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/inviteButton"
-            android:layout_below="@+id/extra"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/roundedbutton"
-            android:text="Invite a friend!!"
-            android:textColor="@android:color/background_light" />
-
-    </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/snackbarLayout"
         android:layout_width="match_parent"
@@ -111,4 +243,4 @@
         android:layout_alignParentStart="true"
         android:layout_margin="16dp"/>
 
-</RelativeLayout>
+    </RelativeLayout>

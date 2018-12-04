@@ -10,6 +10,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
@@ -51,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
     TextView barcodeName;
     TextView qrResult;
 
+
+    private FirebaseAuth mAuth;
+    private String userID;
+    private User userObj;
+    private FirebaseUser user;
+    private DatabaseReference myRef;
+    private FirebaseDatabase mFirebaseDatabase;
     public BottomNavigationView navigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +91,30 @@ public class MainActivity extends AppCompatActivity {
 
         final PulseView pulseView = (PulseView) findViewById(R.id.pv);
         pulseView.startPulse();
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("Users");
+        user = mAuth.getCurrentUser();
+//        userObj = new User(user.getDisplayName(), user.getEmail());
+
+        if (user != null) {
+            userID = user.getUid();
+        }
+        Query userData = myRef;
+        userData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userObj = dataSnapshot.child(userID).getValue(User.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         // signinNavBtn
         //InitFirebaseAuth();
@@ -130,9 +170,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                     //If the Barcode is a number
                     if(barcode.valueFormat == 5) {
+                        // Increment barcode scanning - from main screen
+                        userObj.scans.set(1, userObj.scans.get(1) + 1);
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                         new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
+                        // Increment qr scanning - from main screen
+                        userObj.scans.set(2, userObj.scans.get(2) + 1);
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(userObj);
                         Bundle bundle = new Bundle();
                         Intent i = new Intent(this, ResultActivity.class);
                         bundle.putString("qr_result", barcode.displayValue);
