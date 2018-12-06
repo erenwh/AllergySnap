@@ -218,7 +218,7 @@ public class Camera2 extends AppCompatActivity {
         multiDetector = new MultiDetector.Builder().add(barcodeDetector).add(textRecognizer).build();
 
         // Create CameraSource
-        cameraSource = new CameraSource.Builder(this, multiDetector).setAutoFocusEnabled(true).setRequestedPreviewSize(1600, 1024).build();;
+        cameraSource = new CameraSource.Builder(this, multiDetector).setAutoFocusEnabled(true).setRequestedPreviewSize(2960, 1440).build();;
 
         if (!multiDetector.isOperational()) {
             Log.d("cam2activity","Detector dependencies not loaded yet");
