@@ -43,7 +43,8 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_light"
-                android:textSize="24sp" />
+                android:textSize="26sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/extra"
@@ -57,7 +58,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_light"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/inviteButton"
