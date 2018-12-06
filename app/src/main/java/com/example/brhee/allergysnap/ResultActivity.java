@@ -43,7 +43,7 @@ public class ResultActivity extends AppCompatActivity {
 
     public String ingredients = "";
     public String product_name = "";
-    public String barcode_number = "";
+    public String barcode_number;
 
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
@@ -53,6 +53,10 @@ public class ResultActivity extends AppCompatActivity {
     private String userID;
 
     public class Sample {
+
+        public String item_name;
+        public String nf_ingredient_statement;
+
         public class Store {
             public String store_name;
             public String store_price;
@@ -136,7 +140,7 @@ public class ResultActivity extends AppCompatActivity {
         qrResult = (TextView)findViewById(R.id.qr_result);
         conflictView = (TextView)findViewById(R.id.conflict_result);
 
-        barcode_number = "";
+        //barcode_number = "";
         product_name = "";
         ingredients = "";
 
@@ -247,7 +251,9 @@ public class ResultActivity extends AppCompatActivity {
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
                         // Increment barcode scanning - from scan again
-                        userObj.scans.set(1, userObj.scans.get(1) + 1);
+                        if (userObj != null) {
+                            userObj.scans.set(1, userObj.scans.get(1) + 1);
+                        }
                         if (barcodeIngredients != null) {
                             barcodeIngredients.setText("");
                         }
@@ -260,7 +266,12 @@ public class ResultActivity extends AppCompatActivity {
                         if (qrResult != null) {
                             qrResult.setText("");
                         }
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
+
+                        barcode_number = barcode.displayValue;
+
+                        //new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
+                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=c84bbc48&appKey=3fe08ab757c95a10db2b6d0d671ac6ef");
+
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(userObj);
@@ -304,7 +315,7 @@ public class ResultActivity extends AppCompatActivity {
 
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-            barcode_number = "";
+            //barcode_number = "";
             product_name = "";
             ingredients = "";
 
@@ -320,15 +331,16 @@ public class ResultActivity extends AppCompatActivity {
 
                 Gson g = new Gson();
 
-                Sample.RootObject value = g.fromJson(data2, Sample.RootObject.class);
-                barcode_number = "";
-                barcode_number = value.products[0].barcode_number;
+                Sample value = g.fromJson(data2, Sample.class);
+
+                //barcode_number = "";
+                //barcode_number = value.i;
 
                 product_name = "";
-                product_name = value.products[0].product_name;
+                product_name = value.item_name;
 
                 ingredients = "";
-                ingredients = value.products[0].ingredients;
+                ingredients = value.nf_ingredient_statement;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

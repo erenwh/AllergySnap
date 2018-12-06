@@ -174,11 +174,16 @@ public class MainActivity extends AppCompatActivity {
                     //If the Barcode is a number
                     if(barcode.valueFormat == 5) {
                         // Increment barcode scanning - from main screen
-                        userObj.scans.set(1, userObj.scans.get(1) + 1);
+                        if (userObj != null) {
+                            userObj.scans.set(1, userObj.scans.get(1) + 1);
+                        }
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(userObj);
-                        new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
+
+                        barcode_number = barcode.displayValue;
+                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=c84bbc48&appKey=3fe08ab757c95a10db2b6d0d671ac6ef");
+                        //new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
                         // Increment qr scanning - from main screen
@@ -229,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected String doInBackground(String... params) {
 
-            barcode_number = "";
+            //barcode_number = "";
             product_name = "";
             ingredients = "";
             HttpURLConnection connection = null;
@@ -245,18 +250,18 @@ public class MainActivity extends AppCompatActivity {
                     data2 +=str;
                 }
 
+                Log.d("data2 = ", data2);
+
                 Gson g = new Gson();
 
-                ResultActivity.Sample.RootObject value = g.fromJson(data2, ResultActivity.Sample.RootObject.class);
+                ResultActivity.Sample value = g.fromJson(data2, ResultActivity.Sample.class);
 
-                barcode_number = "";
+                //barcode_number = "";
                 product_name = "";
                 ingredients = "";
-                barcode_number = value.products[0].barcode_number;
 
-                product_name = value.products[0].product_name;
-
-                ingredients = value.products[0].ingredients;
+                product_name = value.item_name;
+                ingredients = value.nf_ingredient_statement;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
