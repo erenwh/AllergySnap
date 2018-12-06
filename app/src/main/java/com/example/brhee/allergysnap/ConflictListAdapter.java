@@ -3,6 +3,7 @@ package com.example.brhee.allergysnap;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,29 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         TextView sourceView = convertView.findViewById(R.id.source);
         ImageView myImageView = convertView.findViewById(R.id.conflictImg);
 
-        conflictDrugsView.setText("Drugs: " + conflictDrugs.toString());
-        descriptionView.setText("Conflict Description: " + description);
-        severityView.setText("Severity: " + severity);
-        sourceView.setText("Source: " + source);
+        StringBuilder drugs = new StringBuilder();
+        drugs.append("<b>Drugs:</b>");
+        if (conflictDrugs.size() == 1) {
+            drugs.append(" " + conflictDrugs.get(0));
+        } else if (conflictDrugs.size() == 2) {
+            drugs.append(" " + conflictDrugs.get(0) + " and " + conflictDrugs.get(1));
+        } else {
+            for (int i = 0; i < conflictDrugs.size(); i++) {
+                String start = " ";
+                if (i == conflictDrugs.size() - 1) {
+                    start = " and ";
+                } else if (i != 0) {
+                    start = ", ";
+                }
+                drugs.append(start + conflictDrugs.get(i));
+            }
+        }
+
+
+        conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
+        descriptionView.setText(Html.fromHtml(description));
+        severityView.setText(Html.fromHtml("<b>Severity: </b>" + severity));
+        sourceView.setText(Html.fromHtml("<b>Source: </b>" + source));
         myImageView.setImageResource(R.drawable.red_error);
 
 
