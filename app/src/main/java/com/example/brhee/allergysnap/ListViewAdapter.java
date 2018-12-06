@@ -121,7 +121,8 @@ public class ListViewAdapter extends BaseAdapter{
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user);
-                            EasyToast.custom(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", R.drawable.ic_medications_24dp, mContext.getResources().getColor(R.color.colorAccent), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                            //Toast.makeText(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", Toast.LENGTH_LONG).show();
+                            EasyToast.custom(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", R.drawable.ic_allergies_24dp, mContext.getResources().getColor(R.color.colorAccent), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                         }
 
                     }

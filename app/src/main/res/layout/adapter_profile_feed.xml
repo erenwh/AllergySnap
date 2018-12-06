@@ -21,6 +21,8 @@
         android:layout_height="60dp"
         android:layout_weight="25"
         android:gravity="center"
+        android:textColor="@color/colorText"
+        android:fontFamily="sans-serif-light"
         android:text="Added X to Y"
         android:textSize="20sp"
         />

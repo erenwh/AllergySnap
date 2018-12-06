@@ -10,6 +10,10 @@ public class MedicationConflict {
     public String severity;
     public String source;
 
+    public MedicationConflict() {
+
+    }
+
     public MedicationConflict(ArrayList<String> conflictDrugs, String description, String severity, String source) {
         this.conflictDrugs = conflictDrugs;
         this.description = description;

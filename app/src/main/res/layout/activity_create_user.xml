@@ -10,14 +10,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/default_padding">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/create_user_allergy_snap_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/allergysnap_logo"
             android:adjustViewBounds="true"/>
 
@@ -25,7 +26,6 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:fontFamily="sans-serif-light"
             android:text="Signup with AllergySnap below!"
             android:textAlignment="center"
@@ -36,6 +36,8 @@
             android:id="@+id/create_user_email_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_below="@id/create_user_allergy_snap_logo"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/colorText"
                 android:backgroundTint="@color/colorText"
                 android:fontFamily="sans-serif-light"
                 android:hint="Email"
@@ -66,6 +69,8 @@
             android:id="@+id/create_user_username_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_below="@id/edit_email"
             android:orientation="horizontal"
             android:weightSum="2">
@@ -82,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/colorText"
                 android:backgroundTint="@color/colorText"
                 android:fontFamily="sans-serif-light"
                 android:hint="Username"
@@ -94,6 +100,8 @@
             android:id="@+id/create_user_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_below="@id/edit_username"
             android:orientation="horizontal"
             android:weightSum="2">
@@ -110,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/colorText"
                 android:backgroundTint="@color/colorText"
                 android:fontFamily="sans-serif-light"
                 android:hint="Password"
@@ -124,6 +133,8 @@
             android:id="@+id/create_user_password_confirm_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_below="@id/edit_password"
             android:orientation="horizontal"
             android:weightSum="2">
@@ -143,6 +154,7 @@
                 android:backgroundTint="@color/colorText"
                 android:fontFamily="sans-serif-light"
                 android:hint="Confirm Password"
+                android:textColor="@color/colorText"
                 android:inputType="textPassword"
                 android:nextFocusDown="@id/register_button"
                 android:textColorHint="@color/colorText" />
@@ -153,6 +165,8 @@
             android:id="@+id/tos_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_below="@id/create_user_password_confirm_layout"
             android:orientation="horizontal"
             android:weightSum="1">

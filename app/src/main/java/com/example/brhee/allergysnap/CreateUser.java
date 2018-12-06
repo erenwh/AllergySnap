@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.medialablk.easytoast.EasyToast;
 
 
 public class CreateUser extends AppCompatActivity implements View.OnClickListener {
@@ -238,18 +239,21 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             progressBar.setVisibility(View.GONE);
                                                             if(task.isSuccessful()) {
-                                                                Toast.makeText(CreateUser.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                                                //Toast.makeText(CreateUser.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                                                EasyToast.custom(CreateUser.this, getString(R.string.registration_success), R.drawable.ic_profile_default, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                                                                 try { Thread.sleep(500); }
                                                                 catch (InterruptedException ex) { android.util.Log.d("YourApplicationName", ex.toString()); }
                                                                 startActivity(new Intent(CreateUser.this, LoginActivity.class));
                                                             } else {
-                                                                Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
+                                                                //Toast.makeText(CreateUser.this, getString(R.string.registration_failure), Toast.LENGTH_LONG).show();
+                                                                EasyToast.custom(CreateUser.this, getString(R.string.registration_failure), R.drawable.ic_profile_default, getResources().getColor(R.color.colorAlert), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                                                             }
                                                         }
                                                     });
 
                                                 } else {
-                                                    Toast.makeText(CreateUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                    //Toast.makeText(CreateUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                    EasyToast.custom(CreateUser.this, task.getException().getMessage(), R.drawable.ic_profile_default, getResources().getColor(R.color.colorAlert), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                                                 }
                                             }
                                         });

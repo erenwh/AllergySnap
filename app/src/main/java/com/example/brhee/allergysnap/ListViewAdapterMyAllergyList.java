@@ -60,8 +60,8 @@ public class ListViewAdapterMyAllergyList extends ArrayAdapter<Allergy> {
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user);
-                        EasyToast.custom(parent.getContext(), "Deleted " + allergy + " from your medications!", R.drawable.ic_allergies_24dp, mContext.getResources().getColor(R.color.colorAlert), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
-
+                        //Toast.makeText(parent.getContext(), "Deleted " + allergy + " from your allergy list", Toast.LENGTH_LONG).show();
+                        EasyToast.custom(parent.getContext(), "Deleted " + allergy + " from your allergy list", R.drawable.ic_allergies_24dp, mContext.getResources().getColor(R.color.colorAlert), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
                     }
                 }).setNegativeButton("Cancel", null);
                 AlertDialog alert = builder.create();

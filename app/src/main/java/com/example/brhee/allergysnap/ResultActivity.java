@@ -147,6 +147,31 @@ public class ResultActivity extends AppCompatActivity {
         barcodeResult.setText(bundle.getString("barcode_number"));
         if (bundle.getString("ingredients") != null) {
             barcodeIngredients.setText(bundle.getString("ingredients"));
+            String source = bundle.getString("ingredients");
+            source = source.replaceAll("\\.", " ");
+            source = source.replaceAll("\\/", " ");
+            source = source.replaceAll("\\s", " ");
+            final String tokenizer = source;
+            if (user != null) {
+                userID = user.getUid();
+                Query userData = myRef;
+                userData.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            userObj = dataSnapshot.child(userID).getValue(User.class);
+                            if (userObj != null) {
+                                conflictCheck(tokenizer,userObj.allergies);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
         }
         barcodeName.setText(bundle.getString("product_name"));
         if (bundle.getString("qr_result") != null) {
@@ -157,16 +182,15 @@ public class ResultActivity extends AppCompatActivity {
         //Bundle from Camera2
         String s = bundle.getString("picture_value");
         if (s != null) {
-            StringTokenizer st = new StringTokenizer(s, " ");
+            StringTokenizer st = new StringTokenizer(s, ",");
             String dispText = "";
             String d;
             int count = 0;
             while (st.hasMoreTokens()) {
                 d = st.nextToken();
-                //dispText += d.toUpperCase();
                 dispText += d;
                 if (count > 0 && count % 5 == 0 ) dispText += System.getProperty("line.separator");
-                else dispText += " ";
+                else dispText += ", ";
                 count++;
             }
             final String tokenizer = s;
@@ -195,18 +219,23 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void conflictCheck(String s, List<Allergy> allergies ) {
-        StringTokenizer tokenizer = new StringTokenizer(s, " ");
+        StringTokenizer tokenizer = new StringTokenizer(s, ", ");
         List<String> conflictList = new ArrayList<>();
         while (tokenizer.hasMoreTokens()) {
             String conflict = tokenizer.nextToken();
             for (int x = 0; x < allergies.size(); x++) {
-                if (conflict.toLowerCase().equals(allergies.get(x).name.toLowerCase())) {
+                if (allergies.get(x).name.toLowerCase().equals("egg") || allergies.get(x).name.toLowerCase().equals("eggs")) {
+                    if (conflict.toLowerCase().equals("egg") || conflict.toLowerCase().equals("eggs")) {
+                        if (!conflictList.contains("Egg")) conflictList.add("Egg");
+                    }
+                }
+                else if (conflict.toLowerCase().equals(allergies.get(x).name.toLowerCase())) {
                     if (!conflictList.contains(conflict)) conflictList.add(conflict);
                 }
             }
         }
         if (!conflictList.isEmpty()) {
-            String conflictText = "You have Conflicts!" + System.getProperty("line.separator");
+            String conflictText = "YOU HAVE CONFLICTS!" + System.getProperty("line.separator");
             for (int x = 0; x < conflictList.size(); x++) {
                 conflictText += conflictList.get(x);
                 conflictText += " allergy";
@@ -231,6 +260,10 @@ public class ResultActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, Camera2.class);
         startActivityForResult(intent, 0);
+    }
+
+    public void home() {
+        startActivity(new Intent(ResultActivity.this, MainActivity.class));
     }
 
     @Override

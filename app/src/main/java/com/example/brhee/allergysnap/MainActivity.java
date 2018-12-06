@@ -151,7 +151,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
-                if (data != null) {
+                if (data == null) {
+                    startActivity(new Intent (MainActivity.this , MainActivity.class));
+                }
+                else if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     barcode_number = "";
                     product_name = "";
