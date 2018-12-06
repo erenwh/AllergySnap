@@ -8,7 +8,6 @@
     android:background="@drawable/ic_gradient"
     tools:context="com.example.brhee.allergysnap.MainActivity">
 
-
     <!--bottom navigation bar-->
     <FrameLayout
         android:id="@+id/frame_container"
@@ -55,20 +54,21 @@
         android:onClick="scanBarcode"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_cam_color" />
+        app:srcCompat="@drawable/allergysnap_logo_no_text2" />
 
     <!-- camera pulse -->
     <com.gigamole.library.PulseView
         android:id="@+id/pv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:pv_icon="@drawable/ic_cam_color"
+        app:pv_icon="@drawable/allergysnap_logo_no_text2"
         app:pv_alpha="50"
         app:pv_color="#FFF"
         app:pv_measure="width"
+        android:onClick="scanBarcode"
         app:pv_icon_width="256dp"
         app:pv_icon_height="256dp"
-        app:pv_spawn_period="1000"
+        app:pv_spawn_period="1500"
         app:pv_interpolator="@android:anim/linear_interpolator"/>
 
 </RelativeLayout>

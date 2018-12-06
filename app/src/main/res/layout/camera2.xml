@@ -27,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
         android:onClick="TakePicture"
-        app:srcCompat="@drawable/color_button" />
+        app:srcCompat="@drawable/allergysnap_logo_no_text2" />
 
     <ProgressBar
         android:id="@+id/progressBar"

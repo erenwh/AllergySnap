@@ -20,21 +20,21 @@
         completions."
     </string>
     <string name="cam2">cam2</string>
-    <string name="input_error_name">name required</string>
-    <string name="input_error_email">email required</string>
-    <string name="input_error_password">password required</string>
-    <string name="input_error_phone">phone required</string>
-    <string name="input_error_password_length">password should be at least 6 characters long</string>
-    <string name="input_error_confirm_password">confirm your password</string>
-    <string name="input_error_match_password">passwords do not match</string>
-    <string name="registration_success">Registered Successfully</string>
-    <string name="registration_failure">Failed to register</string>
-    <string name="input_error_email_invalid">enter a valid email</string>
+    <string name="input_error_name">Name required!</string>
+    <string name="input_error_email">Email required!</string>
+    <string name="input_error_password">Password required!</string>
+    <string name="input_error_phone">Phone required!</string>
+    <string name="input_error_password_length">Password should be at least 6 characters long!</string>
+    <string name="input_error_confirm_password">Confirm your password!</string>
+    <string name="input_error_match_password">Passwords do not match!</string>
+    <string name="registration_success">Registered successfully!</string>
+    <string name="registration_failure">Failed to register!</string>
+    <string name="input_error_email_invalid">Enter a valid email!</string>
     <string name="agree_to_tac">Terms and Conditions must be agreed to</string>
     <string name="button_camera">Camera</string>
     <string name="disclaimer">The information contained herein should NOT be used as a substitute for the advice of an appropriately qualified and licensed physician or other health care provider. The information provided here is for informational purposes only. This tool may not cover all possible drug interactions. Please check with a physician if you have health questions or concerns. Although we attempt to provide accurate and up-to-date information, no guarantee is made to that effect.</string>
 
-    <string name="title_activity_camera">camera</string>
+    <string name="title_activity_camera">Camera</string>
     <string name="title_profile">Profile</string>
     <string name="title_medications">Medications</string>
     <string name="title_allergies">Allergies</string>
@@ -50,20 +50,20 @@
 
 
     <!-- Firebase Invite -->
-    <string name="invitation_title">Try out AllergySnap!!</string>
+    <string name="invitation_title">Try out AllergySnap!</string>
     <string name="invitation_message">This App is fudging awesome! Try it out my friend!</string>
     <string name="invitation_deep_link">https://allergysnappurdue.page.link/Tbeh</string>
     <string name="invitation_deep_link_kotlin">https://allergysnappurdue.page.link/Tbeh</string>
     <string name="invitation_custom_image">https://developers.google.com/identity/images/g-logo.png</string>
     <string name="invitation_cta">Install!</string>
-    <string name="send_failed">Sending invitations failed</string>
+    <string name="send_failed">Sending invitations failed!</string>
     <string name="invite_dialog_title">You got an invitation!</string>
 
     <string name="google_play_services_error">Google Play Services Error</string>
 
 
-    <string name="deep_link_default">Deep link not set</string>
+    <string name="deep_link_default">Deep link not set!</string>
     <string name="deep_link_fmt" formatted="false">Deep Link: %s</string>
-    <string name="invite_a_friend">Invite a friend!!</string>
+    <string name="invite_a_friend">Invite a friend!</string>
 
 </resources>

@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Here Are Your Medications!"
+            android:text="Here are your medications!"
             android:textSize="30sp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/colorText"
