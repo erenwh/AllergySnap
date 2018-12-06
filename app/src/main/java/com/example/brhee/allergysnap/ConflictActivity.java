@@ -59,11 +59,25 @@ public class ConflictActivity extends AppCompatActivity {
     private User userObj;
     private String userID;
     private TextView disclaimer;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     ArrayList<MedicationConflict> conflictList;
 
     public BottomNavigationView navigation;
     private ActionBar toolbar;
+
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,34 +93,40 @@ public class ConflictActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference("Users");
         user = mAuth.getCurrentUser();
 
         if (user != null) {
             userID = user.getUid();
-            Query userData = myRef;
-            userData.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        userObj = dataSnapshot.child(userID).getValue(User.class);
-                        if (userObj != null) {
-                            //conflictList = getConflicts();
+            myRef = mFirebaseDatabase.getReference("Users/"+userID);
+        }
+        if (userID == null) {
+            startActivity(new Intent(ConflictActivity.this, LoginActivity.class));
+        }
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (user != null) {
+                    // User is signed in
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // get User info (updates when user info changes)
+                            userObj = dataSnapshot.getValue(User.class);
+
+
                             getConflicts();
 
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
+                    });
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-        }
+            }
+        };
 
         disclaimer = findViewById(R.id.disclaimer);
         disclaimer.setOnClickListener(new View.OnClickListener() {
@@ -121,29 +141,6 @@ public class ConflictActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        /*ArrayList<MedicationConflict> conflictList = new ArrayList<>();
-
-        ArrayList<String> drug1 = new ArrayList<>();
-        drug1.add("a");
-        drug1.add("b");
-        String des = "des";
-        String sev = "DEADLY";
-
-        MedicationConflict mc = new MedicationConflict(drug1, des, sev);
-
-        ArrayList<String> drug2 = new ArrayList<>();
-        drug2.add("b");
-        drug2.add("c");
-        String des2 = "des";
-        String sev2 = "DEADLY";
-
-        MedicationConflict mc2 = new MedicationConflict(drug2, des2, sev2);
-
-        conflictList.add(mc);
-        conflictList.add(mc2);*/
 
     }
 
@@ -291,6 +288,27 @@ public class ConflictActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+                if (userObj.medications2 == null) {
+                    userObj.medications2 = userObj.medications;
+                }
+                if (userObj.medConflictList == null) {
+                    userObj.medConflictList = new ArrayList<>();
+                    userObj.medConflictList.addAll(conflictList);
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(userObj);
+                }
+                if (userObj.medications2 != userObj.medications) {
+                    //update
+                    userObj.medConflictList.clear();
+                    userObj.medConflictList.addAll(conflictList);
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(userObj);
+
+                    userObj.medications2 = userObj.medications;
+                }
 
             }
         }).start();
