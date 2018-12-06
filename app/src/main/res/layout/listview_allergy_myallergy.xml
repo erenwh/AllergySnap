@@ -8,12 +8,12 @@
         android:id="@+id/myAllergyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
         android:layout_marginTop="1dp"
-        android:gravity="center"
+        android:layout_weight="20"
         android:fontFamily="sans-serif-light"
-        android:textSize="25sp"
-        android:textColor="@color/colorText"/>
+        android:gravity="center"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/delete_btn"

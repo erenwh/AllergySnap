@@ -118,10 +118,7 @@ public class ConflictActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             // get User info (updates when user info changes)
                             userObj = dataSnapshot.getValue(User.class);
-                            progressBarVisible();
                             getConflicts();
-                            progressBarInvisible();
-
                         }
 
                         @Override
@@ -163,10 +160,10 @@ public class ConflictActivity extends AppCompatActivity {
     }
 
     private void getConflicts() {
+        progressBarVisible();
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 ArrayList<MedicationConflict> res = new ArrayList<>();
                 // Get user Medications IDs
                 final ArrayList<Integer> myMeds = new ArrayList<>();
