@@ -61,19 +61,22 @@
             android:id="@+id/disclaimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DISCLAIMER"
-            android:fontFamily="sans-serif-light"
             android:layout_below="@id/text"
-            android:layout_marginBottom="5dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorText"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-light"
+            android:text="DISCLAIMER"
+            android:textColor="@color/colorText"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:layout_below="@id/disclaimer"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ListView
                 android:id="@+id/listView"
