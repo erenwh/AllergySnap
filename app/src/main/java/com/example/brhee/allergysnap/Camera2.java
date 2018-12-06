@@ -115,8 +115,6 @@ public class Camera2 extends AppCompatActivity {
             }
         });
 
-        
-
     }
 
     public void TakePicture(View v) {
@@ -350,4 +348,8 @@ public class Camera2 extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

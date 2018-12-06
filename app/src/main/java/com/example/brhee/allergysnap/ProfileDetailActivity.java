@@ -499,14 +499,12 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
                                     StorageReference pPath = FirebaseStorage.getInstance().getReferenceFromUrl(userObj.uri);
                                     pPath.delete();
                                 }
-                                //Toast.makeText(getApplicationContext(), "Account Deactivated", Toast.LENGTH_LONG).show();
-                                EasyToast.custom(ProfileDetailActivity.this, "Account Deactivated", R.drawable.ic_profile_default, getResources().getColor(R.color.colorAlert), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                                Toast.makeText(getApplicationContext(), "Account Deactivated", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(ProfileDetailActivity.this, LoginActivity.class));
                             }
                             else {
                                 String message = task.getException().getMessage();
-                                //Toast.makeText(getApplicationContext(), "Error Occurred: " + message, Toast.LENGTH_LONG).show();
-                                EasyToast.custom(ProfileDetailActivity.this, "Error Occured: " + message, R.drawable.ic_profile_default, getResources().getColor(R.color.colorAlert), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                                Toast.makeText(getApplicationContext(), "Error Occurred: " + message, Toast.LENGTH_LONG).show();
                             }
                         }
                     });

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.gigamole.library.PulseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setValue(userObj);
 
                         barcode_number = barcode.displayValue;
-                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=c84bbc48&appKey=3fe08ab757c95a10db2b6d0d671ac6ef");
+                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=6b9bdd74&appKey=9663acb85629a1ef43e000a466bdffa3\n\n");
                         //new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
@@ -330,6 +331,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         navigation.getMenu().getItem(2).setChecked(true);
+        //if (ResultActivity.getInstance() != null) ResultActivity.getInstance().finish();
     }
-
 }

@@ -52,6 +52,11 @@ public class ResultActivity extends AppCompatActivity {
     private User userObj;
     private String userID;
 
+    static ResultActivity activityA;
+    public static ResultActivity getInstance() {
+        return activityA;
+    }
+
     public class Sample {
 
         public String item_name;
@@ -129,6 +134,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        activityA = this;
+
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("Users");
@@ -160,7 +167,7 @@ public class ResultActivity extends AppCompatActivity {
             if (user != null) {
                 userID = user.getUid();
                 Query userData = myRef;
-                userData.addValueEventListener(new ValueEventListener() {
+                userData.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -202,7 +209,7 @@ public class ResultActivity extends AppCompatActivity {
             if (user != null) {
                 userID = user.getUid();
                 Query userData = myRef;
-                userData.addValueEventListener(new ValueEventListener() {
+                userData.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -240,17 +247,29 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
         if (!conflictList.isEmpty()) {
+
+            Bundle bundle = new Bundle();
+            Intent i = new Intent(getApplicationContext(), Pop.class);
+            bundle.putInt("size", conflictList.size());
+
             String conflictText = "YOU HAVE ALLERGY CONFLICTS!" + System.getProperty("line.separator");
             for (int x = 0; x < conflictList.size(); x++) {
                 conflictText += conflictList.get(x);
-                conflictText += " allergy";
-                conflictText += " ";
+                conflictText += " allergy!\n";
+                bundle.putString("allergy" + x, conflictList.get(x));
+
             }
+            i.putExtras(bundle);
+            startActivity(i);
+
             conflictView.setText(conflictText);
         }
     }
 
     public void scanBarcode(View v) {
+        if (conflictView != null) {
+            conflictView.setText("");
+        }
         if (barcodeIngredients != null) {
             barcodeIngredients.setText("");
         }
@@ -263,6 +282,7 @@ public class ResultActivity extends AppCompatActivity {
         if (qrResult != null) {
             qrResult.setText("");
         }
+        //finish();
         Intent intent = new Intent(this, Camera2.class);
         startActivityForResult(intent, 0);
     }
@@ -277,6 +297,8 @@ public class ResultActivity extends AppCompatActivity {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
+
+                    //conflictCheck()
 
                     // If the Barcode is a number
                     if (barcode.valueFormat == 5) {
@@ -300,7 +322,7 @@ public class ResultActivity extends AppCompatActivity {
                         barcode_number = barcode.displayValue;
 
                         //new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
-                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=c84bbc48&appKey=3fe08ab757c95a10db2b6d0d671ac6ef");
+                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=6b9bdd74&appKey=9663acb85629a1ef43e000a466bdffa3\n\n");
 
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -406,6 +428,40 @@ public class ResultActivity extends AppCompatActivity {
             if (barcode_number != null) {
                 barcodeResult.setText(barcode_number);
             }
+
+            if (ingredients != null) {
+                String source = ingredients;
+                source = source.replaceAll("\\.", " ");
+                source = source.replaceAll("\\/", " ");
+                source = source.replaceAll("\\s", " ");
+                final String tokenizer = source;
+                if (user != null) {
+                    userID = user.getUid();
+                    Query userData = myRef;
+                    userData.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                userObj = dataSnapshot.child(userID).getValue(User.class);
+                                if (userObj != null) {
+                                    conflictCheck(tokenizer,userObj.allergies);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
         }
+    }
+    // Changes button back
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //finish();
     }
 }
