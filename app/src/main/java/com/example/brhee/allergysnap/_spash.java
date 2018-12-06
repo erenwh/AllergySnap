@@ -40,11 +40,13 @@ public class _spash extends AppCompatActivity {
                     System.out.println("USER LOGGED IN");
                     // redirect to main page
                     startActivity(new Intent(_spash.this, MainActivity.class));
+                    finish();
                 } else {
                     // No user is signed in
                     System.out.println("NO USER LOGGED IN");
                     // redirect to sign in
                     startActivity(new Intent(_spash.this, LoginActivity.class));
+                    finish();
                 }
             }
         }, 3000);

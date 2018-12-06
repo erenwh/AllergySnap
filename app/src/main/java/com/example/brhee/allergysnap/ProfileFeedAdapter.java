@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,21 +46,27 @@ public class ProfileFeedAdapter extends ArrayAdapter<UserItem> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        ImageView image = convertView.findViewById(R.id.feed_pic);
+        final ImageView image = convertView.findViewById(R.id.feed_pic);
         TextView feedText = convertView.findViewById(R.id.item_desc);
         TextView timeStamp = convertView.findViewById(R.id.timestamp);
         if (getItem(position) instanceof Medication) {
             // if item is an Medication, set items accordingly
-            if (getItem(position).url != null) {
-                Picasso.get().load(getItem(position).url).into(image);
-            } else {
-                Picasso.get().load("https://banner2.kisspng.com/20180308/gjq/kisspng-drug-material-yellow-vector-medicine-pills-5aa0fcdf9ba139.9135045515204999356375.jpg").into(image);
-            }
+            Picasso.get().load(getItem(position).url).into(image, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    image.setImageResource(R.drawable.ic_medicine_placeholder);
+                }
+            });
             feedText.setText("Added " + getItem(position).name + " to medications!");
 
         } else if (getItem(position) instanceof Allergy) {
             // if item is an Allergy, set items accordingly
-            Picasso.get().load("https://cdn3.iconfinder.com/data/icons/food-allergens-3/47/allergens-512.png").into(image);
+            Picasso.get().load(R.drawable.ic_allergy_placeholder).into(image);
             feedText.setText("Added " + getItem(position).name + " to allergies!");
         }
         // set how long ago the item was added
@@ -89,18 +97,27 @@ public class ProfileFeedAdapter extends ArrayAdapter<UserItem> {
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
                     LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View mView = inflater.inflate(R.layout.dialog_medication, null);
-                    ImageView image = mView.findViewById(R.id.med_img);
-                    TextView medName = mView.findViewById(R.id.med_name);
-                    TextView medInfo = mView.findViewById(R.id.med_info);
+                    final View mView = inflater.inflate(R.layout.dialog_medication, null);
+                    final ImageView image = mView.findViewById(R.id.med_img);
+                    final TextView medName = mView.findViewById(R.id.med_name);
+                    final TextView medInfo = mView.findViewById(R.id.med_info);
+                    ProgressBar progressBar = mView.findViewById(R.id.progressBar);
+                    progressBar.setVisibility(View.VISIBLE);
+                    Picasso.get().load(getItem(position).url).into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            medName.setText(getItem(position).name);
+                            medInfo.setText(getItem(position).info);
+                        }
 
-                    if (getItem(position).url != null) {
-                        Picasso.get().load(getItem(position).url).into(image);
-                    } else {
-                        Picasso.get().load("https://banner2.kisspng.com/20180308/gjq/kisspng-drug-material-yellow-vector-medicine-pills-5aa0fcdf9ba139.9135045515204999356375.jpg").into(image);
-                    }
-                    medName.setText(getItem(position).name);
-                    medInfo.setText(getItem(position).info);
+                        @Override
+                        public void onError(Exception e) {
+                            image.setImageResource(R.drawable.ic_medicine_placeholder);
+                            medName.setText(getItem(position).name);
+                            medInfo.setText(getItem(position).info);
+                        }
+                    });
+                    progressBar.setVisibility(View.GONE);
                     builder.setView(mView);
                     AlertDialog dialog = builder.create();
                     dialog.show();
