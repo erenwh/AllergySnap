@@ -86,6 +86,8 @@ public class Camera2 extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference("Users");
         user = mAuth.getCurrentUser();
 
+        if (sv.getHolder() != null) startCameraSource();
+
         if (user != null) {
             userID = user.getUid();
         }
@@ -104,7 +106,6 @@ public class Camera2 extends AppCompatActivity {
                             TakePicture(v);
                         }
                     });
-                    startCameraSource();
                 }
             }
 
