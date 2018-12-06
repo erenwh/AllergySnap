@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     tools:context="com.example.brhee.allergysnap.Camera2">
 
     <SurfaceView
         android:id="@+id/sv_barcode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="700dp" />
 
     <TextView
         android:id="@+id/tv_barcode"
@@ -26,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/circle"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:onClick="TakePicture"
         app:srcCompat="@drawable/allergysnap_logo_no_text2" />
 
