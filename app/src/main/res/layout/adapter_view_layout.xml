@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="100">
 
     <ImageView
         android:id="@+id/conflictImg"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="12.5dp"
+        android:layout_marginRight="7.5dp"
         android:layout_weight="80"
         android:gravity="center"
         tools:srcCompat="@drawable/red_error" />
@@ -20,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="20">
+        android:layout_weight="20"
+        android:layout_gravity="center"
+        android:paddingRight="7.5dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -32,20 +34,9 @@
             android:textColor="@android:color/background_light"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
-            android:textStyle="bold" />
+             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textAlignment="center"
-            android:text="TextView2"
-            android:id="@+id/interactionDescription"
-            android:textColor="@android:color/background_light"
-            android:fontFamily="sans-serif-light"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,20 +47,7 @@
             android:textColor="@android:color/background_light"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textAlignment="center"
-            android:text="TextView3"
-            android:id="@+id/source"
-            android:textColor="@android:color/background_light"
-            android:fontFamily="sans-serif-light"
-            android:textSize="15sp"
-            android:textStyle="bold"
             />
 
     </LinearLayout>
