@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -118,10 +119,19 @@ public class MainActivity extends AppCompatActivity {
                     new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
                     0);
         }
+
         assert lm != null;
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        if (location != null) {
+            Log.e("TAG", "GPS is on");
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            Toast.makeText(MainActivity.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            //This is what you need:
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
+        }
 
 
         GetPollenData();
@@ -180,11 +190,13 @@ public class MainActivity extends AppCompatActivity {
                     if (pollenTF) {
                         findViewById(R.id.pollen_layout).setVisibility(View.VISIBLE);
                     }
+                    if (tree_count == null || tree_count.equals("null"))
+                        tree_count = "0";
                     if (!sent && pollenTF) {
                         Notification noti = new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID).
                                 setSmallIcon(R.drawable.ic_pollen)
                                 .setContentTitle("Pollen Alert")
-                                .setContentText("You have Pollen Allergy, and the recent pollen count has reached " + tree_count)
+                                .setContentText("You have Pollen Allergy, pollen count has reached " + tree_count)
                                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                                 .build();
                         manager.notify(1, noti);

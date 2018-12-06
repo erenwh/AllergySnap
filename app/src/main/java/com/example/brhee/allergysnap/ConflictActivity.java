@@ -40,12 +40,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -167,12 +174,84 @@ public class ConflictActivity extends AppCompatActivity {
                 ArrayList<MedicationConflict> res = new ArrayList<>();
                 // Get user Medications IDs
                 final ArrayList<Integer> myMeds = new ArrayList<>();
+                final ArrayList<String> myMedsNames = new ArrayList<>();
+                final ArrayList<String> myAllergies = new ArrayList<>();
+                if (userObj.allergies != null) {
+                    for (Allergy a :
+                            userObj.allergies) {
+                        myAllergies.add(a.name);
+                    }
+                }
                 if (userObj.medications != null) {
                     for (Medication m :
                             userObj.medications) {
                         myMeds.add(m.id);
+                        myMedsNames.add(m.name);
                     }
                 }
+
+
+
+                // Allergy - Medicine
+
+                // Antibiotics amoxicillin, ampicillin, penicillin, tetracycline, and others
+                Set<String> drugAllergies = new HashSet<>(Arrays.asList("amoxicillin","ampicillin","penicillin","tetracycline"));
+
+                // Nonsteroidal anti-inflammatory drugs like ibuprofen and naproxen
+                // Not supported by Eric yet
+                // drugAllergies.put("ibuprofen", "naproxen");
+
+                // Aspirin
+                // Not supported by Eric yet
+
+                // Sulfa
+                // Not supported by Eric yet
+
+                // Chemotherapy drugs
+                // Not supported by Eric yet
+
+                // Monoclonal antibody therapy -- cetuximab, rituximab, and others
+                // Not supported by Eric yet
+
+                // HIV drugs -- abacavir, nevirapine, and others
+                // Not supported by Eric yet
+
+                // Insulin
+                // Not supported by Eric yet
+
+                // Antiseizure drugs -- carbamazepine, lamotrigine, phenytoin, and others
+                // Not supported by Eric yet
+
+                // Muscle relaxers given by IV -- atracurium, succinylcholine, or vecuronium
+                // Not supported by Eric yet
+
+
+                // for each allergy, check medicine list
+                for (String aller :
+                        myAllergies) {
+                    if (drugAllergies.contains(aller.toLowerCase())) {
+                        for (String med :
+                                myMedsNames) {
+                            if (drugAllergies.contains(med.toLowerCase()))
+                            {
+                                ArrayList<String> drugs;
+                                String description;
+                                String severity;
+                                String source;
+                                drugs = new ArrayList<>();
+                                drugs.add(med);
+                                drugs.add("Your " + aller + " allergy");
+                                description = med + " has confliction with your current Allergy: " + aller;
+                                severity = "Severe";
+                                source = "WebMD";
+                                MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
+
+                                res.add(mc);
+                            }
+                        }
+                    }
+                }
+
                 final StringBuilder urlLink = new StringBuilder("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=");
                 for (int i :
                         myMeds) {
@@ -249,7 +328,6 @@ public class ConflictActivity extends AppCompatActivity {
                             source = fullInteractionTypeObj.getString("sourceName");
                             for (int j = 0; j < fullInteractionTypeArr.length(); j++) {
                                 JSONObject fullInteractionType = fullInteractionTypeArr.getJSONObject(j);
-
                                 JSONArray interactionPair = fullInteractionType.getJSONArray("interactionPair");
                                 drugs = new ArrayList<>();
                                 for (int k = 0; k < interactionPair.length(); k++) {
