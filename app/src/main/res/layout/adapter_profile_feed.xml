@@ -9,16 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_weight="38"
-
+        android:padding="10dp"
         >
 
         <ImageView
             android:id="@+id/feed_pic"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            />
+            android:gravity="center" />
     </RelativeLayout>
 
 
@@ -30,7 +29,6 @@
         android:layout_weight="23"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="Added X to Y"
         android:textColor="@color/colorText"
         android:textSize="16sp" />
 

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/conflictImg"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="12.5dp"
         android:layout_marginRight="7.5dp"
         android:layout_weight="80"
@@ -36,18 +36,7 @@
             android:textSize="15sp"
              />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textAlignment="center"
-            android:text="TextView2"
-            android:id="@+id/interactionDescription"
-            android:textColor="@android:color/background_light"
-            android:fontFamily="sans-serif-light"
-            android:textSize="15sp"
 
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,18 +48,6 @@
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
 
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textAlignment="center"
-            android:text="TextView3"
-            android:id="@+id/source"
-            android:textColor="@android:color/background_light"
-            android:fontFamily="sans-serif-light"
-            android:textSize="15sp"
             />
 
     </LinearLayout>
