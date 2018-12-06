@@ -1,12 +1,18 @@
 package com.example.brhee.allergysnap;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gigamole.library.PulseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -33,11 +40,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.medialablk.easytoast.EasyToast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -68,11 +80,36 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     public BottomNavigationView navigation;
 
+    private LocationManager locationManager;
+    double longitude;
+    double latitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Location
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(this,
+                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                    0);
+        }
+        assert lm != null;
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        //GetPollenData();
+
+        System.out.println("long: " + longitude + ", latitude: " + latitude);
+        //longitude: -86.90946872, latitude: 40.4232417
+        //uk https://api.breezometer.com/pollen/v1/current-conditions?lat=52.2053&lon=-0.1218&key=4a06240afef94732b6b524fd3a78d2e9
+        //aus https://api.breezometer.com/pollen/v1/current-conditions?lat=33.8688&lon=151.2093&key=4a06240afef94732b6b524fd3a78d2e9
+
 
         barcodeResult = (TextView)findViewById(R.id.barcode_result);
         barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
@@ -127,6 +164,102 @@ public class MainActivity extends AppCompatActivity {
         //ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         //cameraBtn.setOnClickListener(this);
 
+    }
+
+    private void GetPollenData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // form url
+                longitude = -0.1218;
+                latitude = 52.2053;
+                String APIkey = "4a06240afef94732b6b524fd3a78d2e9";
+                final StringBuilder urlLink = new StringBuilder("https://api.breezometer.com/pollen/v1/current-conditions?");
+                urlLink.append("lat=").append(latitude).append("&").append("lon=").append(longitude).append("&").append("key=").append(APIkey);
+                System.out.println(urlLink);
+
+                // send to api
+                final StringBuffer buffer = new StringBuffer();
+                HttpURLConnection connection = null;
+                BufferedReader reader = null;
+                try {
+                    URL url = new URL(urlLink.toString());
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+
+                    InputStream stream = connection.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+
+                    String line = "";
+
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line + "\n");
+                        Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+
+                    }
+                    System.out.println(buffer.toString());
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                    try {
+                        if (reader != null) {
+                            reader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Extract info from JSON
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject(buffer.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String tree_desc;
+                String tree_count;
+                String grass_desc;
+                String grass_count;
+                if (obj != null) {
+                    try {
+                        // Get Data object
+                        JSONObject data = obj.getJSONObject("data");
+                        JSONObject pollens = data.getJSONObject("pollens");
+                        JSONObject tree = pollens.getJSONObject("tree");
+                        tree_desc = tree.getString("description");
+                        tree_count = tree.getString("count");
+                        JSONObject grass = pollens.getJSONObject("grass");
+                        grass_desc = tree.getString("description");
+                        grass_count = tree.getString("count");
+                        System.out.println(tree_desc + tree_count + grass_desc + grass_count);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+/*
+                        progressbar.setVisibility(View.INVISIBLE);
+                        //Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
+                        EasyToast.custom(MedicationActivity.this, "Added " + medFilter + " successfully!", R.drawable.ic_medications_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                        medSearch.setText("");
+                        */
+                    }
+                });
+            }
+        }).start();
     }
 
 
