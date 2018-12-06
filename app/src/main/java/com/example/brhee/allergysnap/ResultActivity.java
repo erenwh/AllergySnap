@@ -147,6 +147,7 @@ public class ResultActivity extends AppCompatActivity {
         // Checks MainActivity bundle
         Bundle bundle = getIntent().getExtras();
         barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
+        conflictView.setMovementMethod(new ScrollingMovementMethod());
         // Bundle from MainActivity
         barcodeResult.setText(bundle.getString("barcode_number"));
         if (bundle.getString("ingredients") != null) {
@@ -239,7 +240,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
         if (!conflictList.isEmpty()) {
-            String conflictText = "YOU HAVE CONFLICTS!" + System.getProperty("line.separator");
+            String conflictText = "YOU HAVE ALLERGY CONFLICTS!" + System.getProperty("line.separator");
             for (int x = 0; x < conflictList.size(); x++) {
                 conflictText += conflictList.get(x);
                 conflictText += " allergy";
@@ -266,7 +267,7 @@ public class ResultActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
-    public void home() {
+    public void home(View v) {
         startActivity(new Intent(ResultActivity.this, MainActivity.class));
     }
 
