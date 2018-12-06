@@ -132,7 +132,7 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                                         idcounter = userObj.allergies.size()-1;
 //                                        Allergy allergy = new Allergy(query.toString());
                                         Allergy allergy = new Allergy(query.toString(), ++idcounter);
-
+                                        allergy.timeAdded = System.currentTimeMillis();
                                         allergyNameList_user.add(allergy);
                                         userObj.allergies.add(allergy);
                                         FirebaseDatabase.getInstance().getReference("Users")
