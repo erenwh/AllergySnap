@@ -2,6 +2,9 @@ package com.example.brhee.allergysnap;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +12,14 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
@@ -83,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     double longitude;
     double latitude;
+    String tree_desc;
+    String tree_count;
+    String grass_desc;
+    String grass_count;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    public static final String CHANNEL_1_ID = "channel1";
+    private NotificationManager manager;
+    private DatabaseReference hanRef;
+    private User userObj_han;
+    boolean pollenTF = false;
+    boolean sent = false;
 
 
     @Override
@@ -103,7 +121,15 @@ public class MainActivity extends AppCompatActivity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longitude = location.getLongitude();
         latitude = location.getLatitude();
-        //GetPollenData();
+
+
+        GetPollenData();
+
+
+        createNotificationChannels();
+
+
+
 
         System.out.println("long: " + longitude + ", latitude: " + latitude);
         //longitude: -86.90946872, latitude: 40.4232417
@@ -144,6 +170,26 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     userObj = dataSnapshot.child(userID).getValue(User.class);
+                    if (userObj.allergies != null) {
+                        for (Allergy a :
+                                userObj.allergies) {
+                            if (a.name.equals("pollen")) pollenTF = true;
+                        }
+                    }
+                    if (pollenTF) {
+                        findViewById(R.id.pollen_layout).setVisibility(View.VISIBLE);
+                    }
+                    if (!sent && pollenTF) {
+                        Notification noti = new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID).
+                                setSmallIcon(R.drawable.ic_pollen)
+                                .setContentTitle("Pollen Alert")
+                                .setContentText("You have Pollen Allergy, and the recent pollen count has reached " + tree_count)
+                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                .build();
+                        manager.notify(1, noti);
+                        sent = true;
+                    }
+
                 }
             }
 
@@ -153,16 +199,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // signinNavBtn
-        //InitFirebaseAuth();
-        /*final Button btn = findViewById(R.id.RedirectToSignInBtn);
-        btn.setOnClickListener(this);*/
 
-//        Button cam2btn = findViewById(R.id.cam2);
-//        cam2btn.setOnClickListener(this);
-      
-        //ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
-        //cameraBtn.setOnClickListener(this);
+
+
+
+
+    }
+
+    private void createNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel1 = new NotificationChannel(
+                    CHANNEL_1_ID,
+                    "Channel 1",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel1.setDescription("Pollen Alert");
+            manager = getSystemService(NotificationManager.class);
+            assert manager != null;
+            manager.createNotificationChannel(channel1);
+        }
 
     }
 
@@ -226,10 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String tree_desc;
-                String tree_count;
-                String grass_desc;
-                String grass_count;
+
                 if (obj != null) {
                     try {
                         // Get Data object
@@ -238,10 +290,28 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject tree = pollens.getJSONObject("tree");
                         tree_desc = tree.getString("description");
                         tree_count = tree.getString("count");
+                        if (tree_count.equals("null")) {
+                            tree_count = "0";
+                        }
                         JSONObject grass = pollens.getJSONObject("grass");
-                        grass_desc = tree.getString("description");
-                        grass_count = tree.getString("count");
+                        grass_desc = grass.getString("description");
+                        grass_count = grass.getString("count");
+                        if (grass_count.equals("null")) {
+                            grass_count = "0";
+                        }
                         System.out.println(tree_desc + tree_count + grass_desc + grass_count);
+
+                        /*TextView t1 = (TextView) findViewById(R.id.tree_desc_text);
+                        t1.setText(tree_desc);
+                        TextView t2 = findViewById(R.id.tree_count_text);
+                        t2.setText(tree_count);
+                        TextView t3 = findViewById(R.id.grass_desc_text);
+                        t3.setText(grass_desc);
+                        TextView t4 = findViewById(R.id.grass_count_text);
+                        t4.setText(grass_count);*/
+
+
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -250,16 +320,21 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-/*
-                        progressbar.setVisibility(View.INVISIBLE);
-                        //Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
-                        EasyToast.custom(MedicationActivity.this, "Added " + medFilter + " successfully!", R.drawable.ic_medications_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
-                        medSearch.setText("");
-                        */
+
+                        TextView t1 = findViewById(R.id.tree_desc_text);
+                        t1.setText(tree_desc);
+                        TextView t2 = findViewById(R.id.tree_count_text);
+                        t2.setText(tree_count);
+                        TextView t3 = findViewById(R.id.grass_desc_text);
+                        t3.setText(grass_desc);
+                        TextView t4 = findViewById(R.id.grass_count_text);
+                        t4.setText(grass_count);
                     }
                 });
+
             }
         }).start();
+
     }
 
 
