@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements
     private Button signout_button;
     private TextView extra, username, ingredients, barcodes, qrcodes;
     private ListView profileFeed;
+    private ProgressBar progressBar;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -115,6 +117,7 @@ public class ProfileActivity extends AppCompatActivity implements
         qrcodes = findViewById(R.id.qr_scans);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
         profileFeed = findViewById(R.id.prof_feed);
+        progressBar = findViewById(R.id.progressBar);
 
 
 
@@ -176,6 +179,7 @@ public class ProfileActivity extends AppCompatActivity implements
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             // get User info (updates when user info changes)
+                            progressBarVisible();
                             userObj = dataSnapshot.getValue(User.class);
 
                             // add all the medications and allergies to arraylist and sort them
@@ -191,6 +195,7 @@ public class ProfileActivity extends AppCompatActivity implements
                             // display profile feed
                             ProfileFeedAdapter adapter = new ProfileFeedAdapter(ProfileActivity.this, R.layout.adapter_profile_feed, items);
                             profileFeed.setAdapter(adapter);
+                            progressBarInvisible();
                         }
 
                         @Override
@@ -275,6 +280,14 @@ public class ProfileActivity extends AppCompatActivity implements
     private void showMessage(String msg) {
         ViewGroup container = findViewById(R.id.snackbarLayout);
         Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void progressBarVisible() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void progressBarInvisible() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

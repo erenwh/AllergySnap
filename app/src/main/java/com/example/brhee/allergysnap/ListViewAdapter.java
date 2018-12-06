@@ -123,7 +123,6 @@ public class ListViewAdapter extends BaseAdapter{
                                     .setValue(user);
                             //Toast.makeText(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", Toast.LENGTH_LONG).show();
                             EasyToast.custom(parent.getContext(), "Added " + allergyNamesList.get(position).getName() + " successfully!", R.drawable.ic_allergies_24dp, mContext.getResources().getColor(R.color.colorAccent), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
-
                         }
 
                     }

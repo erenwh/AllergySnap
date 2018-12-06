@@ -122,30 +122,61 @@ public class Camera2 extends AppCompatActivity {
     public void TakePicture(View v) {
         cameraSource.stop();
         String source = tv.getText().toString();
-        source = source.replaceAll("-", " ");
-        source = source.replaceAll(",", " ");
         source = source.replaceAll("\\.", " ");
         source = source.replaceAll("\\/", " ");
-        source = source.replaceAll("[(]", " ");
-        source = source.replaceAll("[)]", " ");
-        source = source.replaceAll("\\[", " ");
-        source = source.replaceAll("\\]", " ");
-        source = source.replaceAll("\\:", " ");
         source = source.replaceAll("\\s", " ");
-        StringTokenizer st = new StringTokenizer(source, " ");
+        StringTokenizer st = new StringTokenizer(source, "(),[]:");
         String tok;
         List<String> list = new ArrayList<>();
         while (st.hasMoreTokens()) {
             tok = st.nextToken();
-            if (wordcheck(tok)) {
-                if (!tok.equals("a")) list.add(tok);
+            StringTokenizer st2 = new StringTokenizer(tok, " ");
+            List <String> list2 = new ArrayList<>();
+            while (st2.hasMoreTokens()) {
+                String s = st2.nextToken();
+                if (wordcheck(s)) {
+                    if (!s.equals("a")) list2.add(s);
+                }
+            }
+            String add = "";
+            for (int x = 0; x < list2.size(); x++) {
+                add += list2.get(x);
+                add += " ";
+            }
+            if (!add.equals("")) {
+                list.add(add);
             }
         }
         String ret = "";
         for (int x = 0; x < list.size(); x++) {
             ret += list.get(x);
-            ret += " ";
+            ret += ",";
         }
+
+//        source = source.replaceAll("-", " ");
+//        source = source.replaceAll(",", " ");
+//        source = source.replaceAll("\\.", " ");
+//        source = source.replaceAll("\\/", " ");
+//        source = source.replaceAll("[(]", " ");
+//        source = source.replaceAll("[)]", " ");
+//        source = source.replaceAll("\\[", " ");
+//        source = source.replaceAll("\\]", " ");
+//        source = source.replaceAll("\\:", " ");
+//        source = source.replaceAll("\\s", " ");
+//        StringTokenizer st = new StringTokenizer(source, " ");
+//        String tok;
+//        List<String> list = new ArrayList<>();
+//        while (st.hasMoreTokens()) {
+//            tok = st.nextToken();
+//            if (wordcheck(tok)) {
+//                if (!tok.equals("a")) list.add(tok);
+//            }
+//        }
+//        String ret = "";
+//        for (int x = 0; x < list.size(); x++) {
+//            ret += list.get(x);
+//            ret += " ";
+//        }
         // If it scanned some text, add to counter
         if (!source.equals("")) {
             userObj.scans.set(0, userObj.scans.get(0) + 1);

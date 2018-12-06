@@ -1,5 +1,44 @@
+alkali
+carrageenan
+dicalcium
+magnesium
+hydroxide
+ferric
+orthophosphate
+oxide
+pantothenate
+gluconate
+manganese
+phylloquinone
+biotin
+partially
+bicarbonate
+cornstarch
+leavening
+shortening
+unbleached
+oils
+bromate
+yeast
+mono- and diglycerides
+dough
+conditioner
+non-fat
+l-cysteine
+azodicarbonamide
+stearoyl-2
+perservatives
+propionate
 cellulose
 Cellulose
+wheat
+potassium bromate
+thiamine mononitrate
+partially hydrogenated soybean and cottonseed oils
+partially hydrogenated soybean
+cottonseed oils
+soybean oil
+malted
 Whey
 CELLULOSE
 folic
@@ -18,6 +57,9 @@ Folic
 Cobalamin
 Biotin
 Ascorbic acid
+ascorbic
+ada
+sorbate
 Retinoids
 palmitate
 retinyl
@@ -50,7 +92,6 @@ seizure
 disorders
 supplement
 blood
-calcium
 chronic
 nausea
 urination
@@ -62,8 +103,6 @@ toxicity
 tocopherol
 Phosphorus
 phosphorus
-Calcium
-calcium
 Magnesium
 magnesium
 Salt
@@ -73,8 +112,6 @@ sodium
 Sodium
 Chloride
 chloride
-iron
-Iron
 Zinc
 zinc
 Copper
@@ -127,8 +164,9 @@ brown
 black
 rice
 purple
-red
-blue
+red 40
+blue 1
+yellow 5
 yellow
 dark
 light
@@ -860,6 +898,8 @@ dextrose
 modified
 whey
 leavnings
+phosphate
+monocalcium
 pryophosphate
 monocalcium
 solid

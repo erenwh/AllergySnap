@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +60,9 @@ public class ConflictActivity extends AppCompatActivity {
     private User userObj;
     private String userID;
     private TextView disclaimer;
+    private ProgressBar progressBar;
+    private long one;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     ArrayList<MedicationConflict> conflictList;
@@ -94,6 +98,8 @@ public class ConflictActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         user = mAuth.getCurrentUser();
+        progressBar = findViewById(R.id.progressBar);
+
 
         if (user != null) {
             userID = user.getUid();
@@ -102,7 +108,6 @@ public class ConflictActivity extends AppCompatActivity {
         if (userID == null) {
             startActivity(new Intent(ConflictActivity.this, LoginActivity.class));
         }
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -113,9 +118,9 @@ public class ConflictActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             // get User info (updates when user info changes)
                             userObj = dataSnapshot.getValue(User.class);
-
-
+                            progressBarVisible();
                             getConflicts();
+                            progressBarInvisible();
 
                         }
 
@@ -144,10 +149,24 @@ public class ConflictActivity extends AppCompatActivity {
 
     }
 
+    private void progressBarVisible() {
+        one = System.currentTimeMillis();
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "progressBarVisible: Visible -" + one);
+    }
+
+    private void progressBarInvisible() {
+        progressBar.setVisibility(View.GONE);
+        long two = System.currentTimeMillis();
+        Log.d(TAG, "progressBarVisible: Visible -" + two);
+        Log.d(TAG, "progressBarInvisible: Time of progressBar: " + String.valueOf(((two - one)/1000F)));
+    }
+
     private void getConflicts() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 ArrayList<MedicationConflict> res = new ArrayList<>();
                 // Get user Medications IDs
                 final ArrayList<Integer> myMeds = new ArrayList<>();
@@ -286,6 +305,7 @@ public class ConflictActivity extends AppCompatActivity {
                         } else {
                             mListView.setEmptyView(findViewById(R.id.emptyElement));
                         }
+                        progressBarInvisible();
                     }
                 });
 
