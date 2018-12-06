@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         Notification noti = new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID).
                                 setSmallIcon(R.drawable.ic_pollen)
                                 .setContentTitle("Pollen Alert")
-                                .setContentText("You have Pollen Allergy, and the recent pollen count has reached " + tree_count)
+                                .setContentText("You have Pollen Allergy, pollen count has reached " + tree_count)
                                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                                 .build();
                         manager.notify(1, noti);
