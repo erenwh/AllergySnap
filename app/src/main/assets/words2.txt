@@ -1,3 +1,16 @@
+alkali
+carrageenan
+dicalcium
+magnesium
+hydroxide
+ferric
+orthophosphate
+oxide
+pantothenate
+gluconate
+manganese
+phylloquinone
+biotin
 partially
 bicarbonate
 cornstarch
