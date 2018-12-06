@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.medialablk.easytoast.EasyToast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,7 +139,9 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(userObj);
 
-                                        Toast.makeText(AllergyActivity.this, "Successfully Added " + query.toString() + " to your allergy list", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(AllergyActivity.this, "Successfully Added " + query.toString() + " to your allergy list", Toast.LENGTH_LONG).show();
+                                        EasyToast.custom(AllergyActivity.this, "Successfully added " + query.toString() + " to your allergy list.", R.drawable.ic_allergies_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+
                                     }
                                 }
                         }

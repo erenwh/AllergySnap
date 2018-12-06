@@ -262,6 +262,10 @@ public class ResultActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
+    public void home() {
+        startActivity(new Intent(ResultActivity.this, MainActivity.class));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {

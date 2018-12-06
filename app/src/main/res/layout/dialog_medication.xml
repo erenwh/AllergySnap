@@ -18,6 +18,8 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Medicine Name"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/DarkOrange"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -26,6 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Information about medication"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/DarkOrange"
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:layout_marginBottom="15dp"
