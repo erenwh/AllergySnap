@@ -2,36 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100">
-
-    <ImageView
-        android:id="@+id/feed_pic"
-        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
+    android:layout_margin="10dp" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_weight="35"
-        android:gravity="center"
-        android:text="TextView1"
-        android:textSize="20sp"
-        />
+        android:layout_weight="38"
+
+        >
+
+        <ImageView
+            android:id="@+id/feed_pic"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/item_desc"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_weight="25"
-        android:gravity="center"
-        android:textColor="@color/colorText"
+        android:layout_weight="23"
         android:fontFamily="sans-serif-light"
+        android:gravity="center"
         android:text="Added X to Y"
-        android:textSize="20sp"
-        />
+        android:textColor="@color/colorText"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="40"
+        android:layout_weight="39"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:orientation="vertical"
