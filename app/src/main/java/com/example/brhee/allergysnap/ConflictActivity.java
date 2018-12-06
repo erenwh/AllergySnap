@@ -167,10 +167,20 @@ public class ConflictActivity extends AppCompatActivity {
                 ArrayList<MedicationConflict> res = new ArrayList<>();
                 // Get user Medications IDs
                 final ArrayList<Integer> myMeds = new ArrayList<>();
+                
+                final ArrayList<String> myMedsNames = new ArrayList<>();
+                final ArrayList<String> myAllergies = new ArrayList<>();
+                if (userObj.allergies != null) {
+                    for (Allergy a :
+                            userObj.allergies) {
+                        myAllergies.add(a.name);
+                    }
+                }
                 if (userObj.medications != null) {
                     for (Medication m :
                             userObj.medications) {
                         myMeds.add(m.id);
+                        myMedsNames.add(m.name);
                     }
                 }
                 final StringBuilder urlLink = new StringBuilder("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=");
@@ -249,7 +259,6 @@ public class ConflictActivity extends AppCompatActivity {
                             source = fullInteractionTypeObj.getString("sourceName");
                             for (int j = 0; j < fullInteractionTypeArr.length(); j++) {
                                 JSONObject fullInteractionType = fullInteractionTypeArr.getJSONObject(j);
-
                                 JSONArray interactionPair = fullInteractionType.getJSONArray("interactionPair");
                                 drugs = new ArrayList<>();
                                 for (int k = 0; k < interactionPair.length(); k++) {
