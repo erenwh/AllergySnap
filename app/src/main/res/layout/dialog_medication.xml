@@ -8,7 +8,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    >
 
     <ImageView
         android:id="@+id/med_img"
@@ -21,11 +23,11 @@
 
     <TextView
         android:id="@+id/med_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Medicine Name"
+        android:layout_gravity="center"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/DarkOrange"
         android:textSize="16sp"
@@ -33,9 +35,9 @@
 
     <TextView
         android:id="@+id/med_info"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Information about medication"
+        android:layout_gravity="center"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/DarkOrange"
         android:layout_marginTop="5dp"
