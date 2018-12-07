@@ -244,6 +244,7 @@ public class ConflictActivity extends AppCompatActivity {
                                 drugs = new ArrayList<>();
                                 drugs.add(med);
                                 drugs.add(aller);
+                                aller = aller.substring(0,1).toUpperCase() + aller.substring(1).toLowerCase();
                                 description = med + " has a conflict with your allergy to " + aller;
                                 severity = "N/A";
                                 source = "WebMD";

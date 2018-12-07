@@ -73,7 +73,8 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
             myImageView.setImageResource(R.drawable.medication_conflict);
             conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
         } else {
-            conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + conflictDrugs.get(1)));
+            String allergy = conflictDrugs.get(1).substring(0, 1).toUpperCase() + conflictDrugs.get(1).substring(1);
+            conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + allergy));
             myImageView.setImageResource(R.drawable.allergy_conflict);
         }
 
@@ -111,7 +112,8 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
                     conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
                     myImageView.setImageResource(R.drawable.ic_med_conflict);
                 } else {
-                    conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + conflictDrugs.get(1)));
+                    String allergy = conflictDrugs.get(1).substring(0, 1).toUpperCase() + conflictDrugs.get(1).substring(1);
+                    conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + allergy));
                     myImageView.setImageResource(R.drawable.allergy_conflict_2);
                 }
                 descriptionView.setText(Html.fromHtml(description));

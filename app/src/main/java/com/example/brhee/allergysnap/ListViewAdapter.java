@@ -82,7 +82,8 @@ public class ListViewAdapter extends BaseAdapter{
             holder = (ViewHolder) view.getTag();
         }
         // set the results into textviews
-        holder.name.setText(allergyNamesList.get(position).getName());
+        String allergy = allergyNamesList.get(position).getName().substring(0, 1).toUpperCase() + allergyNamesList.get(position).getName().substring(1).toLowerCase();
+        holder.name.setText(allergy);
 
         // add to my allergylist
         Button addBtn = (Button) view.findViewById(R.id.add_btn);

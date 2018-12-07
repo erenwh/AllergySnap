@@ -45,7 +45,8 @@ public class ListViewAdapterMyAllergyList extends ArrayAdapter<Allergy> {
         view = inflater.inflate(mResource, parent, false);
 
         TextView  allText = view.findViewById(R.id.myAllergyName);
-        allText.setText(allergy);
+        String allergy2 = allergy.substring(0, 1).toUpperCase() + allergy.substring(1).toLowerCase();
+        allText.setText(allergy2);
 
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
