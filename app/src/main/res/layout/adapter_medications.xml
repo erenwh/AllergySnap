@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
 
     <TextView
@@ -11,27 +13,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="20"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
         android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:orientation="vertical"
         android:text="TextView1"
-        android:textSize="20sp"
-        android:textColor="@color/colorText"/>
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/med_delete"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="80"
         android:layout_marginRight="10dp"
+        android:layout_weight="80"
+        android:background="@drawable/roundedbuttonremove"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/roundedbuttonremove"
         android:text="-"
-        android:fontFamily="sans-serif-light"
-        android:textSize="20sp"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:textSize="20sp">
 
     </Button>
 

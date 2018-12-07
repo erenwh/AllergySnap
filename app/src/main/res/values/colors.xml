@@ -5,7 +5,7 @@
     <color name="colorAccent">#ffc800</color>
     <color name="colorProfile">#FFB75E</color>
     <color name="colorProfileDark">#ED7003</color>
-    <color name="colorText">#FFFFFF</color>
+    <color name="colorText">#535353</color>
     <color name="colorAlert">#ff1100</color>
     <color name="colorPlus">#3ec74e</color>
     <color name="colorHint">#808080</color>

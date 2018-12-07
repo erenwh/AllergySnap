@@ -95,6 +95,7 @@
                 android:src="@drawable/ic_search_24dp"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
+                android:tint="@color/DarkGray"
                 />
 
             <EditText

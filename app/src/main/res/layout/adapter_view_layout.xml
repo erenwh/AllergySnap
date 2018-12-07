@@ -31,7 +31,7 @@
             android:textAlignment="center"
             android:text="TextView1"
             android:id="@+id/drugPair"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
              />
@@ -44,7 +44,7 @@
             android:textAlignment="center"
             android:text="TextView3"
             android:id="@+id/severity"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/colorText"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
 
