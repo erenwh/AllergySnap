@@ -1,6 +1,9 @@
 package com.example.brhee.allergysnap;
 
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -94,6 +97,10 @@ public class ProfileActivity extends AppCompatActivity implements
         username = (TextView) findViewById(R.id.username);
         extra = (TextView) findViewById(R.id.extra);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_picture);
+
+        int color = getResources().getColor(R.color.DarkGray);
+        ColorFilter cf = new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        userProfileImage.setColorFilter(cf);
 
         // navigation bar
         toolbar = getSupportActionBar();
