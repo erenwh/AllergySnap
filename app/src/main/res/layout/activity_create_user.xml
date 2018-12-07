@@ -15,12 +15,13 @@
         <ImageView
             android:id="@+id/create_user_allergy_snap_logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/allergysnap_logo"
-            android:adjustViewBounds="true"/>
+            android:layout_marginStart="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/allergysnap_logo" />
 
         <TextView
 
@@ -47,7 +48,8 @@
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_profile_detail_email" />
+                android:src="@drawable/ic_profile_detail_email"
+                android:tint="@color/DarkGray"/>
 
             <EditText
                 android:id="@+id/edit_email"
@@ -61,7 +63,8 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/edit_username"
-                android:textColorHint="@color/colorText" />
+                android:textColorHint="@color/colorText"
+                android:tint="@color/DarkGray"/>
 
         </LinearLayout>
 
@@ -79,7 +82,8 @@
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_profile_detail_name" />
+                android:src="@drawable/ic_profile_detail_name"
+                android:tint="@color/DarkGray"/>
 
             <EditText
                 android:id="@+id/edit_username"
@@ -110,7 +114,8 @@
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_create_user_password" />
+                android:src="@drawable/ic_create_user_password"
+                android:tint="@color/DarkGray"/>
 
             <EditText
                 android:id="@+id/edit_password"
@@ -143,7 +148,8 @@
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_create_user_password" />
+                android:src="@drawable/ic_create_user_password"
+                android:tint="@color/DarkGray"/>
 
             <EditText
                 android:id="@+id/edit_password_confirm"
@@ -203,7 +209,7 @@
         android:layout_alignParentBottom="true"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/colorText"
+        android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:text="Sign Up" />
 
