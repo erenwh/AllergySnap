@@ -25,14 +25,14 @@
     <TextView
         android:id="@+id/scan_disclaimer"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="37dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="255dp"
         android:fontFamily="sans-serif-light"
-        android:text="Disclaimer: Not all Ingredients may have been scanned"
+        android:text="Disclaimer: Not all ingredients may have been scanned and ingredient names may not be accurate"
         android:textAlignment="center"
-        android:textColor="@color/White"
+        android:textColor="@color/colorText"
         android:textSize="15sp"
         android:textStyle="italic" />
 
