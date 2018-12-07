@@ -3,6 +3,9 @@ package com.example.brhee.allergysnap;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -96,6 +99,10 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
         progressBar = findViewById(R.id.progressBar);
         profilePicture = findViewById(R.id.profile_picture);
 
+        int color = getResources().getColor(R.color.DarkGray);
+        ColorFilter cf = new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        profilePicture.setColorFilter(cf);
+
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("Users");
@@ -150,6 +157,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
             if (userObj.hasPFP && userObj.uri != null) {
                 Picasso.get().load(userObj.uri).into(profilePicture);
+                profilePicture.setColorFilter(null);
             }
         }
 

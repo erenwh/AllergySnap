@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     public BottomNavigationView navigation;
 
-    private LocationManager locationManager;
     double longitude;
     double latitude;
     String tree_desc;
@@ -110,6 +110,31 @@ public class MainActivity extends AppCompatActivity {
 
         assert lm != null;
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                //Toast.makeText(MainActivity.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+                EasyToast.custom(MainActivity.this, "Latitude: " + latitude + "\nLongitude: " + longitude, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
         if (location != null) {
             Log.e("TAG", "GPS is on");
             latitude = location.getLatitude();
@@ -119,16 +144,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             //This is what you need:
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
-        }
 
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        }
 
         GetPollenData();
 
 
         createNotificationChannels();
-
-
 
 
         System.out.println("long: " + longitude + ", latitude: " + latitude);
@@ -137,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
         //aus https://api.breezometer.com/pollen/v1/current-conditions?lat=33.8688&lon=151.2093&key=4a06240afef94732b6b524fd3a78d2e9
 
 
-        barcodeResult = (TextView)findViewById(R.id.barcode_result);
-        barcodeIngredients = (TextView)findViewById(R.id.barcode_ingredients);
-        barcodeName = (TextView)findViewById(R.id.barcode_name);
-        qrResult = (TextView)findViewById(R.id.qr_result);
+        barcodeResult = (TextView) findViewById(R.id.barcode_result);
+        barcodeIngredients = (TextView) findViewById(R.id.barcode_ingredients);
+        barcodeName = (TextView) findViewById(R.id.barcode_name);
+        qrResult = (TextView) findViewById(R.id.qr_result);
 
         barcode_number = "";
         product_name = "";
@@ -202,11 +225,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
+
 
     private void createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

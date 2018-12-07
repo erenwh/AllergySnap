@@ -11,10 +11,14 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.Result;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -127,6 +131,9 @@ public class ResultActivity extends AppCompatActivity {
     public TextView barcodeName;
     public TextView qrResult;
     public TextView conflictView;
+    public ListView ingredients_feed;
+    public ListView conflicts_feed;
+
 
     public AsyncTask data2;
     @Override
@@ -151,6 +158,9 @@ public class ResultActivity extends AppCompatActivity {
         product_name = "";
         ingredients = "";
 
+        ingredients_feed = (ListView)findViewById(R.id.ingredients_feed);
+        conflicts_feed = (ListView)findViewById(R.id.conflicts_feed);
+
         // Checks MainActivity bundle
         Bundle bundle = getIntent().getExtras();
         barcodeIngredients.setMovementMethod(new ScrollingMovementMethod());
@@ -163,6 +173,14 @@ public class ResultActivity extends AppCompatActivity {
             source = source.replaceAll("\\.", " ");
             source = source.replaceAll("\\/", " ");
             source = source.replaceAll("\\s", " ");
+            List<String> ingList = new ArrayList<>();
+            StringTokenizer st = new StringTokenizer(source, "[]():,");
+            while (st.hasMoreTokens()) {
+                String s = st.nextToken();
+                ingList.add(s);
+            }
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, (List) ingList);
+            ingredients_feed.setAdapter(adapter);
             final String tokenizer = source;
             if (user != null) {
                 userID = user.getUid();
@@ -197,14 +215,18 @@ public class ResultActivity extends AppCompatActivity {
             StringTokenizer st = new StringTokenizer(s, ",");
             String dispText = "";
             String d;
+            List<String> ingredientsList = new ArrayList<String>();
             int count = 0;
             while (st.hasMoreTokens()) {
                 d = st.nextToken();
+                ingredientsList.add(d);
                 dispText += d;
                 if (count > 0 && count % 5 == 0 ) dispText += System.getProperty("line.separator");
                 else dispText += ", ";
                 count++;
             }
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, (List) ingredientsList);
+            ingredients_feed.setAdapter(adapter);
             final String tokenizer = s;
             if (user != null) {
                 userID = user.getUid();
@@ -247,6 +269,9 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
         if (!conflictList.isEmpty()) {
+
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, (List) conflictList);
+            conflicts_feed.setAdapter(adapter);
 
             Bundle bundle = new Bundle();
             Intent i = new Intent(getApplicationContext(), Pop.class);
@@ -435,6 +460,14 @@ public class ResultActivity extends AppCompatActivity {
                 source = source.replaceAll("\\/", " ");
                 source = source.replaceAll("\\s", " ");
                 final String tokenizer = source;
+                List<String> ingList2 = new ArrayList<>();
+                StringTokenizer st = new StringTokenizer(source, "[]():,");
+                while (st.hasMoreTokens()) {
+                    String s = st.nextToken();
+                    ingList2.add(s);
+                }
+                ArrayAdapter adapter = new ArrayAdapter(ResultActivity.this, android.R.layout.simple_list_item_1, (List) ingList2);
+                ingredients_feed.setAdapter(adapter);
                 if (user != null) {
                     userID = user.getUid();
                     Query userData = myRef;
