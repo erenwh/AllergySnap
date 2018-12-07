@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             //This is what you need:
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
         }
 
 

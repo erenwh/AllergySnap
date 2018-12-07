@@ -15,6 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="165dp"
+        android:visibility="invisible"
         android:fontFamily="sans-serif-light"
         android:scrollbars="vertical"
         android:textAlignment="center"
@@ -25,12 +26,12 @@
     <TextView
         android:id="@+id/scan_disclaimer"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="255dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/barcode_name"
         android:fontFamily="sans-serif-light"
-        android:text="Disclaimer: Not all ingredients may have been scanned and ingredient names may not be accurate"
+        android:text="Disclaimer: Results may not always be accurate."
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:textSize="15sp"
@@ -43,6 +44,7 @@
         android:textSize="40sp"
         android:textAlignment="center"
         android:text="Scan Results"
+        android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -89,17 +91,73 @@
         android:textColor="@color/colorText"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/ingredientsTitle"
-        android:layout_below="@id/scan_disclaimer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
+        android:id="@+id/IngConf"
+        android:layout_below="@id/scan_disclaimer">
+
+        <TextView
+            android:id="@+id/ingredientsTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scan_disclaimer"
+            android:layout_weight=".5"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="15dp"
+            android:text="Ingredients"
+            android:textColor="@color/colorText"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/conflictsTitle"
+            android:layout_below="@id/scan_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Conflicts"
+            android:textColor="@color/colorAlert"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/list_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:paddingTop="8dp"
         android:scrollbars="vertical"
-        android:text="Ingredients"
-        android:textAlignment="center"
-        android:textColor="@color/colorText"
-        android:textSize="25sp" />
+        android:orientation="horizontal"
+        android:layout_below="@id/IngConf"
+        android:layout_above="@id/scan_barcode">
+
+            <ListView
+                android:id="@+id/ingredients_feed"
+                android:layout_weight=".5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                />
+
+            <ListView
+                android:id="@+id/conflicts_feed"
+                android:layout_toRightOf="@id/ingredients_feed"
+                android:layout_weight=".5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/barcode_ingredients"
@@ -109,6 +167,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="155dp"
         android:layout_below="@id/ingredientsTitle"
+        android:visibility="invisible"
         android:fontFamily="sans-serif-light"
         android:scrollbars="vertical"
         android:textAlignment="center"
