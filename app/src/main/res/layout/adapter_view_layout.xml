@@ -14,7 +14,9 @@
         android:layout_marginRight="7.5dp"
         android:layout_weight="80"
         android:gravity="center"
-        tools:srcCompat="@drawable/red_error" />
+        tools:srcCompat="@drawable/red_error"
+        android:tint="@color/Red"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ public class MedicationConflict {
     public String description;
     public String severity;
     public String source;
+    public boolean isAllergy;
 
     public MedicationConflict() {
 
