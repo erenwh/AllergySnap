@@ -203,7 +203,7 @@
         android:layout_height="match_parent"
         app:pv_icon="@drawable/allergysnap_logo_no_text2"
         app:pv_alpha="50"
-        app:pv_color="#000"
+        app:pv_color="#ffc558"
         app:pv_measure="width"
         app:pv_icon_width="256dp"
         app:pv_icon_height="256dp"
