@@ -95,6 +95,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="80"
                     android:iconifiedByDefault="false"
+                    android:focusable="false"
+                    android:focusedByDefault="false"
                     android:queryHint="Allergy"
                     android:layout_below="@id/txtSearchAllergy">
 
