@@ -10,16 +10,31 @@
 
     <TextView
         android:id="@+id/conflict_result"
-        android:layout_below="@id/barcode_name"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="79dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="165dp"
         android:fontFamily="sans-serif-light"
         android:scrollbars="vertical"
         android:textAlignment="center"
         android:textColor="@color/colorAlert"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scan_disclaimer"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="255dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Disclaimer: Not all Ingredients may have been scanned"
+        android:textAlignment="center"
+        android:textColor="@color/White"
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/scanresults"
@@ -76,7 +91,7 @@
 
     <TextView
         android:id="@+id/ingredientsTitle"
-        android:layout_below="@id/conflict_result"
+        android:layout_below="@id/scan_disclaimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
