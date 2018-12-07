@@ -152,7 +152,7 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                                                 .setValue(userObj);
 
                                         //Toast.makeText(AllergyActivity.this, "Successfully Added " + query.toString() + " to your allergy list", Toast.LENGTH_LONG).show();
-                                        EasyToast.custom(AllergyActivity.this, "Successfully added " + query.toString() + " to your allergy list.", R.drawable.ic_allergies_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                                        EasyToast.custom(AllergyActivity.this, "Successfully added " + query.toString() + " to your allergy list.", R.drawable.ic_allergies_24dp, getResources().getColor(R.color.background_light), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
 
                                     }
                                 }
