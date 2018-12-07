@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setValue(userObj);
 
                         barcode_number = barcode.displayValue;
-                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=6b9bdd74&appKey=9663acb85629a1ef43e000a466bdffa3\n\n");
+                        new JsonTask().execute("https://api.nutritionix.com/v1_1/item?upc=" + barcode.displayValue + "&appId=b50adcc6&appKey=5c4bb39799462d82436788bc1311f47e\n\n\n");
                         //new JsonTask().execute("https://api.barcodelookup.com/v2/products?barcode=" + barcode.displayValue + "&formatted=y&key=jjgszqhu4fhqqa6369sd9elzn13omy");
                     }
                     else if (barcode.valueFormat == 8) {
