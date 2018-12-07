@@ -157,6 +157,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements View.OnC
 
             if (userObj.hasPFP && userObj.uri != null) {
                 Picasso.get().load(userObj.uri).into(profilePicture);
+                profilePicture.setColorFilter(null);
             }
         }
 
