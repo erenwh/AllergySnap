@@ -372,13 +372,16 @@ public class ProfileActivity extends AppCompatActivity implements
             qrcodes.setText(userObj.scans.get(2).toString());
             if (userObj.hasPFP && userObj.uri != null) {
                 Picasso.get().load(userObj.uri).into(userProfileImage);
+                userProfileImage.setColorFilter(null);
             }
-            username.setText(userObj.username);
+
             if (userObj.fName == null) {
+                username.setText(userObj.username);
                 extra.setText(userObj.email);
             } else {
                 String fullName = userObj.fName + " " + userObj.lName;
-                extra.setText(fullName);
+                username.setText(fullName);
+                extra.setText(userObj.username);
             }
         }
 

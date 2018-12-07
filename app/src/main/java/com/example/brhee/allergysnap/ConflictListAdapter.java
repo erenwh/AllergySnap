@@ -1,8 +1,10 @@
 package com.example.brhee.allergysnap;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         final String description = Objects.requireNonNull(getItem(position)).description;
         final String severity = Objects.requireNonNull(getItem(position)).severity;
         final String source = Objects.requireNonNull(getItem(position)).source;
+        final boolean alle = getItem(position).isAllergy;
         // Create the MedicationConflict Object
         MedicationConflict mc = new MedicationConflict(conflictDrugs, description, severity);
 
@@ -47,29 +50,32 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
         TextView conflictDrugsView = convertView.findViewById(R.id.drugPair);
         TextView severityView = convertView.findViewById(R.id.severity);
         ImageView myImageView = convertView.findViewById(R.id.conflictImg);
-
-        StringBuilder drugs = new StringBuilder();
-        drugs.append("<b>Drugs:</b>");
-        if (conflictDrugs.size() == 1) {
-            drugs.append(" " + conflictDrugs.get(0));
-        } else if (conflictDrugs.size() == 2) {
-            drugs.append(" " + conflictDrugs.get(0) + " and " + conflictDrugs.get(1));
-        } else {
-            for (int i = 0; i < conflictDrugs.size(); i++) {
-                String start = " ";
-                if (i == conflictDrugs.size() - 1) {
-                    start = " and ";
-                } else if (i != 0) {
-                    start = ", ";
-                }
-                drugs.append(start + conflictDrugs.get(i));
-            }
-        }
-
-
-        conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
         severityView.setText(Html.fromHtml("<b>Severity: </b>" + severity));
-        myImageView.setImageResource(R.drawable.red_error);
+
+        if (!alle) {
+            StringBuilder drugs = new StringBuilder();
+            drugs.append("<b>Drugs:</b>");
+            if (conflictDrugs.size() == 1) {
+                drugs.append(" " + conflictDrugs.get(0));
+            } else if (conflictDrugs.size() == 2) {
+                drugs.append(" " + conflictDrugs.get(0) + " and " + conflictDrugs.get(1));
+            } else {
+                for (int i = 0; i < conflictDrugs.size(); i++) {
+                    String start = " ";
+                    if (i == conflictDrugs.size() - 1) {
+                        start = " and ";
+                    } else if (i != 0) {
+                        start = ", ";
+                    }
+                    drugs.append(start + conflictDrugs.get(i));
+                }
+            }
+            myImageView.setImageResource(R.drawable.medication_conflict);
+            conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
+        } else {
+            conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + conflictDrugs.get(1)));
+            myImageView.setImageResource(R.drawable.allergy_conflict);
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,27 +87,33 @@ public class ConflictListAdapter extends ArrayAdapter<MedicationConflict> {
                 TextView descriptionView = mView.findViewById(R.id.interactionDescription);
                 TextView severityView = mView.findViewById(R.id.severity);
                 TextView sourceView = mView.findViewById(R.id.source);
-
-                StringBuilder drugs = new StringBuilder();
-                drugs.append("<b>Drugs:</b>");
-                if (conflictDrugs.size() == 1) {
-                    drugs.append(" " + conflictDrugs.get(0));
-                } else if (conflictDrugs.size() == 2) {
-                    drugs.append(" " + conflictDrugs.get(0) + " and " + conflictDrugs.get(1));
-                } else {
-                    for (int i = 0; i < conflictDrugs.size(); i++) {
-                        String start = " ";
-                        if (i == conflictDrugs.size() - 1) {
-                            start = " and ";
-                        } else if (i != 0) {
-                            start = ", ";
+                ImageView myImageView = mView.findViewById(R.id.med_img);
+                if (!alle) {
+                    StringBuilder drugs = new StringBuilder();
+                    drugs.append("<b>Drugs:</b>");
+                    if (conflictDrugs.size() == 1) {
+                        drugs.append(" " + conflictDrugs.get(0));
+                    } else if (conflictDrugs.size() == 2) {
+                        drugs.append(" " + conflictDrugs.get(0) + " and " + conflictDrugs.get(1));
+                    } else {
+                        for (int i = 0; i < conflictDrugs.size(); i++) {
+                            String start = " ";
+                            if (i == conflictDrugs.size() - 1) {
+                                start = " and ";
+                            } else if (i != 0) {
+                                start = ", ";
+                            }
+                            drugs.append(start + conflictDrugs.get(i));
                         }
-                        drugs.append(start + conflictDrugs.get(i));
                     }
+
+
+                    conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
+                    myImageView.setImageResource(R.drawable.ic_med_conflict);
+                } else {
+                    conflictDrugsView.setText(Html.fromHtml("<b>Drug :</b> " + conflictDrugs.get(0) + " <b>Allergy :</b> " + conflictDrugs.get(1)));
+                    myImageView.setImageResource(R.drawable.allergy_conflict_2);
                 }
-
-
-                conflictDrugsView.setText(Html.fromHtml(drugs.toString()));
                 descriptionView.setText(Html.fromHtml(description));
                 severityView.setText(Html.fromHtml("<b>Severity: </b>" + severity));
                 sourceView.setText(Html.fromHtml("<b>Source: </b>" + source));

@@ -13,10 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
+//import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +49,8 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
     // search allergy variable
     ListView    list;
     ListViewAdapter adapter;
-    SearchView editsearch;
+//    SearchView editsearch;
+    android.support.v7.widget.SearchView editsearch1;
 
     // my Allergy List variable
     String[]    allergyNameList;
@@ -90,9 +92,14 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
         }
 
         // Take input from User : locate the EditText in activity_allergy.xml
-        editsearch = (SearchView) findViewById(R.id.search);
-        editsearch.setOnQueryTextListener(AllergyActivity.this);
-        final CharSequence query = editsearch.getQuery();
+        editsearch1 = (android.support.v7.widget.SearchView) findViewById(R.id.search);
+        final ImageView mCloseButton = (ImageView) editsearch1.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        mCloseButton.setEnabled(false);
+        mCloseButton.setImageDrawable(null);
+
+        final CharSequence query = editsearch1.getQuery();
+        System.out.println("original query string: " + query.toString());
+
 
         // users own allergy list (copy allergysnap allerylist and append users added allergylist)
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +116,8 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                 }
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                    System.out.println("before toast message: " + query.toString());
                     builder.setMessage("Are you sure you want to ADD " + query.toString() + " to your allergy list?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

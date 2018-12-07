@@ -243,12 +243,12 @@ public class ConflictActivity extends AppCompatActivity {
                                 String source;
                                 drugs = new ArrayList<>();
                                 drugs.add(med);
-                                drugs.add("Your " + aller + " allergy");
+                                drugs.add(aller);
                                 description = med + " has confliction with your current Allergy: " + aller;
                                 severity = "Severe";
                                 source = "WebMD";
                                 MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
-
+                                mc.isAllergy = true;
                                 res.add(mc);
                             }
                         }
@@ -355,6 +355,7 @@ public class ConflictActivity extends AppCompatActivity {
                                         System.out.println(drugName);
                                     }
                                     MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
+                                    mc.isAllergy = false;
 
                                     res.add(mc);
                                 }
