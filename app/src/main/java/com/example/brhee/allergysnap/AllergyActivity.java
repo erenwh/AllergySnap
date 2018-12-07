@@ -95,7 +95,7 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
         mCloseButton.setImageDrawable(null);
 
         final CharSequence query = editsearch1.getQuery();
-        System.out.println("original query string: " + query.toString());
+//        System.out.println("original query string: " + query.toString());
 
 
         // users own allergy list (copy allergysnap allerylist and append users added allergylist)
@@ -103,7 +103,7 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
 //            final String queryString = query.toString();
             @Override
             public void onClick(View v) {
-                System.out.println("adding allergy: " + query.toString());
+//                System.out.println("adding allergy: " + query.toString());
                 if (query.toString().isEmpty()){
                     AlertDialog.Builder adbuilder1 = new AlertDialog.Builder(AllergyActivity.this);
                     adbuilder1.setMessage("please type at least one allergy")
@@ -114,7 +114,7 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-                    System.out.println("before toast message: " + query.toString());
+//                    System.out.println("before toast message: " + query.toString());
                     builder.setMessage("Are you sure you want to ADD " + query.toString() + " to your allergy list?").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
