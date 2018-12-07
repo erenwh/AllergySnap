@@ -110,7 +110,7 @@ public class MedicationAdapter extends ArrayAdapter<Medication> {
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user);
                         //Toast.makeText(parent.getContext(), "Deleted " + medication + " from your medications", Toast.LENGTH_LONG).show();
-                        EasyToast.custom(parent.getContext(), "Deleted " + medication + " from your medications!", R.drawable.ic_medications_24dp, mContext.getResources().getColor(R.color.colorAlert), mContext.getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                        EasyToast.custom(parent.getContext(), "Deleted " + medication + " from your medications!", R.drawable.ic_medications_24dp, mContext.getResources().getColor(R.color.colorAlert), mContext.getResources().getColor(R.color.background_light), Toast.LENGTH_LONG);
 
                     }
                 }).setNegativeButton("Cancel", null);

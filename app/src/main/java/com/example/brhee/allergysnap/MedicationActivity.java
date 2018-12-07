@@ -259,7 +259,7 @@ public class MedicationActivity extends AppCompatActivity implements View.OnClic
 
                                         progressbar.setVisibility(View.INVISIBLE);
                                         //Toast.makeText(MedicationActivity.this, "Added " + medFilter + " successfully!", Toast.LENGTH_LONG).show();
-                                        EasyToast.custom(MedicationActivity.this, "Added " + medFilter + " successfully!", R.drawable.ic_medications_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
+                                        EasyToast.custom(MedicationActivity.this, "Added " + medFilter + " successfully!", R.drawable.ic_medications_24dp, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.background_light), Toast.LENGTH_LONG);
                                         medSearch.setText("");
                                     }
                                 });

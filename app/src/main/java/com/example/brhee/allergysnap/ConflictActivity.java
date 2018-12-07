@@ -241,8 +241,8 @@ public class ConflictActivity extends AppCompatActivity {
                                 drugs = new ArrayList<>();
                                 drugs.add(med);
                                 drugs.add(aller);
-                                description = med + " has confliction with your current Allergy: " + aller;
-                                severity = "Severe";
+                                description = med + " has a conflict with your allergy to " + aller;
+                                severity = "N/A";
                                 source = "WebMD";
                                 MedicationConflict mc = new MedicationConflict(drugs, description, severity, source);
                                 mc.isAllergy = true;
@@ -339,6 +339,9 @@ public class ConflictActivity extends AppCompatActivity {
                                     // Add Severity
                                     severity = currPair.getString("severity");
                                     System.out.println(severity);
+                                    if (!severity.equals("N/A")) {
+                                        severity = severity.substring(0, 1).toUpperCase() + severity.substring(1).toLowerCase();
+                                    }
 
                                     // Add drug name
                                     JSONArray interactionConcept = currPair.getJSONArray("interactionConcept");
