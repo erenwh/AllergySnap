@@ -102,7 +102,6 @@ public class Camera2 extends AppCompatActivity {
                     final ImageView picButton = findViewById(R.id.capture);
                     picButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            progressbar.setVisibility(View.VISIBLE);
                             TakePicture(v);
                         }
                     });

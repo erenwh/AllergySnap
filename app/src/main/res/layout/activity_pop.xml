@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_alert"
+    android:background="@color/colorAlert"
     tools:context="com.example.brhee.allergysnap.Pop">
 
     <RelativeLayout
@@ -15,11 +15,12 @@
             android:id="@+id/alert"
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="20dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:textColor="@color/colorText"
-            android:textSize="45sp"
+            android:textColor="@color/White"
+            android:textSize="20sp"
             android:gravity="center"
             android:text="An allergy conflict has been found!"
             />
@@ -27,6 +28,7 @@
         <TextView
             android:id="@+id/conflict_result"
             android:layout_below="@id/alert"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="25dp"
@@ -36,7 +38,7 @@
             android:fontFamily="sans-serif-light"
             android:scrollbars="vertical"
             android:textAlignment="center"
-            android:textColor="@color/colorText"
+            android:textColor="@color/White"
             android:textSize="20sp"
             android:textStyle="bold" />
 

@@ -85,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
     public BottomNavigationView navigation;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,9 @@ public class ProfileActivity extends AppCompatActivity implements
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_profile);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         if (user != null) {
             userID = user.getUid();

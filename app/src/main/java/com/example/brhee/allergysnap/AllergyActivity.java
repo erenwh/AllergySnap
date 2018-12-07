@@ -76,6 +76,9 @@ public class AllergyActivity extends AppCompatActivity implements SearchView.OnQ
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_allergies);
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
         // check with allergy database
         // Generate allergysnap allergy data
         allergyNameList = new String[]{"egg", "fish", "shellfish", "fruit", "garlic", "hot peppers", "oats", "meat", "milk", "peanut", "rice", "sesame", "soy", "sulfites", "tartrazine", "tree nut", "wheat", "tetracycline", "dilantin", "tegretol", "penicillin", "cephalosporins", "sulfonamides", "pollen", "cat", "dog", "insect sting", "mold", "perfume", "cosmetics", "semen", "latex", "water", "house dust mite", "nickel", "gold", "chromium", "cobalt", "formaldehyde", "fungicide", "dimethylaminopropylamine", "latex", "paraphenylenediamine", "glyceryl monothioglycolate", "toluenesulfonamide formaldehyde"};

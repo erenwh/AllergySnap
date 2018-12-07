@@ -1,7 +1,10 @@
 package com.example.brhee.allergysnap;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,8 +28,11 @@ public class _spash extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.splashImage);
         pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageView.startAnimation(pulse);
+        boolean continu = false;
+
 
         final Handler handler = new Handler();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -50,6 +56,7 @@ public class _spash extends AppCompatActivity {
                 }
             }
         }, 3000);
+
     }
 
     /*@Override

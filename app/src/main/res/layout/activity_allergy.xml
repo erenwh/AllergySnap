@@ -33,8 +33,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/ic_gradient"
             android:layout_alignParentBottom="true"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
@@ -54,19 +53,20 @@
             android:id="@+id/txtSearchAllergy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textSize="40dp"
             android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorText"
+            android:textStyle="bold"
             android:fontFamily="sans-serif-light"
-            android:text="Here are your allergies!" />
+            android:text="Allergies" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="Add allergies to your profile below."
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_below="@+id/txtSearchAllergy"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/colorText"
@@ -76,6 +76,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:layout_below="@id/text2"
             android:orientation="vertical">
 
@@ -104,11 +105,11 @@
 
                 <Button
                     android:id="@+id/btnAddToAllergyList_User"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_weight="20"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:text="+"
                     android:fontFamily="sans-serif-light"
@@ -136,14 +137,16 @@
                 android:paddingBottom="5dp"
                 android:gravity="center"
                 android:textSize="30dp"
+                android:textStyle="bold"
                 android:textColor="@color/colorText"
                 android:fontFamily="sans-serif-light"
-                android:text="My Allergy List" />
+                android:text="Allergy List" />
 
             <ListView
                 android:id="@+id/listview_myAllergyList"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"
                 android:listSelector="@color/colorProfile"
                 android:layout_below="@+id/txtMyAllergyList" />
 

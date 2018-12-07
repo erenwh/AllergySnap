@@ -269,7 +269,7 @@ almonds
 almond
 sunflower
 sunflowers
-seeds
+seed
 seeds
 olive
 olives
@@ -878,6 +878,7 @@ tea
 dried
 whole
 powder
+powders
 organic
 inorganic
 papaya

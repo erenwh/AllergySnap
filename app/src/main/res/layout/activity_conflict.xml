@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/ic_gradient"
             android:layout_alignParentBottom="true"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent"/>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
@@ -38,8 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Here are your conflicts!"
-            android:textSize="30sp"
+            android:text="Conflicts"
+            android:textSize="40sp"
+            android:textStyle="bold"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/colorText"
             android:layout_centerHorizontal="true"

@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/ic_gradient"
             android:layout_alignParentBottom="true"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
@@ -55,8 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Here are your medications!"
-            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="Medications"
+            android:textSize="40sp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/colorText"
             android:layout_centerHorizontal="true"
@@ -102,7 +102,7 @@
                 android:id="@+id/med_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="25"
+                android:layout_weight="85"
                 android:hint="Medication"
                 android:fontFamily="sans-serif-light"
                 android:textColorHint="@color/colorText"
@@ -114,11 +114,11 @@
 
             <Button
                 android:id="@+id/search_sub"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="75"
+                android:layout_weight="15"
                 android:background="@drawable/roundedbuttonadd"
                 android:text="+"
                 android:textAlignment="center"

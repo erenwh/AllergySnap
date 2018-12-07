@@ -205,26 +205,28 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     userObj = dataSnapshot.child(userID).getValue(User.class);
-                    if (userObj.allergies != null) {
-                        for (Allergy a :
-                                userObj.allergies) {
-                            if (a.name.equals("pollen")) pollenTF = true;
+                    if (userObj !=  null) {
+                        if (userObj.allergies != null) {
+                            for (Allergy a :
+                                    userObj.allergies) {
+                                if (a.name.equals("pollen")) pollenTF = true;
+                            }
                         }
-                    }
-                    if (pollenTF) {
-                        findViewById(R.id.pollen_layout).setVisibility(View.VISIBLE);
-                    }
-                    if (tree_count == null || tree_count.equals("null"))
-                        tree_count = "0";
-                    if (!sent && pollenTF) {
-                        Notification noti = new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID).
-                                setSmallIcon(R.drawable.ic_pollen)
-                                .setContentTitle("Pollen Alert")
-                                .setContentText("You have Pollen Allergy, pollen count has reached " + tree_count)
-                                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                .build();
-                        manager.notify(1, noti);
-                        sent = true;
+                        if (pollenTF) {
+                            findViewById(R.id.pollen_layout).setVisibility(View.VISIBLE);
+                        }
+                        if (tree_count == null || tree_count.equals("null"))
+                            tree_count = "0";
+                        if (!sent && pollenTF) {
+                            Notification noti = new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID).
+                                    setSmallIcon(R.drawable.ic_pollen)
+                                    .setContentTitle("Pollen Alert")
+                                    .setContentText("You have Pollen Allergy, pollen count has reached " + tree_count)
+                                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                    .build();
+                            manager.notify(1, noti);
+                            sent = true;
+                        }
                     }
 
                 }
