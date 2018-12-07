@@ -416,7 +416,7 @@ public class LoginActivity extends AppCompatActivity implements
                                 Uri personPhoto = acct.getPhotoUrl();
 
 //                                System.out.println("firstname: " + personName + " lastname: " + personFamilyName + " email: + " + personEmail);
-                                Toast.makeText(LoginActivity.this, "Name : " + personName + "UserId : " + personId, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(LoginActivity.this, "Name : " + personName + "UserId : " + personId, Toast.LENGTH_SHORT).show();
 
                                 // Create random generator
                                 Random generator = new Random();

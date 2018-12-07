@@ -2,7 +2,9 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <TextView
         android:id="@+id/myAllergyName"
@@ -19,16 +21,15 @@
         android:id="@+id/delete_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="80"
-        android:layout_marginEnd="10dp"
+        android:background="@drawable/roundedbuttonremove"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:orientation="vertical"
-        android:fontFamily="sans-serif-light"
-        android:background="@drawable/roundedbuttonremove"
         android:text="-"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textSize="20sp"/>
 
 </LinearLayout>
 
