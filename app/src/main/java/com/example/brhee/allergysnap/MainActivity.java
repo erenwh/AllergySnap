@@ -126,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("TAG", "GPS is on");
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            Toast.makeText(MainActivity.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+            EasyToast.custom(MainActivity.this, "Latitude: " + latitude + "\nLongitude: " + longitude, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorText), Toast.LENGTH_LONG);
         }
         else{
             //This is what you need:
