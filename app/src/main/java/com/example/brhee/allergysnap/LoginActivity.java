@@ -89,12 +89,12 @@ public class LoginActivity extends AppCompatActivity implements
 
         int PERMISSION_ALL = 2;
         String[] PERMISSIONS = {
-                android.Manifest.permission.READ_CONTACTS,
-                android.Manifest.permission.WRITE_CONTACTS,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_SMS,
+                //android.Manifest.permission.READ_CONTACTS,
+                //android.Manifest.permission.WRITE_CONTACTS,
+                //android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                //android.Manifest.permission.READ_SMS,
                 android.Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                //Manifest.permission.ACCESS_FINE_LOCATION
         };
 
         if(!hasPermissions(this, PERMISSIONS)){

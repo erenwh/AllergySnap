@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+/*
         // Location
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this,
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             //This is what you need:
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
         }
+        */
 
         GetPollenData();
 
